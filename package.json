@@ -15,6 +15,10 @@
   "scripts": {
     "dev": "next",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "deploy": "now"
+  },
+  "devDependencies": {
+    "now": "^17.1.1"
   }
 }

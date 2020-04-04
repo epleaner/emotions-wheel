@@ -6,6 +6,7 @@
   "author": "Eli <eli.i.pleaner@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "isomorphic-unfetch": "^3.0.0",
     "next": "^9.3.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"

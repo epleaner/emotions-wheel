@@ -1,5 +1,7 @@
+import Layout from "components/shared/layout";
+
 export default () => (
-  <div>
+  <Layout>
     <p>About</p>
-  </div>
+  </Layout>
 );

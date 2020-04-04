@@ -7,7 +7,8 @@ module.exports = {
     // Important: return the modified config
     config.resolve = {
       alias: {
-        components: path.resolve(__dirname, "src/components")
+        components: path.resolve(__dirname, "src/components"),
+        helpers: path.resolve(__dirname, "src/helpers")
       }
     };
 

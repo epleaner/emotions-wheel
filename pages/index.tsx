@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import Layout from "components/shared/layout";
+import Layout from "Components/shared/layout";
 
 export default () => (
   <Layout>

@@ -1,9 +1,9 @@
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-import fetcher from "helpers/fetcher";
+import fetcher from "Helpers/fetcher";
 
-import Layout from "components/shared/layout";
+import Layout from "Components/shared/layout";
 
 const Poems = props => {
   const { query } = useRouter();
@@ -11,7 +11,7 @@ const Poems = props => {
     `/api/poems${query.author ? "?author=" + query.author : ""}`,
     fetcher
   );
-  console.log(data, error);
+
   return (
     <Layout>
       {!data

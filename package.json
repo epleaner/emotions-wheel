@@ -16,9 +16,13 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "deploy": "now"
+    "deploy": "now",
+    "deployToProd": "now --prod"
   },
   "devDependencies": {
-    "now": "^17.1.1"
+    "@types/node": "^13.11.0",
+    "@types/react": "^16.9.32",
+    "now": "^17.1.1",
+    "typescript": "^3.8.3"
   }
 }

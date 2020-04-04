@@ -1,4 +1,4 @@
-import Header from "components/shared/header";
+import Header from "Components/shared/header";
 
 const layoutStyle = {
   margin: 20,

@@ -10,10 +10,11 @@ module.exports = {
       alias: {
         ...config.resolve.alias,
         Components: path.resolve(__dirname, "src/components"),
-        Helpers: path.resolve(__dirname, "src/helpers")
-      }
+        Helpers: path.resolve(__dirname, "src/helpers"),
+        Styles: path.resolve(__dirname, "src/styles"),
+      },
     };
 
     return config;
-  }
+  },
 };

@@ -1,10 +1,7 @@
 import { NextPage } from "next";
-import Layout from "Components/shared/layout";
 
 const About: NextPage<{ userAgent: string }> = ({ userAgent }) => (
-  <Layout>
-    <h1>Hello world! - user agent: {userAgent}</h1>
-  </Layout>
+  <h1>Hello world! - user agent: {userAgent}</h1>
 );
 
 About.getInitialProps = async ({ req }) => {

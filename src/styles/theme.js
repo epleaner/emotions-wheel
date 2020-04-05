@@ -1,4 +1,5 @@
 export default {
+  useColorSchemeMediaQuery: true,
   useCustomProperties: true,
   colors: {
     text: "#000",
@@ -9,6 +10,18 @@ export default {
       dark: {
         text: "#fff",
         background: "#222",
+        primary: "#0cf",
+        secondary: "#90c",
+      },
+      purple: {
+        text: "#fff",
+        background: "darkorchid",
+        primary: "#0cf",
+        secondary: "#90c",
+      },
+      pink: {
+        text: "#fff",
+        background: "hotpink",
         primary: "#0cf",
         secondary: "#90c",
       },

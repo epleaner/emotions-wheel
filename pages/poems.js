@@ -1,11 +1,8 @@
+import fetcher from "Helpers/fetcher";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
-import fetcher from "Helpers/fetcher";
-
-import Layout from "Components/shared/layout";
-
-const Poems = props => {
+const Poems = (props) => {
   const { query } = useRouter();
   const { data, error } = useSWR(
     `/api/poems${query.author ? "?author=" + query.author : ""}`,
@@ -13,13 +10,13 @@ const Poems = props => {
   );
 
   return (
-    <Layout>
+    <>
       {!data
         ? "Loading"
         : error || data.status >= 400
         ? error || data.reason
-        : data.map(poem => <p key={poem.title}>{poem.title}</p>)}
-    </Layout>
+        : data.map((poem) => <p key={poem.title}>{poem.title}</p>)}
+    </>
   );
 };
 

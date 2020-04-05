@@ -33,11 +33,6 @@ export default {
     heading: "inherit",
   },
   styles: {
-    root: {
-      fontFamily: "body",
-      color: "text",
-      bg: "background",
-    },
     h1: {
       fontSize: [4, 5, 6],
       color: "primary",

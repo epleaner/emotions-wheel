@@ -1,2 +1,3 @@
-# emotions-wheel
-Emotions Wheel web app - built using React + Nextjs
+# feeels
+
+feeels - built using React + Nextjs

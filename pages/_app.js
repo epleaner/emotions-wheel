@@ -9,7 +9,7 @@ function MyApp({ Component, pageProps }) {
     <>
       <CssNormalize />
       <ThemeProvider theme={theme}>
-        <Head title="Emotions wheel" />
+        <Head title="feeels" />
         <Layout>
           <Component {...pageProps} />
         </Layout>

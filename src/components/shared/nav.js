@@ -18,21 +18,13 @@ export default () => {
   return (
     <div>
       <ColorToggle
+        mode={mode}
         onClick={(e) => {
           const index = modes.indexOf(mode);
           const next = modes[(index + 1) % modes.length];
           setMode(next);
         }}
       />
-      <Link href="/">
-        <StyledAnchor>Home</StyledAnchor>
-      </Link>
-      <Link href="/about">
-        <StyledAnchor>About</StyledAnchor>
-      </Link>
-      <Link href="/poems">
-        <StyledAnchor>Poems</StyledAnchor>
-      </Link>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { FiSun, FiMoon } from "react-icons/fi";
+import { FiSun, FiMoon, FiZap } from "react-icons/fi";
 
 const ColorToggle = styled("div")`
   height: 15px;
@@ -9,8 +9,20 @@ const ColorToggle = styled("div")`
   right: 10px;
 `;
 
-export default ({ mode, ...otherProps }) => (
-  <ColorToggle {...otherProps}>
-    {mode === ("light" || "default") ? <FiSun /> : <FiMoon />}
-  </ColorToggle>
-);
+export default ({ mode, ...otherProps }) => {
+  let icon;
+  switch (mode) {
+    case "light":
+      icon = <FiSun />;
+      break;
+    case "default":
+      icon = <FiSun />;
+      break;
+    case "dark":
+      icon = <FiMoon />;
+      break;
+    default:
+      icon = <FiZap />;
+  }
+  return <ColorToggle {...otherProps}>{icon}</ColorToggle>;
+};

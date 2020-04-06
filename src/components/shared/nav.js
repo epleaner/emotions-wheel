@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Link from "next/link";
 import { useColorMode } from "theme-ui";
+import ColorToggle from "Components/shared/colorToggle";
 
 const StyledAnchor = styled.a`
   margin-right: 15px;
@@ -16,15 +17,13 @@ export default () => {
   const [mode, setMode] = useColorMode();
   return (
     <div>
-      <Button
+      <ColorToggle
         onClick={(e) => {
           const index = modes.indexOf(mode);
           const next = modes[(index + 1) % modes.length];
           setMode(next);
         }}
-      >
-        Color mode -> {mode}
-      </Button>
+      />
       <Link href="/">
         <StyledAnchor>Home</StyledAnchor>
       </Link>

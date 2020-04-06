@@ -10,12 +10,20 @@ export default merge(toTheme(TypographyFairyGates), {
     background: "#fff",
     primary: "#07c",
     secondary: "#609",
+    colorToggle: {
+      primary: "yellow",
+      secondary: "yellow",
+    },
     modes: {
       dark: {
         text: "#fff",
         background: "#222",
         primary: "#0cf",
         secondary: "#90c",
+        colorToggle: {
+          primary: "blue",
+          secondary: "blue",
+        },
       },
       purple: {
         text: "#fff",

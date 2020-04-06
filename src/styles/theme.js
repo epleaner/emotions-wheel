@@ -1,4 +1,8 @@
-export default {
+import { toTheme } from "@theme-ui/typography";
+import TypographyFairyGates from "typography-theme-fairy-gates";
+import merge from "deepmerge";
+
+export default merge(toTheme(TypographyFairyGates), {
   useColorSchemeMediaQuery: true,
   useCustomProperties: true,
   colors: {
@@ -27,23 +31,4 @@ export default {
       },
     },
   },
-  fonts: {
-    body:
-      'system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif',
-    heading: "inherit",
-  },
-  styles: {
-    h1: {
-      fontSize: [4, 5, 6],
-      color: "primary",
-    },
-    a: {
-      color: "primary",
-      textDecoration: "none",
-      ":hover": {
-        color: "secondary",
-        textDecoration: "underline",
-      },
-    },
-  },
-};
+});

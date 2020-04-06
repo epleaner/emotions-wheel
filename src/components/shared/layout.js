@@ -1,14 +1,8 @@
-import Header from "Components/shared/header";
+import Nav from "Components/shared/nav";
 
-const layoutStyle = {
-  margin: 20,
-  padding: 20,
-  border: "1px solid #DDD"
-};
-
-export default props => (
-  <div style={layoutStyle}>
-    <Header />
+export default (props) => (
+  <>
+    <Nav />
     {props.children}
-  </div>
+  </>
 );

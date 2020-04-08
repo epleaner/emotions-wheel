@@ -5,7 +5,7 @@
       "plugins": ["emotion"]
     },
     "development": {
-      "plugins": [["emotion", { "sourceMap": true }]]
+      "plugins": [["emotion"]]
     }
   }
 }

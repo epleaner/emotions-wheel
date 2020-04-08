@@ -55,7 +55,7 @@ export default () => {
             </span>
           ))}
         </Box>
-        <Box mt={10} sx={{ width: "100%" }}>
+        {/* <Box mt={10} sx={{ width: "100%" }}>
           {"good bad so-so meh".split(" ").map((text, index) => (
             <Button
               key={text}
@@ -68,7 +68,7 @@ export default () => {
               {text}{" "}
             </Button>
           ))}
-        </Box>
+        </Box> */}
       </Box>
     </Container>
   );

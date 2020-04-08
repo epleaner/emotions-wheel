@@ -4,6 +4,7 @@
     "paths": {
       "Components/*": ["src/components/*"],
       "Helpers/*": ["src/helpers/*"],
+      "Contexts/*": ["src/contexts/*"],
       "Styles/*": ["src/styles/*"]
     },
     "target": "es5",

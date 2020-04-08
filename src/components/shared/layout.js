@@ -1,4 +1,5 @@
 import Nav from "Components/shared/nav";
+import Footer from "Components/shared/footer";
 import styled from "@emotion/styled";
 
 const Container = styled.div`
@@ -10,9 +11,10 @@ const Body = styled.div`
   height: 100%;
 `;
 
-export default (props) => (
+export default ({ children }) => (
   <Container>
     <Nav />
-    <Body>{props.children}</Body>
+    <Body>{children}</Body>
+    <Footer />
   </Container>
 );

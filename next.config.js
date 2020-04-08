@@ -1,10 +1,22 @@
+require("dotenv").config();
+
 const path = require("path");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Note: we provide webpack above so you should not `require` it
-    // Perform customizations to webpack config
-    // Important: return the modified config
+    config.plugins = config.plugins || [];
+
+    config.plugins = [
+      ...config.plugins,
+
+      // Read the .env file
+      new Dotenv({
+        path: path.join(__dirname, ".env"),
+        systemvars: true,
+      }),
+    ];
+
     config.resolve = {
       ...config.resolve,
       alias: {
@@ -12,6 +24,7 @@ module.exports = {
         Components: path.resolve(__dirname, "src/components"),
         Helpers: path.resolve(__dirname, "src/helpers"),
         Styles: path.resolve(__dirname, "src/styles"),
+        Contexts: path.resolve(__dirname, "src/contexts"),
       },
     };
 

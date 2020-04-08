@@ -1,19 +1,14 @@
-import styled from "@emotion/styled";
+import { useContext } from "react";
 import Link from "next/link";
 import { useColorMode } from "theme-ui";
 import ColorToggle from "Components/shared/colorToggle";
-
-const StyledAnchor = styled.a`
-  margin-right: 15px;
-`;
-
-const Button = styled.button`
-  color: ${(props) => props.theme.colors.primary};
-`;
+import UserContext from "Contexts/user";
 
 const modes = ["light", "dark", "purple", "pink"];
 
 export default () => {
+  const user = useContext(UserContext);
+
   const [mode, setMode] = useColorMode();
   return (
     <div>
@@ -25,6 +20,23 @@ export default () => {
           setMode(next);
         }}
       />
+      {user ? (
+        <>
+          <Link href="/share">
+            <a>New Thought</a>
+          </Link>
+          <Link href="/profile">
+            <a>Profile</a>
+          </Link>
+          <Link href="/logout">
+            <a>Log Out</a>
+          </Link>
+        </>
+      ) : (
+        <Link href="/login">
+          <a>Log In</a>
+        </Link>
+      )}
     </div>
   );
 };

@@ -39,4 +39,15 @@ export default merge(toTheme(TypographyFairyGates), {
       },
     },
   },
+  text: {
+    small: {
+      fontSize: ".8rem",
+    },
+  },
+  links: {
+    nav: {
+      cursor: "pointer",
+      fontSize: 1,
+    },
+  },
 });

@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import Link from "next/link";
-import { useColorMode } from "theme-ui";
+import { useColorMode, Flex, Box, NavLink } from "theme-ui";
 import ColorToggle from "Components/shared/colorToggle";
 import UserContext from "Contexts/user";
 
@@ -11,7 +11,27 @@ export default () => {
 
   const [mode, setMode] = useColorMode();
   return (
-    <div>
+    <Flex as="header" m={2} sx={{ alignItems: "center" }}>
+      <Link href="/">
+        <NavLink>feeels</NavLink>
+      </Link>
+      <Box mx={"auto"} />
+      <Box mr={2}>
+        {user ? (
+          <>
+            <Link href="/profile">
+              <NavLink mx={1}>profile</NavLink>
+            </Link>
+            <Link href="/logout">
+              <NavLink mx={1}>log out</NavLink>
+            </Link>
+          </>
+        ) : (
+          <Link href="/login">
+            <NavLink mx={1}>log in</NavLink>
+          </Link>
+        )}
+      </Box>
       <ColorToggle
         mode={mode}
         onClick={(e) => {
@@ -20,23 +40,6 @@ export default () => {
           setMode(next);
         }}
       />
-      {user ? (
-        <>
-          <Link href="/share">
-            <a>New Thought</a>
-          </Link>
-          <Link href="/profile">
-            <a>Profile</a>
-          </Link>
-          <Link href="/logout">
-            <a>Log Out</a>
-          </Link>
-        </>
-      ) : (
-        <Link href="/login">
-          <a>Log In</a>
-        </Link>
-      )}
-    </div>
+    </Flex>
   );
 };

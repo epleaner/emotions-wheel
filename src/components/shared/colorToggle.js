@@ -1,13 +1,5 @@
-import styled from "@emotion/styled";
+import { Flex } from "theme-ui";
 import { FiSun, FiMoon, FiZap } from "react-icons/fi";
-
-const ColorToggle = styled("div")`
-  height: 15px;
-  width: 15px;
-  position: absolute;
-  top: 10px;
-  right: 10px;
-`;
 
 export default ({ mode, ...otherProps }) => {
   let icon;
@@ -24,5 +16,9 @@ export default ({ mode, ...otherProps }) => {
     default:
       icon = <FiZap />;
   }
-  return <ColorToggle {...otherProps}>{icon}</ColorToggle>;
+  return (
+    <Flex sx={{ alignItems: "center", cursor: "pointer" }} {...otherProps}>
+      {icon}
+    </Flex>
+  );
 };

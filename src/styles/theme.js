@@ -48,6 +48,7 @@ export default merge(toTheme(TypographyFairyGates), {
     nav: {
       cursor: "pointer",
       fontSize: 1,
+      transition: "color .15s linear",
     },
   },
 });

@@ -21,10 +21,12 @@ module.exports = {
       ...config.resolve,
       alias: {
         ...config.resolve.alias,
-        Components: path.resolve(__dirname, "src/components"),
-        Helpers: path.resolve(__dirname, "src/helpers"),
-        Styles: path.resolve(__dirname, "src/styles"),
-        Contexts: path.resolve(__dirname, "src/contexts"),
+        "@components": path.resolve(__dirname, "src/components"),
+        "@helpers": path.resolve(__dirname, "src/helpers"),
+        "@styles": path.resolve(__dirname, "src/styles"),
+        "@middleware": path.resolve(__dirname, "src/middleware"),
+        "@hooks": path.resolve(__dirname, "src/hooks"),
+        "@lib": path.resolve(__dirname, "src/lib"),
       },
     };
 

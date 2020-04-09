@@ -1,5 +1,5 @@
-import Nav from "Components/shared/nav";
-import Footer from "Components/shared/footer";
+import Nav from "@components/shared/nav";
+import Footer from "@components/shared/footer";
 import styled from "@emotion/styled";
 
 const Container = styled.div`

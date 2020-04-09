@@ -10,10 +10,6 @@ export default merge(toTheme(TypographyFairyGates), {
     background: "#fff",
     primary: "#07c",
     secondary: "#609",
-    colorToggle: {
-      primary: "yellow",
-      secondary: "yellow",
-    },
     modes: {
       dark: {
         text: "#fff",
@@ -43,12 +39,35 @@ export default merge(toTheme(TypographyFairyGates), {
     small: {
       fontSize: ".8rem",
     },
+    heading: {
+      mb: 2,
+    },
   },
   links: {
     nav: {
       cursor: "pointer",
       fontSize: 1,
       transition: "color .15s linear",
+    },
+  },
+  forms: {
+    label: {
+      mb: [2],
+    },
+  },
+  buttons: {
+    primary: {
+      ":hover": {
+        cursor: "pointer",
+      },
+    },
+  },
+  styles: {
+    a: {
+      color: "primary",
+      ":hover": {
+        cursor: "pointer",
+      },
     },
   },
 });

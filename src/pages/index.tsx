@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import styled from "@emotion/styled";
 import { keyframes } from "@emotion/core";
-import { Flex, Box, Button, jsx } from "theme-ui";
+import { Flex, Box, jsx } from "theme-ui";
 
 const fadeInTop = keyframes`
 from {
@@ -28,7 +28,7 @@ from {
 const Container = styled(Flex)`
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 90%;
   flex-wrap: wrap;
 `;
 

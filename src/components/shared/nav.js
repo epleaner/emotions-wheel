@@ -1,13 +1,20 @@
-import { useContext } from "react";
 import Link from "next/link";
 import { useColorMode, Flex, Box, NavLink } from "theme-ui";
-import ColorToggle from "Components/shared/colorToggle";
-import UserContext from "Contexts/user";
+import ColorToggle from "@components/shared/colorToggle";
+import useUser from "@hooks/useUser";
 
 const modes = ["light", "dark", "purple", "pink"];
 
 export default () => {
-  const user = useContext(UserContext);
+  const [user, { mutate }] = useUser();
+
+  const handleLogout = async () => {
+    await fetch("/api/auth", {
+      method: "DELETE",
+    });
+    // set the user state to null
+    mutate(null);
+  };
 
   const [mode, setMode] = useColorMode();
   return (
@@ -20,16 +27,21 @@ export default () => {
         {user ? (
           <>
             <Link href="/profile">
-              <NavLink mx={1}>profile</NavLink>
+              <NavLink mx={1}>{user.name}</NavLink>
             </Link>
-            <Link href="/logout">
-              <NavLink mx={1}>log out</NavLink>
-            </Link>
+            <NavLink mx={1} onClick={handleLogout}>
+              log out
+            </NavLink>
           </>
         ) : (
-          <Link href="/login">
-            <NavLink mx={1}>log in</NavLink>
-          </Link>
+          <>
+            <Link href="/login">
+              <NavLink mx={1}>log in</NavLink>
+            </Link>
+            <Link href="/sign-up">
+              <NavLink mx={1}>sign up</NavLink>
+            </Link>
+          </>
         )}
       </Box>
       <ColorToggle

@@ -51,9 +51,6 @@ const LoginPage = () => {
       sx={{ justifyContent: "center", alignItems: "center", height: "90%" }}
     >
       <Box sx={{ width: ["100%", 500], mx: [1, 0] }}>
-        <Heading sx={{ textAlign: "center" }} as="h1">
-          log in
-        </Heading>
         <form onSubmit={onSubmit}>
           {errorMsg ? <p style={{ color: "red" }}>{errorMsg}</p> : null}
           <Label htmlFor="email">
@@ -67,8 +64,10 @@ const LoginPage = () => {
               placeholder="password"
             />
           </Label>
-          <Flex sx={{ justifyContent: "space-between" }}>
-            <Button type="submit">boop</Button>
+          <Flex sx={{ width: "100%", justifyContent: "center", my: 2 }}>
+            <Button type="submit">log in</Button>
+          </Flex>
+          <Flex sx={{ width: "100%", justifyContent: "center" }}>
             <Link href="/forgot-password">
               <ThemeUILink sx={{ alignSelf: "center" }}>
                 forgot password?

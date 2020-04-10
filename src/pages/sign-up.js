@@ -45,9 +45,6 @@ const SignupPage = () => {
       sx={{ justifyContent: "center", alignItems: "center", height: "90%" }}
     >
       <Box sx={{ width: ["100%", 500], mx: [1, 0] }}>
-        <Heading sx={{ textAlign: "center" }} as="h1">
-          sign up
-        </Heading>
         <form onSubmit={handleSubmit}>
           {errorMsg ? <p style={{ color: "red" }}>{errorMsg}</p> : null}
           <Label htmlFor="name" mb={2}>
@@ -64,7 +61,9 @@ const SignupPage = () => {
               placeholder="password"
             />
           </Label>
-          <Button type="submit">boop</Button>
+          <Flex sx={{ justifyContent: "center" }}>
+            <Button type="submit">sign up</Button>
+          </Flex>
         </form>
       </Box>
     </Flex>

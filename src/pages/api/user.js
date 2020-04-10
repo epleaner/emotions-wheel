@@ -49,4 +49,24 @@ handler.post(async (req, res) => {
   });
 });
 
+// PATCH /api/user
+handler.patch(async (req, res) => {
+  if (!req.user) {
+    req.status(401).end();
+    return;
+  }
+
+  const { name } = req.body;
+
+  await req.db.collection("users").updateOne(
+    { _id: req.user._id },
+    {
+      $set: {
+        name: name,
+      },
+    }
+  );
+  res.json({ user: { name } });
+});
+
 export default handler;

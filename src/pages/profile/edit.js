@@ -6,20 +6,43 @@ const EditProfile = () => {
   const [user, { mutate }, isFetching] = useUser();
 
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isValid, setIsValid] = useState(false);
+
   const [msg, setMsg] = useState({ message: "", isError: false });
   const [name, setName] = useState(user ? user.name : "");
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     if (!isFetching && user) setName(user.name);
   }, [user]);
 
+  useEffect(() => {
+    let nameChanged = false;
+    let passwordsValid = false;
+
+    if (user) {
+      if (name !== user.name) nameChanged = true;
+
+      if (
+        (oldPassword && newPassword) ||
+        (!(oldPassword && newPassword) && nameChanged)
+      )
+        passwordsValid = true;
+    }
+
+    setIsValid(nameChanged || passwordsValid);
+  }, [user, name, oldPassword, newPassword]);
+
+  console.log(isFetching, isUpdating, isValid);
   const handleSubmit = async (event) => {
     event.preventDefault();
 
     if (isUpdating) return;
     setIsUpdating(true);
+    setMsg({ message: "", isError: false });
 
-    const body = { name: name };
+    const body = { name, oldPassword, newPassword };
 
     const res = await fetch("/api/user", {
       method: "PATCH",
@@ -27,19 +50,23 @@ const EditProfile = () => {
       body: JSON.stringify(body),
     });
 
-    if (res.status === 200) {
-      const userData = await res.json();
+    const data = await res.json();
+    if (data.ok) {
       mutate({
         user: {
           ...user,
-          ...userData.user,
+          ...data.user,
         },
       });
 
       setMsg({ message: "Profile updated" });
+      setOldPassword("");
+      setNewPassword("");
     } else {
-      setMsg({ message: await res.text(), isError: true });
+      setMsg({ message: data.message, isError: true });
     }
+
+    setIsUpdating(false);
   };
 
   return (
@@ -52,13 +79,29 @@ const EditProfile = () => {
           <form onSubmit={handleSubmit}>
             <Label htmlFor="name">Name</Label>
             <Input
-              required
               id="name"
               name="name"
               type="text"
               placeholder="Your name"
               value={name}
               onChange={(e) => setName(e.target.value)}
+            />
+            <Label htmlFor="password">Change password</Label>
+            <Input
+              id="oldPassword"
+              name="oldPassword"
+              type="password"
+              placeholder="Current password"
+              value={oldPassword}
+              onChange={(e) => setOldPassword(e.target.value)}
+            />
+            <Input
+              id="newPassword"
+              name="newPassword"
+              type="password"
+              placeholder="New password"
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
             />
             {msg.message && (
               <Text
@@ -70,7 +113,12 @@ const EditProfile = () => {
                 {msg.message}
               </Text>
             )}
-            <Button disabled={isUpdating} type="submit" mt={2}>
+            <Button
+              variant="primary"
+              disabled={isFetching || isUpdating || !isValid}
+              type="submit"
+              mt={2}
+            >
               Save
             </Button>
           </form>

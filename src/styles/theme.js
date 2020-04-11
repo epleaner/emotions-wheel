@@ -10,6 +10,7 @@ export default merge(toTheme(TypographyFairyGates), {
     background: "#fff",
     primary: "#07c",
     secondary: "#609",
+    muted: "grey",
     modes: {
       dark: {
         text: "#fff",
@@ -54,11 +55,18 @@ export default merge(toTheme(TypographyFairyGates), {
     label: {
       mb: [2],
     },
+    input: {
+      mb: [2],
+    },
   },
   buttons: {
     primary: {
       ":hover": {
         cursor: "pointer",
+      },
+      ":disabled": {
+        bg: "muted",
+        cursor: "not-allowed",
       },
     },
   },

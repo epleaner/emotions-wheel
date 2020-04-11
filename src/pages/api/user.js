@@ -51,22 +51,35 @@ handler.post(async (req, res) => {
 
 // PATCH /api/user
 handler.patch(async (req, res) => {
-  if (!req.user) {
-    req.status(401).end();
-    return;
-  }
-
-  const { name } = req.body;
-
-  await req.db.collection("users").updateOne(
-    { _id: req.user._id },
-    {
-      $set: {
-        name: name,
-      },
+  try {
+    if (!req.user) {
+      throw new Error("You must be logged in to do this");
     }
-  );
-  res.json({ user: { name } });
+
+    const { name, oldPassword, newPassword } = req.body;
+    let setBody = { name };
+
+    if (oldPassword && newPassword) {
+      if (!(await bcrypt.compare(oldPassword, req.user.password))) {
+        console.log("PASSWORDS DONT MATCH");
+        throw new Error("The password you have entered is incorrect.");
+      }
+
+      setBody.password = await bcrypt.hash(newPassword, 10);
+    }
+
+    await req.db
+      .collection("users")
+      .updateOne({ _id: req.user._id }, { $set: setBody });
+
+    res.json({
+      ok: true,
+      user: { name },
+      message: "Your changes have been updated successfully.",
+    });
+  } catch (error) {
+    res.json({ ok: false, message: error.toString() });
+  }
 });
 
 export default handler;

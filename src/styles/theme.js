@@ -64,8 +64,8 @@ export default merge(toTheme(TypographyFairyGates), {
       paddingX: 3,
       paddingY: 1,
       transition: "all .25s ease",
-      marginX: 1,
-      "text-transform": "uppercase",
+      margin: 1,
+      textTransform: "uppercase",
       fontSize: 1,
       ":hover": {
         cursor: "pointer",

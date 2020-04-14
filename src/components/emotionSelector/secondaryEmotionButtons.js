@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Flex, Box, Button } from "theme-ui";
+import { Flex, Button } from "theme-ui";
 import chroma from "chroma-js";
 
-const EmotionSelector = () => {
+const SecondaryEmotionButtons = () => {
   const [coreEmotionSelected, setCoreEmotionSelected] = useState();
   const coreEmotions = [
     { label: "Suprise", color: "#F5C480" },
@@ -40,4 +40,4 @@ const EmotionSelector = () => {
   );
 };
 
-export default EmotionSelector;
+export default SecondaryEmotionButtons;

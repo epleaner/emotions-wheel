@@ -27,6 +27,7 @@ module.exports = {
         "@middleware": path.resolve(__dirname, "src/middleware"),
         "@hooks": path.resolve(__dirname, "src/hooks"),
         "@lib": path.resolve(__dirname, "src/lib"),
+        "@static": path.resolve(__dirname, "src/static"),
       },
     };
 

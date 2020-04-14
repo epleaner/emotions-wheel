@@ -9,6 +9,7 @@ const Container = styled.div`
 `;
 const Body = styled.div`
   height: 100%;
+  width: 100vw;
 `;
 
 export default ({ children }) => (

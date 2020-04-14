@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { keyframes } from "@emotion/core";
 import { Flex, Box, jsx } from "theme-ui";
 
-import EmotionSelector from "@components/shared/emotionSelector";
+import EmotionSelector from "@components/emotionSelector";
 
 const fadeInTop = keyframes`
 from {
@@ -37,10 +37,10 @@ const FadeInAfterText = styled(Box)`
 
 export default () => {
   return (
-    <Flex
-      sx={{ alignItems: "center", justifyContent: "center", height: "40%" }}
-    >
-      <Box>
+    <>
+      <Flex
+        sx={{ alignItems: "center", justifyContent: "center", width: "100%" }}
+      >
         <Box mb={4}>
           <FadeInH1>hey.</FadeInH1>
           {"how are you doing?".split(" ").map((text, index) => (
@@ -54,10 +54,14 @@ export default () => {
             </span>
           ))}
         </Box>
+      </Flex>
+      <Flex
+        sx={{ alignItems: "center", justifyContent: "center", width: "100%" }}
+      >
         <FadeInAfterText>
           <EmotionSelector />
         </FadeInAfterText>
-      </Box>
-    </Flex>
+      </Flex>
+    </>
   );
 };

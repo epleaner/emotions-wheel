@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import { keyframes } from "@emotion/core";
 import { Flex, Box, jsx } from "theme-ui";
 
+import EmotionSelector from "@components/shared/emotionSelector";
+
 const fadeInTop = keyframes`
 from {
     transform: translate3d(0,-50px,0);
@@ -14,36 +16,33 @@ from {
   }
 `;
 
-const fadeInRight = keyframes`
+const fadeInBottom = keyframes`
 from {
-    transform: translate3d(-200px,0,0);
+    transform: translate3d(0,25px,0);
     opacity: 0;
   }
   to {
-    transform: translate3d(0, 0,0);
+    transform: translate3d(0, 0px,0);
     opacity: 1;
   }
-`;
-
-const Container = styled(Flex)`
-  align-items: center;
-  justify-content: center;
-  height: 90%;
-  flex-wrap: wrap;
 `;
 
 const FadeInH1 = styled.h1`
   animation: 2s ${fadeInTop} ease;
 `;
 
+const FadeInAfterText = styled(Box)`
+  animation: 2s ${fadeInBottom} ease 3s both;
+`;
+
 export default () => {
   return (
-    <Container>
+    <Flex
+      sx={{ alignItems: "center", justifyContent: "center", height: "40%" }}
+    >
       <Box>
-        <Box sx={{ width: "100%" }}>
+        <Box mb={4}>
           <FadeInH1>hey.</FadeInH1>
-        </Box>
-        <Box sx={{ width: "100%" }}>
           {"how are you doing?".split(" ").map((text, index) => (
             <span
               key={text}
@@ -55,21 +54,10 @@ export default () => {
             </span>
           ))}
         </Box>
-        {/* <Box mt={10} sx={{ width: "100%" }}>
-          {"good bad so-so meh".split(" ").map((text, index) => (
-            <Button
-              key={text}
-              sx={{
-                animation: `1.5s ${fadeInRight} ${
-                  (37 + index * -3) * 0.1
-                }s ease both`,
-              }}
-            >
-              {text}{" "}
-            </Button>
-          ))}
-        </Box> */}
+        <FadeInAfterText>
+          <EmotionSelector />
+        </FadeInAfterText>
       </Box>
-    </Container>
+    </Flex>
   );
 };

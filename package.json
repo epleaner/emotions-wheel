@@ -11,6 +11,7 @@
     "@sendgrid/mail": "^7.0.0",
     "@theme-ui/typography": "^0.3.0",
     "bcryptjs": "^2.4.3",
+    "chroma-js": "^2.1.0",
     "connect-mongo": "^3.2.0",
     "deepmerge": "^4.2.2",
     "emotion": "^10.0.27",

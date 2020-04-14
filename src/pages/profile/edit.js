@@ -34,7 +34,6 @@ const EditProfile = () => {
     setIsValid(nameChanged || passwordsValid);
   }, [user, name, oldPassword, newPassword]);
 
-  console.log(isFetching, isUpdating, isValid);
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -51,6 +50,7 @@ const EditProfile = () => {
     });
 
     const data = await res.json();
+
     if (data.ok) {
       mutate({
         user: {

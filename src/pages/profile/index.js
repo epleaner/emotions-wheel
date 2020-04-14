@@ -6,9 +6,8 @@ import { Flex, Button, Text } from "theme-ui";
 import useUser from "@hooks/useUser";
 
 const ProfilePage = () => {
-  console.log("rendering profile page");
   const [user, , isFetching] = useUser();
-  const { name, email, bio, profilePicture } = user || {};
+  const { name, email } = user || {};
 
   return (
     <Flex sx={{ justifyContent: "center" }}>

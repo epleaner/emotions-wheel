@@ -61,7 +61,6 @@ handler.patch(async (req, res) => {
 
     if (oldPassword && newPassword) {
       if (!(await bcrypt.compare(oldPassword, req.user.password))) {
-        console.log("PASSWORDS DONT MATCH");
         throw new Error("The password you have entered is incorrect.");
       }
 

@@ -11,6 +11,7 @@ export default merge(toTheme(TypographyFairyGates), {
     primary: "#07c",
     secondary: "#609",
     muted: "grey",
+    warning: "#ff4242",
     modes: {
       dark: {
         text: "#fff",

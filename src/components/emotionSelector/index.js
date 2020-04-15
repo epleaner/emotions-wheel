@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Button, Input } from "theme-ui";
+import { Flex, Box, Button, Input, Text } from "theme-ui";
 import { EMOTIONS } from "@static/emotions";
 
 import EmotionButtons from "@components/emotionSelector/emotionButtons";
@@ -16,7 +16,7 @@ const EmotionSelector = () => {
   );
   const [tertiaryEmotionSelected, setTertiaryEmotionSelected] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formStatus, setFormStatus] = useState({ submitted: false });
+  const [formStatus, setFormStatus] = useState({ submitted: true, ok: false });
 
   const onSelectCoreEmotion = (emotion) => {
     setCoreEmotionSelected(emotion);
@@ -41,6 +41,8 @@ const EmotionSelector = () => {
   const submitEmotions = async (e) => {
     e.preventDefault();
 
+    setIsSubmitting(true);
+
     const body = { emotion: tertiaryEmotionSelected, note };
 
     const res = await fetch("/api/emotions", {
@@ -63,20 +65,26 @@ const EmotionSelector = () => {
   return (
     <Box mx={[2, 0]}>
       {formStatus.submitted ? (
-        formStatus.ok ? (
-          "👍"
-        ) : (
-          "👎"
-        )
+        <>
+          <Flex sx={{ justifyContent: "center", width: "100%" }}>
+            {formStatus.ok ? (
+              <Text>Thanks for sharing.</Text>
+            ) : (
+              <Text color="warning">Something went wrong.</Text>
+            )}
+          </Flex>
+          <Flex sx={{ justifyContent: "center", width: "100%" }}>
+            <Button
+              type="button"
+              onClick={() => setFormStatus({ submitted: false })}
+            >
+              {formStatus.ok ? "Add another?" : "Try again?"}
+            </Button>
+          </Flex>
+        </>
       ) : (
         <form onSubmit={submitEmotions}>
-          <Input
-            id="note"
-            type="text"
-            placeholder="I'm feeling..."
-            value={note}
-            onChange={(e) => setNote(e.target.value)}
-          />
+          <Text>I'm feeling...</Text>
           <EmotionButtons emotions={EMOTIONS} onSelect={onSelectCoreEmotion} />
           {coreEmotionSelected && (
             <EmotionButtons
@@ -93,9 +101,21 @@ const EmotionSelector = () => {
             />
           )}
           {tertiaryEmotionSelected && (
-            <Button type="submit" disabled={isSubmitting}>
-              Save
-            </Button>
+            <>
+              <Input
+                sx={{ marginTop: 3 }}
+                id="note"
+                type="text"
+                placeholder="Want to talk about it?"
+                value={note}
+                onChange={(e) => setNote(e.target.value)}
+              />
+              <Flex sx={{ justifyContent: "center" }}>
+                <Button type="submit" disabled={isSubmitting}>
+                  Save
+                </Button>
+              </Flex>
+            </>
           )}
         </form>
       )}

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Box, Button } from "theme-ui";
+import { Flex, Button } from "theme-ui";
 import chroma from "chroma-js";
 
 const EmotionButtons = ({ emotions, onSelect, baseColor }) => {
@@ -14,12 +14,21 @@ const EmotionButtons = ({ emotions, onSelect, baseColor }) => {
   };
 
   return (
-    <Box width="100%" my={2}>
-      {emotions.map((emotion) => {
+    <Flex
+      sx={{
+        width: "100%",
+        my: 2,
+        justifyContent: "space-between",
+        flexWrap: "wrap",
+      }}
+    >
+      {emotions.map((emotion, index) => {
         const bgColor = baseColor || emotion.color;
         return (
           <Button
             key={emotion.label}
+            type="button"
+            mr={index < emotions.length - 1 && 2}
             sx={{
               bg:
                 !emotionSelected || isSelected(emotion)
@@ -37,7 +46,7 @@ const EmotionButtons = ({ emotions, onSelect, baseColor }) => {
           </Button>
         );
       })}
-    </Box>
+    </Flex>
   );
 };
 

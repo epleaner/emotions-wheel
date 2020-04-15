@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useUser from "@hooks/useUser";
-import { Flex, Button, Text, Input, Label } from "theme-ui";
+import { Flex, Box, Button, Text, Input, Label } from "theme-ui";
 
 const EditProfile = () => {
   const [user, { mutate }, isFetching] = useUser();
@@ -43,19 +43,19 @@ const EditProfile = () => {
 
     const body = { name, oldPassword, newPassword };
 
-    const res = await fetch("/api/user", {
+    const response = await fetch("/api/user", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
     });
 
-    const data = await res.json();
+    const responseJson = await response.json();
 
-    if (data.ok) {
+    if (responseJson.ok) {
       mutate({
         user: {
           ...user,
-          ...data.user,
+          ...responseJson.user,
         },
       });
 
@@ -63,7 +63,7 @@ const EditProfile = () => {
       setOldPassword("");
       setNewPassword("");
     } else {
-      setMsg({ message: data.message, isError: true });
+      setMsg({ message: responseJson.message, isError: true });
     }
 
     setIsUpdating(false);
@@ -86,23 +86,25 @@ const EditProfile = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
-            <Label htmlFor="password">Change password</Label>
-            <Input
-              id="oldPassword"
-              name="oldPassword"
-              type="password"
-              placeholder="Current password"
-              value={oldPassword}
-              onChange={(e) => setOldPassword(e.target.value)}
-            />
-            <Input
-              id="newPassword"
-              name="newPassword"
-              type="password"
-              placeholder="New password"
-              value={newPassword}
-              onChange={(e) => setNewPassword(e.target.value)}
-            />
+            <Box mt={4}>
+              <Label htmlFor="password">Change password</Label>
+              <Input
+                id="oldPassword"
+                name="oldPassword"
+                type="password"
+                placeholder="Current password"
+                value={oldPassword}
+                onChange={(e) => setOldPassword(e.target.value)}
+              />
+              <Input
+                id="newPassword"
+                name="newPassword"
+                type="password"
+                placeholder="New password"
+                value={newPassword}
+                onChange={(e) => setNewPassword(e.target.value)}
+              />
+            </Box>
             {msg.message && (
               <Text
                 mt={2}

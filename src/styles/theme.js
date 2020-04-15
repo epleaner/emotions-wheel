@@ -56,7 +56,15 @@ export default merge(toTheme(TypographyFairyGates), {
       mb: [2],
     },
     input: {
-      mb: [2],
+      mb: 3,
+      border: "none",
+      pt: 0,
+      pb: 1,
+      fontSize: 1,
+      paddingX: 0,
+      borderRadius: 0,
+      borderBottom: "1px solid",
+      borderColor: "text",
     },
   },
   buttons: {
@@ -64,7 +72,7 @@ export default merge(toTheme(TypographyFairyGates), {
       paddingX: 3,
       paddingY: 1,
       transition: "all .25s ease",
-      margin: 1,
+      marginY: 1,
       textTransform: "uppercase",
       fontSize: 1,
       ":hover": {

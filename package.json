@@ -35,8 +35,9 @@
   },
   "scripts": {
     "dev": "next dev",
+    "start": "now dev",
     "build": "next build",
-    "start": "next start",
+    "serve": "next start",
     "deploy": "now",
     "deployToProd": "now --prod"
   },
@@ -47,7 +48,7 @@
     "babel-plugin-emotion": "^10.0.33",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
-    "now": "^17.1.1",
+    "now": "^18.0.0",
     "typescript": "^3.8.3"
   }
 }

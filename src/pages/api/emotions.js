@@ -12,10 +12,10 @@ handler.put(async (req, res) => {
     }
 
     await req.db
-      .collection("users")
+      .collection("user")
       .updateOne(
         { _id: req.user._id },
-        { $push: { emotions: { date: Date.now(), ...req.body } } }
+        { $push: { emotions: { date: new Date().toJSON(), ...req.body } } }
       );
 
     res.json({

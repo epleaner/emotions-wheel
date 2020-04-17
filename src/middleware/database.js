@@ -7,7 +7,7 @@ const client = new MongoClient(process.env.MONGODB_URI, {
 
 export async function setUpDb(db) {
   await db
-    .collection("tokens")
+    .collection("token")
     .createIndex("expireAt", { expireAfterSeconds: 0 });
 }
 

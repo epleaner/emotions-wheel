@@ -29,14 +29,14 @@ handler.post(async (req, res) => {
     return;
   }
 
-  if ((await req.db.collection("users").countDocuments({ email })) > 0) {
+  if ((await req.db.collection("user").countDocuments({ email })) > 0) {
     res.status(403).send("That email is already in use.");
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
   const user = await req.db
-    .collection("users")
+    .collection("user")
     .insertOne({ email, password: hashedPassword, name })
     .then(({ ops }) => ops[0]);
 
@@ -68,7 +68,7 @@ handler.patch(async (req, res) => {
     }
 
     await req.db
-      .collection("users")
+      .collection("user")
       .updateOne({ _id: req.user._id }, { $set: setBody });
 
     res.json({

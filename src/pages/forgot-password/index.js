@@ -30,8 +30,7 @@ const ForgotPassword = () => {
   return (
     <Flex sx={{ justifyContent: "center" }}>
       <section>
-        <h1>Forgot password?</h1>
-        {formStatus.message}
+        <h1>Forgot your password?</h1>
         <form onSubmit={handleSubmit}>
           <Input
             id="email"
@@ -43,6 +42,7 @@ const ForgotPassword = () => {
           <Button type="submit" disabled={submitting}>
             Submit
           </Button>
+          <Flex mt={2}>{formStatus.message}</Flex>
         </form>
       </section>
     </Flex>

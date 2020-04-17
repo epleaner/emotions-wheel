@@ -1,11 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import fetch from "isomorphic-unfetch";
-import { Flex, Input, Button, Text } from "theme-ui";
+import Link from "next/link";
+import { Flex, Input, Button, Text, NavLink } from "theme-ui";
 
-const ResetPasswordTokenPage = ({ valid, token }) => {
+const ResetPasswordTokenPage = ({ token }) => {
+  const [valid, setValid] = useState(false);
+  const [fetchingValidity, setFetchingValidity] = useState(true);
   const [password, setPassword] = useState("");
   const [formStatus, setFormStatus] = useState({ ok: true, message: "" });
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const res = await fetch(`/api/user/password/${token}`, {
+        method: "GET",
+      });
+
+      const { valid } = await res.json();
+
+      setValid(valid);
+      setFetchingValidity(false);
+    })();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +44,9 @@ const ResetPasswordTokenPage = ({ valid, token }) => {
   };
   return (
     <Flex sx={{ justifyContent: "center" }}>
-      {valid ? (
+      {fetchingValidity ? (
+        <Text>Loading...</Text>
+      ) : valid ? (
         <section>
           <h1>Reset password</h1>
           {formStatus.message}
@@ -46,7 +64,12 @@ const ResetPasswordTokenPage = ({ valid, token }) => {
           </form>
         </section>
       ) : (
-        <Text>This link may have expired.</Text>
+        <Text>
+          This link may have expired.{" "}
+          <Link href="/forgot-password">
+            <NavLink>Try again?</NavLink>
+          </Link>
+        </Text>
       )}
     </Flex>
   );
@@ -55,14 +78,7 @@ const ResetPasswordTokenPage = ({ valid, token }) => {
 ResetPasswordTokenPage.getInitialProps = async (ctx) => {
   const { token } = ctx.query;
 
-  const res = await fetch(
-    `${process.env.WEB_URI}/api/user/password/reset/${token}`,
-    { method: "GET" }
-  );
-
-  const { valid } = await res.json();
-
-  return { valid, token };
+  return { token };
 };
 
 export default ResetPasswordTokenPage;

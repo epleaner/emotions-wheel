@@ -10,7 +10,8 @@ handler.get(async (req, res) => {
     .collection("token")
     .findOne({ token: req.query.token, type: "passwordReset" });
 
-  res.json({ valid: token ? true : false });
+  const valid = token ? true : false;
+  res.json({ valid });
 });
 
 handler.patch(async (req, res) => {
@@ -18,7 +19,7 @@ handler.patch(async (req, res) => {
     if (!req.body.password) throw new Error("A password is required.");
 
     const { value: token } = await req.db.collection("token").findOneAndDelete({
-      _id: req.query.token,
+      token: req.query.token,
       type: "passwordReset",
     });
 
@@ -29,7 +30,7 @@ handler.patch(async (req, res) => {
 
     await req.db
       .collection("user")
-      .updateOne({ _id: token.useId }, { $set: { password } });
+      .updateOne({ _id: token.userId }, { $set: { password } });
 
     res.json({ ok: true, message: "Your password has been updated!" });
   } catch (e) {

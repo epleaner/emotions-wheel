@@ -30,18 +30,14 @@ handler.post(async (req, res) => {
       expireAt: twentyMinutesFromNow(),
     });
 
-    const emailMessage = {
+    const msg = {
       to: user.email,
-      from: process.env.EMAIL_FROM,
-      templateId: process.env.SENDGRID_PASSWORDRESET_TEMPLATEID,
-      dynamic_template_data: {
-        subject: process.env.SENDGRID_PASSWORDRESET_SUBJECT,
-        name: user.name,
-        url: `${process.env.WEB_URI}/forgot-password/${token}`,
-      },
+      from: "pleanbean@gmail.com",
+      subject: "Resetting your password",
+      html: `Hey ${user.name}, <a href=${process.env.NOW_URL}/forgot-password/${token}>here</a> is a link to reset your password.`,
     };
 
-    await sgMail.send(emailMessage);
+    await sgMail.send(msg);
 
     res.json({
       ok: true,
@@ -49,7 +45,7 @@ handler.post(async (req, res) => {
         "An email has been sent to your inbox with a link to reset your password.",
     });
   } catch (e) {
-    res.json({ ok: false, message: e.toString() });
+    res.json({ ok: false, message: e.message });
   }
 });
 

@@ -16,7 +16,7 @@ const EmotionSelector = () => {
   );
   const [tertiaryEmotionSelected, setTertiaryEmotionSelected] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formStatus, setFormStatus] = useState({ submitted: true, ok: false });
+  const [formStatus, setFormStatus] = useState({ submitted: false });
 
   const onSelectCoreEmotion = (emotion) => {
     setCoreEmotionSelected(emotion);

@@ -14,7 +14,7 @@ const ForgotPassword = () => {
 
     const body = { email };
 
-    const res = await fetch("/api/user/password/reset", {
+    const res = await fetch("/api/user/email/verify", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
@@ -30,7 +30,7 @@ const ForgotPassword = () => {
   return (
     <Flex sx={{ justifyContent: "center" }}>
       <section>
-        <h1>Forgot password?</h1>
+        <h1>Let's get your email verified.</h1>
         {formStatus.message}
         <form onSubmit={handleSubmit}>
           <Input

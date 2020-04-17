@@ -9,9 +9,7 @@ const SignupPage = () => {
   const [user, { mutate }] = useUser();
   const [errorMsg, setErrorMsg] = useState("");
 
-  // call whenever user changes (ex. right after signing up successfully)
   useEffect(() => {
-    // redirect to home if user is authenticated
     if (user) router.replace("/");
   }, [user]);
 
@@ -32,8 +30,6 @@ const SignupPage = () => {
 
     if (res.status === 201) {
       const userObj = await res.json();
-
-      // writing our user object to the state
       mutate(userObj);
     } else {
       setErrorMsg(await res.text());
@@ -62,7 +58,7 @@ const SignupPage = () => {
             />
           </Label>
           <Flex sx={{ justifyContent: "center" }}>
-            <Button type="submit">sign up</Button>
+            <Button type="submit">Sign up</Button>
           </Flex>
         </form>
       </Box>

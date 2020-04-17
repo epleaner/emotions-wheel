@@ -42,7 +42,8 @@ export default merge(toTheme(TypographyFairyGates), {
       fontSize: ".8rem",
     },
     heading: {
-      mb: 2,
+      my: 2,
+      fontSize: "2.5rem",
     },
   },
   links: {

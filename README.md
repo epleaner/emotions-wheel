@@ -1,3 +1,41 @@
+- [feeels](#feeels)
+
+  - [Features to add](#features-to-add)
+    - [account](#account)
+    - [entry management](#entry-management)
+    - [emotion selection](#emotion-selection)
+    - [UI](#ui)
+
 # feeels
 
-feeels - built using React + Nextjs
+For checking in with yourself.
+
+Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth supported by Passport.
+
+## Features to add
+
+### account
+
+- [x] User can reset password
+- [ ] User can validate email
+- [ ] User can change email
+- [ ] Password length / form requirements
+
+### entry management
+
+- [ ] User can edit entries
+- [ ] User can delete entries
+- [ ] User can choose visibility of entries
+
+### emotion selection
+
+- [ ] User sees a sunburst view of all emotions at once
+- [ ] User can select multiple emotions
+
+### UI
+
+- [ ] Loading states for buttons
+- [ ] Loading states for pages
+- [ ] Loading state for logging out
+- [ ] Loading placeholders for content
+- [ ] Field editing in place

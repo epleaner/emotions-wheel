@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
 import { Flex, Button, Text } from "theme-ui";
@@ -8,9 +8,19 @@ import EmotionList from "@components/emotionList";
 
 const ProfilePage = () => {
   const [user, , isFetching] = useUser();
-  const { name, email, emotions } = user || {};
+  const { name, email, emailVerified, emotions } = user || {};
+  const [sendingVerification, setSendingVerification] = useState(false);
+  const [sentVerification, setSentVerification] = useState(false);
 
-  console.log(emotions);
+  const sendVerification = async () => {
+    setSendingVerification(true);
+    const res = await fetch("/api/user/email/verify", { method: "POST" });
+
+    const responseJson = await res.json();
+
+    if (responseJson.ok) setSentVerification(true);
+    setSendingVerification(false);
+  };
 
   return (
     <Flex sx={{ justifyContent: "center" }}>
@@ -20,6 +30,20 @@ const ProfilePage = () => {
         <section>
           <h1>{name}</h1>
           <Text>{email}</Text>
+          <Flex>
+            {!emailVerified &&
+              (sentVerification ? (
+                <Text color="secondary">Verification email sent!</Text>
+              ) : (
+                <Button
+                  type="button"
+                  disabled={sendingVerification}
+                  onClick={sendVerification}
+                >
+                  Verify
+                </Button>
+              ))}
+          </Flex>
           {emotions && <EmotionList emotions={emotions} />}
           <Link href="/profile/edit">
             <Button type="button" mt={4}>

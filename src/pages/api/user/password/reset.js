@@ -3,8 +3,7 @@ import crypto from "crypto";
 import nextConnect from "next-connect";
 
 import database from "@middleware/database";
-
-const twentyMinutesFromNow = () => new Date(Date.now() + 1000 * 60 * 20);
+import { minutesFromNow } from "@helpers/apiHelpers";
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
@@ -27,13 +26,13 @@ handler.post(async (req, res) => {
       token,
       userId: user._id,
       type: "passwordReset",
-      expireAt: twentyMinutesFromNow(),
+      expireAt: minutesFromNow(20),
     });
 
     const msg = {
       to: user.email,
-      from: "pleanbean@gmail.com",
-      subject: "Resetting your password",
+      from: process.env.EMAIL_FROM,
+      subject: "[feeels] Resetting your password",
       html: `Hey ${user.name}, <a href=${process.env.NOW_URL}/forgot-password/${token}>here</a> is a link to reset your password.`,
     };
 

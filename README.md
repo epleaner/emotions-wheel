@@ -17,9 +17,12 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 ### account
 
 - [x] User can reset password
-- [ ] User can validate email
+- [x] User can validate email
 - [ ] User can change email
+- [ ] User can delete their account
+- [ ] User can delete their account
 - [ ] Password length / form requirements
+- [ ] Emails sent show request's user agent
 
 ### entry management
 

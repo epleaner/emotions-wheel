@@ -65,8 +65,8 @@ handler.patch(async (req, res) => {
       throw new Error("You must be logged in to do this");
     }
 
-    const { name, oldPassword, newPassword } = req.body;
-    let setBody = { name };
+    const { name, email, oldPassword, newPassword } = req.body;
+    let setBody = { name, email };
 
     if (oldPassword && newPassword) {
       if (!(await bcrypt.compare(oldPassword, req.user.password))) {
@@ -82,8 +82,28 @@ handler.patch(async (req, res) => {
 
     res.json({
       ok: true,
-      user: { name },
+      user: { name, email },
       message: "Your changes have been updated successfully.",
+    });
+  } catch (error) {
+    res.json({ ok: false, message: error.toString() });
+  }
+});
+
+handler.delete(async (req, res) => {
+  try {
+    if (!req.user) {
+      throw new Error("You must be logged in to do this");
+    }
+
+    await req.db.collection("user").deleteOne({ _id: req.user._id });
+
+    req.logOut();
+
+    res.json({
+      ok: true,
+      user: null,
+      message: "Your account has been deleted.",
     });
   } catch (error) {
     res.json({ ok: false, message: error.toString() });

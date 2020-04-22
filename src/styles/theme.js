@@ -86,6 +86,23 @@ export default merge(toTheme(TypographyFairyGates), {
         cursor: "not-allowed",
       },
     },
+    warning: {
+      paddingX: 3,
+      paddingY: 1,
+      transition: "all .25s ease",
+      marginY: 1,
+      textTransform: "uppercase",
+      fontSize: 1,
+      bg: "warning",
+      ":hover": {
+        cursor: "pointer",
+        boxShadow: "0px 0px 10px grey",
+      },
+      ":disabled": {
+        bg: "muted",
+        cursor: "not-allowed",
+      },
+    },
   },
   styles: {
     a: {

@@ -40,8 +40,9 @@
     "start": "now dev",
     "build": "next build",
     "serve": "next start",
-    "deploy": "now",
-    "deployToProd": "now --prod"
+    "env": "now env pull",
+    "now": "now",
+    "prod": "now --prod"
   },
   "devDependencies": {
     "@types/node": "^13.11.0",

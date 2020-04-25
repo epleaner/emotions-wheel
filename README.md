@@ -41,3 +41,4 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 - [ ] Loading state for logging out
 - [ ] Loading placeholders for content
 - [ ] Field editing in place
+- [ ] Forms with https://jaredpalmer.com/formik/ (https://chakra-ui.com/formcontrol#usage-with-form-libraries)

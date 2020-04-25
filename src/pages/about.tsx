@@ -1,12 +1,31 @@
 import { NextPage } from "next";
+import { Flex, Link } from "theme-ui";
 
-const About: NextPage<{ userAgent: string }> = ({ userAgent }) => (
-  <h1>Hello world! - user agent: {userAgent}</h1>
+const About: NextPage = () => (
+  <>
+    <Flex sx={{ justifyContent: "center", flexWrap: "wrap" }}>
+      <h1>A tool for checking in with yourself.</h1>
+    </Flex>
+    <Flex sx={{ justifyContent: "center", flexWrap: "wrap" }}>
+      <h2>
+        Inspired by{" "}
+        <Link
+          target="_blank"
+          rel="nofollow noreferrer"
+          href="https://www.thejuntoinstitute.com"
+        >
+          The Junto Institute's
+        </Link>{" "}
+        <Link
+          target="_blank"
+          rel="nofollow noreferrer"
+          href="https://www.thejuntoinstitute.com/blog/the-junto-emotion-wheel-why-and-how-we-use-it"
+        >
+          emotion wheel
+        </Link>
+      </h2>
+    </Flex>
+  </>
 );
-
-About.getInitialProps = async ({ req }) => {
-  const userAgent = req ? req.headers["user-agent"] || "" : navigator.userAgent;
-  return { userAgent };
-};
 
 export default About;

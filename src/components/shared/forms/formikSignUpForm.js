@@ -1,5 +1,5 @@
-import React from 'react';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+import React, { useState } from 'react';
+import { Formik, Form, Field } from 'formik';
 import {
   FormControl,
   FormLabel,
@@ -9,11 +9,14 @@ import {
   Input,
 } from '@chakra-ui/core';
 
-const Basic = ({ onSubmitSuccess, onSubmitError }) => {
+const Basic = ({ onSubmitSuccess }) => {
+  const [formErrorMessage, setFormErrorMessage] = useState();
   return (
     <Formik
       initialValues={{ name: '', email: '', password: '' }}
       validate={(values) => {
+        setFormErrorMessage(null);
+
         const errors = {};
         if (!values.name) errors.name = 'Required';
 
@@ -26,7 +29,6 @@ const Basic = ({ onSubmitSuccess, onSubmitError }) => {
         return errors;
       }}
       onSubmit={async (values, { setSubmitting }) => {
-        debugger;
         const res = await fetch('/api/user', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -36,7 +38,7 @@ const Basic = ({ onSubmitSuccess, onSubmitError }) => {
         if (res.status === 201) {
           onSubmitSuccess(res);
           setSubmitting(false);
-        } else onSubmitError(res);
+        } else setFormErrorMessage(await res.text());
       }}
     >
       {({ isSubmitting, isValidating, errors, dirty }) => (
@@ -54,6 +56,7 @@ const Basic = ({ onSubmitSuccess, onSubmitError }) => {
                   variant="flushed"
                   {...field}
                   id="name"
+                  type="text"
                   placeholder=""
                 />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
@@ -73,6 +76,7 @@ const Basic = ({ onSubmitSuccess, onSubmitError }) => {
                   variant="flushed"
                   {...field}
                   id="email"
+                  type="email"
                   placeholder=""
                 />
                 <FormErrorMessage>{form.errors.email}</FormErrorMessage>
@@ -96,27 +100,31 @@ const Basic = ({ onSubmitSuccess, onSubmitError }) => {
                   variant="flushed"
                   {...field}
                   id="password"
+                  type="password"
                   placeholder=""
                 />
                 <FormErrorMessage>{form.errors.password}</FormErrorMessage>
               </FormControl>
             )}
           </Field>
-          <Button
-            mt={4}
-            variantColor="primary"
-            isDisabled={
-              !dirty ||
-              Object.entries(errors).length ||
-              isSubmitting ||
-              isValidating
-            }
-            isLoading={isSubmitting}
-            loadingText="Submitting"
-            type="submit"
-          >
-            Sign up
-          </Button>
+          <FormControl isInvalid={formErrorMessage}>
+            <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
+            <Button
+              mt={4}
+              variantColor="primary"
+              isDisabled={
+                !dirty ||
+                Object.entries(errors).length ||
+                isSubmitting ||
+                isValidating
+              }
+              isLoading={isSubmitting}
+              loadingText="Submitting"
+              type="submit"
+            >
+              Sign up
+            </Button>
+          </FormControl>
         </Form>
       )}
     </Formik>

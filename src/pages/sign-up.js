@@ -1,30 +1,36 @@
-import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
-import { Label, Input, Button, Flex, Box, Heading } from "theme-ui";
+import React, { useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import { Label, Input, Button, Flex, Box } from 'theme-ui';
 
-import useUser from "@hooks/useUser";
+import useUser from '@hooks/useUser';
+import FormikSignUpForm from '@components/shared/forms/FormikSignUpForm';
+import EmailInput from '@components/shared/forms/emailInput';
 
 const SignupPage = () => {
   const router = useRouter();
   const [user, { mutate }] = useUser();
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [emailValid, setEmailValid] = useState(true);
 
   useEffect(() => {
-    if (user) router.replace("/");
+    if (user) router.replace('/');
   }, [user]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async () => {
     e.preventDefault();
 
     const body = {
-      email: e.currentTarget.email.value,
-      name: e.currentTarget.name.value,
-      password: e.currentTarget.password.value,
+      email,
+      name,
+      password,
     };
 
-    const res = await fetch("/api/user", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch('/api/user', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
 
@@ -36,31 +42,22 @@ const SignupPage = () => {
     }
   };
 
+  const onSubmitSuccess = async (res) => {
+    const userObj = await res.json();
+    mutate(userObj);
+  };
+
+  const onSubmitError = async (res) => void setErrorMsg(await res.text());
+
   return (
     <Flex
-      sx={{ justifyContent: "center", alignItems: "center", height: "90%" }}
+      sx={{ justifyContent: 'center', alignItems: 'center', height: '90%' }}
     >
-      <Box sx={{ width: ["100%", 500], mx: [1, 0] }}>
-        <form onSubmit={handleSubmit}>
-          {errorMsg ? <p style={{ color: "red" }}>{errorMsg}</p> : null}
-          <Label htmlFor="name" mb={2}>
-            <Input id="name" name="name" type="text" placeholder="name" />
-          </Label>
-          <Label htmlFor="email" mb={2}>
-            <Input id="email" name="email" type="email" placeholder="email" />
-          </Label>
-          <Label htmlFor="password" mb={2}>
-            <Input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="password"
-            />
-          </Label>
-          <Flex sx={{ justifyContent: "center" }}>
-            <Button type="submit">Sign up</Button>
-          </Flex>
-        </form>
+      <Box sx={{ width: ['100%', 500], mx: [1, 0] }}>
+        <FormikSignUpForm
+          onSubmitSuccess={onSubmitSuccess}
+          onSubmitError={onSubmitError}
+        />
       </Box>
     </Flex>
   );

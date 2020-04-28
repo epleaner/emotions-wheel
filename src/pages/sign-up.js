@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Label, Input, Button, Flex, Box } from 'theme-ui';
+import { Flex, Box } from '@chakra-ui/core';
 
 import useUser from '@hooks/useUser';
 import FormikSignUpForm from '@components/shared/forms/FormikSignUpForm';
@@ -50,10 +50,8 @@ const SignupPage = () => {
   const onSubmitError = async (res) => void setErrorMsg(await res.text());
 
   return (
-    <Flex
-      sx={{ justifyContent: 'center', alignItems: 'center', height: '90%' }}
-    >
-      <Box sx={{ width: ['100%', 500], mx: [1, 0] }}>
+    <Flex justifyContent={'center'} alignItems={'center'} height="100%">
+      <Box width={['100%', 500]} mx={[2, 0]}>
         <FormikSignUpForm
           onSubmitSuccess={onSubmitSuccess}
           onSubmitError={onSubmitError}

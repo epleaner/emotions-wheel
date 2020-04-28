@@ -44,6 +44,7 @@ const Basic = ({ onSubmitSuccess, onSubmitError }) => {
           <Field name="name">
             {({ field, form }) => (
               <FormControl
+                mb={8}
                 isRequired
                 isInvalid={form.errors.name && form.touched.name}
               >
@@ -62,6 +63,7 @@ const Basic = ({ onSubmitSuccess, onSubmitError }) => {
           <Field name="email">
             {({ field, form }) => (
               <FormControl
+                mb={8}
                 isRequired
                 isInvalid={form.errors.email && form.touched.email}
               >
@@ -75,7 +77,7 @@ const Basic = ({ onSubmitSuccess, onSubmitError }) => {
                 />
                 <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                 <FormHelperText id="email-helper-text">
-                  We won't share your email with anyone – this is only used t
+                  We won't share your email with anyone – this is only used to
                   help reset your password if you've forgotten it.
                 </FormHelperText>
               </FormControl>
@@ -84,6 +86,7 @@ const Basic = ({ onSubmitSuccess, onSubmitError }) => {
           <Field name="password">
             {({ field, form }) => (
               <FormControl
+                mb={8}
                 isRequired
                 isInvalid={form.errors.password && form.touched.password}
               >

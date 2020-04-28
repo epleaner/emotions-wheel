@@ -84,7 +84,7 @@ const Basic = ({ onSubmitSuccess }) => {
               <FormControl
                 mb={8}
                 isRequired
-                isInvalid={form.touched.password && form.errors.password}
+                isInvalid={form.errors.password && form.touched.password}
               >
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Input

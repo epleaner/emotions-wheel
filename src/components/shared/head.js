@@ -1,8 +1,9 @@
-import Head from "next/head";
-import { useThemeUI } from "theme-ui";
+import Head from 'next/head';
+import { useTheme } from '@chakra-ui/core';
 
 export default ({ title }) => {
-  const { theme } = useThemeUI();
+  const theme = useTheme();
+
   return (
     <Head>
       <title>{title}</title>

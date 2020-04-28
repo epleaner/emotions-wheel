@@ -1,9 +1,13 @@
-import App from "next/app";
-import Layout from "@components/shared/layout";
-import Head from "@components/shared/head";
-import theme from "@styles/theme";
-import CssNormalize from "@styles/normalize";
-import { ThemeProvider } from "theme-ui";
+import App from 'next/app';
+import Layout from '@components/shared/layout';
+import Head from '@components/shared/head';
+// import theme from '@styles/theme';
+import {
+  ThemeProvider,
+  CSSReset,
+  ColorModeProvider,
+  theme,
+} from '@chakra-ui/core';
 
 class MyApp extends App {
   render() {
@@ -11,12 +15,14 @@ class MyApp extends App {
 
     return (
       <>
-        <CssNormalize />
         <ThemeProvider theme={theme}>
-          <Head title="feeels" />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <ColorModeProvider>
+            <CSSReset />
+            <Head title="feeels" />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </ColorModeProvider>
         </ThemeProvider>
       </>
     );

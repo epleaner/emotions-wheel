@@ -19,6 +19,7 @@ const LoginPage = () => {
   const onSubmitSuccess = async (res) => {
     const userObj = await res.json();
     mutate(userObj);
+    router.replace('/');
   };
 
   return (

@@ -20,7 +20,7 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 - [x] User can validate email
 - [x] User can change email
 - [x] User can delete their account
-- [ ] Password length / form requirements
+- [x] Password length / form requirements
 - [ ] Email for profile updates
 
 ### entry management

@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field } from 'formik';
+import Link from 'next/link';
+
 import {
   FormControl,
   FormLabel,
@@ -7,54 +9,43 @@ import {
   FormHelperText,
   Button,
   Input,
-  Icon,
-  Text,
+  Link as ChakraLink,
 } from '@chakra-ui/core';
 
-import SignUpSchema from '@schemas/formValidations/signUp';
+import LoginSchema from '@schemas/formValidations/loginFormValidations';
 
 const Basic = ({ onSubmitSuccess }) => {
   const [formErrorMessage, setFormErrorMessage] = useState('');
   return (
     <Formik
-      initialValues={{ name: '', email: '', password: '' }}
+      initialValues={{ email: '', password: '' }}
       validate={() => setFormErrorMessage(null)}
-      validationSchema={SignUpSchema}
+      validationSchema={LoginSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        const res = await fetch('/api/user', {
+        const res = await fetch('/api/auth', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(values),
         });
 
-        if (res.status === 201) {
-          onSubmitSuccess(res);
-          setSubmitting(false);
-        } else setFormErrorMessage(await res.text());
+        switch (res.status) {
+          case 201:
+            onSubmitSuccess(res);
+            setSubmitting(false);
+            break;
+          case 401:
+            setFormErrorMessage(
+              "Sorry, we couldn't log you in with that email and password."
+            );
+            break;
+          default:
+            setFormErrorMessage('There was an error, please try again.');
+            break;
+        }
       }}
     >
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>
-          <Field name="name">
-            {({ field, form }) => (
-              <FormControl
-                mb={8}
-                isRequired
-                isInvalid={form.errors.name && form.touched.name}
-              >
-                <FormLabel htmlFor="name">Name</FormLabel>
-                <Input
-                  aria-label="Name"
-                  variant="flushed"
-                  {...field}
-                  id="name"
-                  type="text"
-                  placeholder=""
-                />
-                <FormErrorMessage>{form.errors.name}</FormErrorMessage>
-              </FormControl>
-            )}
-          </Field>
           <Field name="email">
             {({ field, form }) => (
               <FormControl
@@ -72,10 +63,6 @@ const Basic = ({ onSubmitSuccess }) => {
                   placeholder=""
                 />
                 <FormErrorMessage>{form.errors.email}</FormErrorMessage>
-                <FormHelperText id="email-helper-text">
-                  We won't share your email with anyone – this is only used to
-                  help reset your password if you've forgotten it.
-                </FormHelperText>
               </FormControl>
             )}
           </Field>
@@ -96,6 +83,11 @@ const Basic = ({ onSubmitSuccess }) => {
                   placeholder=""
                 />
                 <FormErrorMessage>{form.errors.password}</FormErrorMessage>
+                <FormHelperText>
+                  <Link href="/forgot-password">
+                    <ChakraLink>Forgot your password?</ChakraLink>
+                  </Link>
+                </FormHelperText>
               </FormControl>
             )}
           </Field>
@@ -111,10 +103,10 @@ const Basic = ({ onSubmitSuccess }) => {
                 isValidating
               }
               isLoading={isSubmitting}
-              loadingText="Submitting"
+              loadingText="Logging in"
               type="submit"
             >
-              Sign up
+              Login
             </Button>
           </FormControl>
         </Form>

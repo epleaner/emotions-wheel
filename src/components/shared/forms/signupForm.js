@@ -26,7 +26,7 @@ const Basic = ({ onSubmitSuccess }) => {
         });
 
         if (res.status === 201) {
-          onSubmitSuccess(res);
+          await onSubmitSuccess(res);
           setSubmitting(false);
         } else setFormErrorMessage(await res.text());
       }}

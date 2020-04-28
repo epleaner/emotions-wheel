@@ -29,8 +29,8 @@ const Basic = ({ onSubmitSuccess }) => {
         });
 
         switch (res.status) {
-          case 201:
-            onSubmitSuccess(res);
+          case 200:
+            await onSubmitSuccess(res);
             setSubmitting(false);
             break;
           case 401:

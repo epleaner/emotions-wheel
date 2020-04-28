@@ -1,7 +1,7 @@
-require("dotenv").config();
+require('dotenv').config();
 
-const path = require("path");
-const Dotenv = require("dotenv-webpack");
+const path = require('path');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
@@ -12,7 +12,7 @@ module.exports = {
 
       // Read the .env file
       new Dotenv({
-        path: path.join(__dirname, ".env"),
+        path: path.join(__dirname, '.env'),
         systemvars: true,
       }),
     ];
@@ -21,13 +21,14 @@ module.exports = {
       ...config.resolve,
       alias: {
         ...config.resolve.alias,
-        "@components": path.resolve(__dirname, "src/components"),
-        "@helpers": path.resolve(__dirname, "src/helpers"),
-        "@styles": path.resolve(__dirname, "src/styles"),
-        "@middleware": path.resolve(__dirname, "src/middleware"),
-        "@hooks": path.resolve(__dirname, "src/hooks"),
-        "@lib": path.resolve(__dirname, "src/lib"),
-        "@static": path.resolve(__dirname, "src/static"),
+        '@components': path.resolve(__dirname, 'src/components'),
+        '@helpers': path.resolve(__dirname, 'src/helpers'),
+        '@styles': path.resolve(__dirname, 'src/styles'),
+        '@middleware': path.resolve(__dirname, 'src/middleware'),
+        '@hooks': path.resolve(__dirname, 'src/hooks'),
+        '@lib': path.resolve(__dirname, 'src/lib'),
+        '@static': path.resolve(__dirname, 'src/static'),
+        '@schemas': path.resolve(__dirname, 'src/schemas'),
       },
     };
 

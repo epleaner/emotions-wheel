@@ -7,27 +7,19 @@ import {
   FormHelperText,
   Button,
   Input,
+  Icon,
+  Text,
 } from '@chakra-ui/core';
 
+import SignUpSchema from '@schemas/formValidations/signUp';
+
 const Basic = ({ onSubmitSuccess }) => {
-  const [formErrorMessage, setFormErrorMessage] = useState();
+  const [formErrorMessage, setFormErrorMessage] = useState('');
   return (
     <Formik
       initialValues={{ name: '', email: '', password: '' }}
-      validate={(values) => {
-        setFormErrorMessage(null);
-
-        const errors = {};
-        if (!values.name) errors.name = 'Required';
-
-        if (!values.email) errors.email = 'Required';
-        else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email))
-          errors.email = 'Invalid email address';
-
-        if (!values.password) errors.password = 'Required';
-
-        return errors;
-      }}
+      validate={() => setFormErrorMessage(null)}
+      validationSchema={SignUpSchema}
       onSubmit={async (values, { setSubmitting }) => {
         const res = await fetch('/api/user', {
           method: 'POST',
@@ -92,7 +84,7 @@ const Basic = ({ onSubmitSuccess }) => {
               <FormControl
                 mb={8}
                 isRequired
-                isInvalid={form.errors.password && form.touched.password}
+                isInvalid={form.touched.password && form.errors.password}
               >
                 <FormLabel htmlFor="password">Password</FormLabel>
                 <Input

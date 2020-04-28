@@ -8,7 +8,6 @@ import FormikSignUpForm from '@components/shared/forms/FormikSignUpForm';
 const SignupPage = () => {
   const router = useRouter();
   const [user, { mutate }] = useUser();
-  const [errorMsg, setErrorMsg] = useState('');
 
   useEffect(() => {
     if (user) router.replace('/');
@@ -19,15 +18,10 @@ const SignupPage = () => {
     mutate(userObj);
   };
 
-  const onSubmitError = async (res) => void setErrorMsg(await res.text());
-
   return (
     <Flex justifyContent={'center'} alignItems={'center'} height="100%">
       <Box width={['100%', 500]} mx={[2, 0]}>
-        <FormikSignUpForm
-          onSubmitSuccess={onSubmitSuccess}
-          onSubmitError={onSubmitError}
-        />
+        <FormikSignUpForm onSubmitSuccess={onSubmitSuccess} />
       </Box>
     </Flex>
   );

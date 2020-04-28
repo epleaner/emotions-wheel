@@ -1,5 +1,6 @@
 import Link from 'next/link';
-import { useColorMode, Flex, Box, Link as ChakraLink } from '@chakra-ui/core';
+import { Flex, Box, NavLink } from 'theme-ui';
+import { useColorMode } from '@chakra-ui/core';
 import ColorToggle from '@components/shared/colorToggle';
 import useUser from '@hooks/useUser';
 import { useRouter } from 'next/router';
@@ -22,7 +23,7 @@ export default () => {
   return (
     <Flex as="header" m={2} sx={{ alignItems: 'center' }}>
       <Link href="/">
-        <ChakraLink>feeels</ChakraLink>
+        <NavLink>feeels</NavLink>
       </Link>
       <Box mx={'auto'} />
       {!isFetching && (
@@ -30,26 +31,26 @@ export default () => {
           {user ? (
             <>
               <Link href="/profile">
-                <ChakraLink
+                <NavLink
                   sx={{
                     borderRight: (theme) => `1px solid ${theme.colors.text}`,
                     px: 1,
                   }}
                 >
                   {user.name}
-                </ChakraLink>
+                </NavLink>
               </Link>
-              <ChakraLink mx={1} onClick={handleLogout}>
+              <NavLink mx={1} onClick={handleLogout}>
                 log out
-              </ChakraLink>
+              </NavLink>
             </>
           ) : (
             <>
               <Link href="/login">
-                <ChakraLink mx={1}>log in</ChakraLink>
+                <NavLink mx={1}>log in</NavLink>
               </Link>
               <Link href="/sign-up">
-                <ChakraLink mx={1}>sign up</ChakraLink>
+                <NavLink mx={1}>sign up</NavLink>
               </Link>
             </>
           )}

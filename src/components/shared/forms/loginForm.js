@@ -34,9 +34,7 @@ const Basic = ({ onSubmitSuccess }) => {
             setSubmitting(false);
             break;
           case 401:
-            setFormErrorMessage(
-              "Sorry, we couldn't log you in with that email and password."
-            );
+            setFormErrorMessage("Sorry, that email and password didn't work.");
             break;
           default:
             setFormErrorMessage('There was an error, please try again.');
@@ -95,7 +93,7 @@ const Basic = ({ onSubmitSuccess }) => {
             <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
             <Button
               mt={4}
-              variantColor="primary"
+              variantColor="green"
               isDisabled={
                 !dirty ||
                 Object.entries(errors).length ||

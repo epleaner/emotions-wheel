@@ -101,7 +101,7 @@ const Basic = ({ onSubmitSuccess }) => {
             <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
             <Button
               mt={4}
-              variantColor="primary"
+              variantColor="green"
               isDisabled={
                 !dirty ||
                 Object.entries(errors).length ||

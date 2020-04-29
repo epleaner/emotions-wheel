@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Flex, Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/core';
 
 import useUser from '@hooks/useUser';
 import SignUpForm from '@components/shared/forms/signupForm';

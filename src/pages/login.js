@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Flex, Box } from '@chakra-ui/core';
+import { Box } from '@chakra-ui/core';
 
 import LoginForm from '@components/shared/forms/loginForm';
 import CenteredContainer from '@components/shared/centeredContainer';
@@ -8,8 +8,6 @@ import CenteredContainer from '@components/shared/centeredContainer';
 import useUser from '@hooks/useUser';
 
 const LoginPage = () => {
-  const [] = useState('');
-
   const router = useRouter();
   const [user, { mutate }] = useUser();
 

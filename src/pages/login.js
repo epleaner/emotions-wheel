@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 import { Flex, Box } from '@chakra-ui/core';
 
 import LoginForm from '@components/shared/forms/loginForm';
+import CenteredContainer from '@components/shared/centeredContainer';
+
 import useUser from '@hooks/useUser';
 
 const LoginPage = () => {
@@ -23,11 +25,11 @@ const LoginPage = () => {
   };
 
   return (
-    <Flex justifyContent={'center'} alignItems={'center'} height="100%">
+    <CenteredContainer>
       <Box width={['100%', 500]} mx={[2, 0]}>
         <LoginForm onSubmitSuccess={onSubmitSuccess} />
       </Box>
-    </Flex>
+    </CenteredContainer>
   );
 };
 

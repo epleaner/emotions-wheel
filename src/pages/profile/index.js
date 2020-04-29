@@ -1,10 +1,11 @@
-import React, { useState } from "react";
-import Link from "next/link";
+import React, { useState } from 'react';
+import Link from 'next/link';
 
-import { Flex, Button, Text } from "theme-ui";
+import { Flex, Button, Text } from '@chakra-ui/core';
 
-import useUser from "@hooks/useUser";
-import EmotionList from "@components/emotionList";
+import useUser from '@hooks/useUser';
+import EmotionList from '@components/emotionList';
+import CenteredContainer from '@components/shared/centeredContainer';
 
 const ProfilePage = () => {
   const [user, , isFetching] = useUser();
@@ -14,7 +15,7 @@ const ProfilePage = () => {
 
   const sendVerification = async () => {
     setSendingVerification(true);
-    const res = await fetch("/api/user/email/verify", { method: "POST" });
+    const res = await fetch('/api/user/email/verify', { method: 'POST' });
 
     const responseJson = await res.json();
 
@@ -23,7 +24,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <Flex sx={{ justifyContent: "center" }}>
+    <CenteredContainer>
       {isFetching ? (
         <>Loading...</>
       ) : user ? (
@@ -54,7 +55,7 @@ const ProfilePage = () => {
       ) : (
         <>Please sign in</>
       )}
-    </Flex>
+    </CenteredContainer>
   );
 };
 

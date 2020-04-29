@@ -5,6 +5,7 @@ import { Box } from '@chakra-ui/core';
 import useUser from '@hooks/useUser';
 import SignUpForm from '@components/shared/forms/signupForm';
 import CenteredContainer from '@components/shared/centeredContainer';
+import Section from '@components/shared/section';
 
 const SignupPage = () => {
   const router = useRouter();
@@ -21,10 +22,10 @@ const SignupPage = () => {
 
   return (
     <CenteredContainer>
-      <Box width={['100%', 500]} mx={[2, 0]}>
+      <Section>
         <SignUpForm onSubmitSuccess={onSubmitSuccess} />
       </Box>
-    </CenteredContainer>
+    </Section>
   );
 };
 

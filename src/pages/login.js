@@ -4,6 +4,7 @@ import { Box } from '@chakra-ui/core';
 
 import LoginForm from '@components/shared/forms/loginForm';
 import CenteredContainer from '@components/shared/centeredContainer';
+import Section from '@components/shared/section';
 
 import useUser from '@hooks/useUser';
 
@@ -24,9 +25,9 @@ const LoginPage = () => {
 
   return (
     <CenteredContainer>
-      <Box width={['100%', 500]} mx={[2, 0]}>
+      <Section>
         <LoginForm onSubmitSuccess={onSubmitSuccess} />
-      </Box>
+      </Section>
     </CenteredContainer>
   );
 };

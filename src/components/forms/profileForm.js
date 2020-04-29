@@ -23,8 +23,10 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
       initialValues={{
         name: user.name,
         email: user.email,
-        oldPassword: '',
-        newPassword: '',
+        passwords: {
+          oldPassword: '',
+          newPassword: '',
+        },
       }}
       validate={() => setFormErrorMessage(null)}
       validationSchema={ProfileSchema}
@@ -90,41 +92,49 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
           <Heading as="h2" size="md">
             Change Password
           </Heading>
-          <Field name="oldPassword">
+          <Field name="passwords.oldPassword">
             {({ field, form }) => (
               <FormControl
                 mb={8}
-                isInvalid={form.errors.oldPassword && form.touched.oldPassword}
+                isInvalid={
+                  form.errors.passwords && !!form.errors.passwords.oldPassword
+                }
               >
                 <FormLabel htmlFor="oldPassword">Current Password</FormLabel>
                 <Input
-                  aria-label="Password"
+                  aria-label="Old Password"
                   variant="flushed"
                   {...field}
                   id="oldPassword"
-                  type="oldPassword"
+                  type="password"
                   placeholder=""
                 />
-                <FormErrorMessage>{form.errors.oldPassword}</FormErrorMessage>
+                <FormErrorMessage>
+                  {form.errors.passwords && form.errors.passwords.oldPassword}
+                </FormErrorMessage>
               </FormControl>
             )}
           </Field>
-          <Field name="newPassword">
+          <Field name="passwords.newPassword">
             {({ field, form }) => (
               <FormControl
                 mb={8}
-                isInvalid={form.errors.newPassword && form.touched.newPassword}
+                isInvalid={
+                  form.errors.passwords && !!form.errors.passwords.newPassword
+                }
               >
                 <FormLabel htmlFor="newPassword">New Password</FormLabel>
                 <Input
-                  aria-label="Password"
+                  aria-label="New Password"
                   variant="flushed"
                   {...field}
                   id="newPassword"
-                  type="newPassword"
+                  type="password"
                   placeholder=""
                 />
-                <FormErrorMessage>{form.errors.newPassword}</FormErrorMessage>
+                <FormErrorMessage>
+                  {form.errors.passwords && form.errors.passwords.newPassword}
+                </FormErrorMessage>
               </FormControl>
             )}
           </Field>

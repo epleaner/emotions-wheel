@@ -1,9 +1,8 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Box } from '@chakra-ui/core';
 
 import useUser from '@hooks/useUser';
-import SignUpForm from '@components/shared/forms/signupForm';
+import SignUpForm from '@components/forms/signupForm';
 import CenteredContainer from '@components/shared/centeredContainer';
 import Section from '@components/shared/section';
 
@@ -24,8 +23,8 @@ const SignupPage = () => {
     <CenteredContainer>
       <Section>
         <SignUpForm onSubmitSuccess={onSubmitSuccess} />
-      </Box>
-    </Section>
+      </Section>
+    </CenteredContainer>
   );
 };
 

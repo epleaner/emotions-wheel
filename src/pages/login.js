@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { Box } from '@chakra-ui/core';
 
-import LoginForm from '@components/shared/forms/loginForm';
+import LoginForm from '@components/forms/loginForm';
 import CenteredContainer from '@components/shared/centeredContainer';
 import Section from '@components/shared/section';
 

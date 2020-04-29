@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+
 import { Formik, Form, Field } from 'formik';
 import {
   FormControl,
@@ -11,7 +13,7 @@ import {
 
 import SignUpSchema from '@schemas/formValidations/signupFormValidations';
 
-const Basic = ({ onSubmitSuccess }) => {
+const SignupForm = ({ onSubmitSuccess }) => {
   const [formErrorMessage, setFormErrorMessage] = useState('');
   return (
     <Formik
@@ -121,4 +123,8 @@ const Basic = ({ onSubmitSuccess }) => {
   );
 };
 
-export default Basic;
+SignupForm.propTypes = {
+  onSubmitSuccess: PropTypes.func,
+};
+
+export default SignupForm;

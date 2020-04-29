@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import Link from 'next/link';
 
@@ -14,7 +15,7 @@ import {
 
 import LoginSchema from '@schemas/formValidations/loginFormValidations';
 
-const Basic = ({ onSubmitSuccess }) => {
+const LoginForm = ({ onSubmitSuccess }) => {
   const [formErrorMessage, setFormErrorMessage] = useState('');
   return (
     <Formik
@@ -113,4 +114,8 @@ const Basic = ({ onSubmitSuccess }) => {
   );
 };
 
-export default Basic;
+LoginForm.propTypes = {
+  onSubmitSuccess: PropTypes.func,
+};
+
+export default LoginForm;

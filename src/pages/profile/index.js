@@ -38,7 +38,7 @@ const ProfilePage = () => {
       {isFetching ? (
         <Text>Loading...</Text>
       ) : !user ? (
-        <Text>Please sign in</Text>
+        <Text>Please log in.</Text>
       ) : (
         <Section>
           <Heading mb={4}>{name}</Heading>
@@ -57,7 +57,7 @@ const ProfilePage = () => {
                 size="xs"
                 type="button"
                 variantColor="green"
-                disabled={sendingVerification}
+                isDisabled={sendingVerification}
                 onClick={sendVerification}
               >
                 Verify

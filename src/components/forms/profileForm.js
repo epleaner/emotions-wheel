@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
-import Link from 'next/link';
 
 import {
   FormControl,
@@ -9,6 +8,9 @@ import {
   FormErrorMessage,
   Button,
   Input,
+  FormHelperText,
+  Text,
+  Icon,
 } from '@chakra-ui/core';
 
 import ProfileSchema from '@schemas/formValidations/profileFormValidations';
@@ -16,7 +18,8 @@ import ProfileSchema from '@schemas/formValidations/profileFormValidations';
 import Heading from '@components/shared/heading';
 
 const ProfileForm = ({ onSubmitSuccess, user }) => {
-  const [formErrorMessage, setFormErrorMessage] = useState('');
+  const [formErrorMessage, setFormErrorMessage] = useState(null);
+  const [formSuccessMessage, setFormSuccessMessage] = useState(null);
 
   return (
     <Formik
@@ -28,9 +31,12 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
           newPassword: '',
         },
       }}
-      validate={() => setFormErrorMessage(null)}
+      validate={() => {
+        setFormSuccessMessage(null);
+        setFormErrorMessage(null);
+      }}
       validationSchema={ProfileSchema}
-      onSubmit={async (values, { setSubmitting }) => {
+      onSubmit={async (values, actions) => {
         const res = await fetch('/api/user', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
@@ -40,9 +46,21 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
         const resJson = await res.json();
 
         if (resJson.ok) {
-          await onSubmitSuccess(res);
+          await onSubmitSuccess(resJson);
+
+          actions.setFieldValue(
+            'passwords',
+            {
+              oldPassword: '',
+              newPassword: '',
+            },
+            false
+          );
+
+          setFormSuccessMessage(resJson.message);
           setSubmitting(false);
         } else {
+          setFormSuccessMessage(null);
           setFormErrorMessage(resJson.message);
         }
       }}
@@ -139,6 +157,12 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
             )}
           </Field>
           <FormControl isInvalid={formErrorMessage}>
+            {formSuccessMessage && (
+              <FormHelperText color="green.500">
+                <Icon name="check" mr={2} />
+                {formSuccessMessage}
+              </FormHelperText>
+            )}
             <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
             <Button
               mt={4}

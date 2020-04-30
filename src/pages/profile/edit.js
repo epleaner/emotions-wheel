@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Text } from '@chakra-ui/core';
+import { Box, Button, Text, Spinner } from '@chakra-ui/core';
 import useUser from '@hooks/useUser';
 
 import CenteredContainer from '@components/shared/centeredContainer';
@@ -81,11 +81,11 @@ const EditProfile = () => {
     setIsUpdating(false);
   };
 
-  const onSubmitSuccess = async (res) => {
+  const onSubmitSuccess = async (resJson) => {
     mutate({
       user: {
         ...user,
-        ...(await res.json().user),
+        ...(await resJson.user),
       },
     });
   };
@@ -114,7 +114,7 @@ const EditProfile = () => {
   return (
     <CenteredContainer>
       {isFetching ? (
-        <Text>Loading...</Text>
+        <Spinner />
       ) : justDeleted ? (
         <Text>Your account has been deleted. Sorry to see you go!</Text>
       ) : !user ? (

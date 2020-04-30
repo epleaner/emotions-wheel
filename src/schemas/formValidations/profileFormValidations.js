@@ -15,7 +15,7 @@ export default yup.object().shape({
         then: yup
           .string()
           .required('Required')
-          .length(8, 'At least 8 characters, please'),
+          .min(8, 'At least 8 characters, please'),
         otherwise: yup.string(),
       }),
     },

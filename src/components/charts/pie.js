@@ -1,8 +1,8 @@
-import React, { useEffect, useRef } from "react";
-import * as d3 from "d3";
+import React, { useEffect, useRef } from 'react';
+import * as d3 from 'd3';
 
 const Pie = (props) => {
-  const { width, height, innerRadius, outerRadius } = props;
+  const { data, width, height, innerRadius, outerRadius } = props;
   const ref = useRef(null);
 
   const createPie = d3
@@ -13,42 +13,37 @@ const Pie = (props) => {
   const createArc = d3.arc().innerRadius(innerRadius).outerRadius(outerRadius);
 
   const colors = d3.scaleOrdinal(d3.schemeCategory10);
-  const format = d3.format(".2f");
 
   useEffect(() => {
-    const data = createPie(props.data);
-    console.log("data", data);
+    const pieData = createPie(data);
     const group = d3.select(ref.current);
-    console.log("group", group);
 
-    const groupWithData = group.selectAll("g.arc").data(data);
-    console.log("groupwithdata", groupWithData);
+    const groupWithData = group.selectAll('g.arc').data(pieData);
 
     groupWithData.exit().remove();
 
     const groupWithUpdate = groupWithData
       .enter()
-      .append("g")
-      .attr("class", "arc");
-    console.log("groupwithupdate", groupWithUpdate);
+      .append('g')
+      .attr('class', 'arc');
 
     groupWithUpdate
-      .append("path")
-      .merge(groupWithData.select("path.arc"))
-      .attr("class", "arc")
-      .attr("d", createArc)
-      .attr("fill", (d, i) => colors(i));
+      .append('path')
+      .merge(groupWithData.select('path.arc'))
+      .attr('class', 'arc')
+      .attr('d', createArc)
+      .attr('fill', (d, i) => colors(i));
 
     groupWithUpdate
-      .append("text")
-      .merge(groupWithData.select("text"))
-      .attr("text-anchor", "middle")
-      .attr("alignment-baseline", "middle")
-      .attr("transform", (d) => `translate(${createArc.centroid(d)})`)
-      .style("fill", "white")
-      .style("font-size", 10)
-      .text((d) => format(d.value));
-  }, [props.data]);
+      .append('text')
+      .merge(groupWithData.select('text'))
+      .attr('text-anchor', 'middle')
+      .attr('alignment-baseline', 'middle')
+      .attr('transform', (d) => `translate(${createArc.centroid(d)})`)
+      .style('fill', 'white')
+      .style('font-size', 10)
+      .text((d) => d.label);
+  });
 
   return (
     <svg width={width} height={height}>

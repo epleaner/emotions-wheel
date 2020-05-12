@@ -1,13 +1,11 @@
-import * as React from "react";
-import * as d3 from "d3";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import * as d3 from 'd3';
 
-let dataInner = [];
+// const dataInner = ['Happy', 'Sad', 'Angry', 'Afraid', 'Lonely'];
+const dataInner = [1, 2, 3, 4, 5];
 
-for (let i = 0; i < 10; i++) {
-  dataInner.push(Math.random());
-}
-
-export default () => {
+const Donut = () => {
   const height = 400;
   const width = 400;
 
@@ -25,13 +23,14 @@ export default () => {
 const Slice = (props) => {
   let { pie } = props;
 
-  let interpolateInner = d3.interpolateRgb("#eaaf79", "#bc3358");
+  let interpolateInner = d3.interpolateRgb('#eaaf79', '#bc3358');
 
   return pie.map((slice, index) => {
     let sliceColor = interpolateInner(index / (pie.length - 1));
 
     return (
       <Path
+        key={`${slice.startAngle}-${slice.endAngle}`}
         radius={130}
         interpolate={interpolateInner}
         slice={slice}
@@ -41,74 +40,68 @@ const Slice = (props) => {
   });
 };
 
-class Path extends React.Component {
-  constructor(props) {
-    super(props);
+const Path = (props) => {
+  const { radius, slice, sliceColor } = props;
 
-    this.state = {
-      isHovered: false,
-    };
-  }
+  const [isHovered, setIsHovered] = useState(false);
 
-  onMouseOver = () => {
-    this.setState({
-      isHovered: true,
-    });
-  };
+  const onMouseOver = () => setIsHovered(true);
+  const onMouseOut = () => setIsHovered(false);
 
-  onMouseOut = () => {
-    this.setState({
-      isHovered: false,
-    });
-  };
+  const interpolateOuter = d3.interpolateRgb('#36384b', '#4992ab');
+  const dataOuter = [1, 2, 4];
 
-  interpolateOutter = d3.interpolateRgb("#36384b", "#4992ab");
-  dataOutter = [1, 2, 4];
+  const outerRadius = isHovered ? radius * 1.1 : radius;
+  const innerRadius = radius * 0.7;
 
-  render() {
-    let { radius, slice, sliceColor, interpolate } = this.props;
+  const arc = d3
+    .arc()
+    .innerRadius(innerRadius)
+    .outerRadius(outerRadius)
+    .padAngle(0.01)
+    .cornerRadius(2);
 
-    const outerRadius = this.state.isHovered ? radius * 1.1 : radius;
-    const innerRadius = radius * 0.7;
+  const arcSlice = arc(slice);
 
-    const arc = d3
-      .arc()
-      .innerRadius(innerRadius)
-      .outerRadius(outerRadius)
-      .padAngle(0.01)
-      .cornerRadius(2);
+  let outerPie = d3.pie().startAngle(slice.startAngle).endAngle(slice.endAngle);
 
-    let outterPie = d3
-      .pie()
-      .startAngle(slice.startAngle)
-      .endAngle(slice.endAngle);
+  const arc2 = d3
+    .arc()
+    .innerRadius(outerRadius * 1.01)
+    .outerRadius(outerRadius * 1.3)
+    .padAngle(0.005)
+    .cornerRadius(0);
 
-    const arc2 = d3
-      .arc()
-      .innerRadius(outerRadius * 1.01)
-      .outerRadius(outerRadius * 1.3)
-      .padAngle(0.005)
-      .cornerRadius(0);
+  return (
+    <g>
+      <path
+        d={arcSlice}
+        fill={sliceColor}
+        onMouseOver={onMouseOver}
+        onMouseOut={onMouseOut}
+      />
+      {outerPie(dataOuter).map((outerSlice, index) => {
+        let sliceColorOuter = interpolateOuter(
+          index / (outerPie(dataOuter).length - 1)
+        );
 
-    return (
-      <g>
-        <path
-          d={arc(slice)}
-          fill={sliceColor}
-          onMouseOver={this.onMouseOver}
-          onMouseOut={this.onMouseOut}
-        />
-        {outterPie(this.dataOutter).map((outterSlice, index) => {
-          let sliceColorOutter = this.interpolateOutter(
-            index / (outterPie(this.dataOutter).length - 1)
-          );
+        return (
+          <path
+            key={`${outerSlice.value}-${outerSlice.startAngle}-${outerSlice.endAngle}`}
+            d={arc2(outerSlice)}
+            fill={sliceColorOuter}
+          />
+        );
+      })}
+      {isHovered && <circle r={innerRadius * 0.95} fill={sliceColor} />}
+    </g>
+  );
+};
 
-          return <path d={arc2(outterSlice)} fill={sliceColorOutter} />;
-        })}
-        {this.state.isHovered && (
-          <circle r={innerRadius * 0.95} fill={sliceColor} />
-        )}
-      </g>
-    );
-  }
-}
+Path.propTypes = {
+  radius: PropTypes.number.isRequired,
+  slice: PropTypes.object.isRequired,
+  sliceColor: PropTypes.any.isRequired,
+};
+
+export default Donut;

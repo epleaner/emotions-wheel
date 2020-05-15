@@ -38,7 +38,7 @@ const Sunburst = (props) => {
       .select(ref.current)
       .append('svg')
       .style('width', '100vw')
-      .style('height', '100vh')
+      .style('height', '90vh')
       .attr('viewBox', [0, 0, width, width])
       .style('font', '10px sans-serif');
 
@@ -111,6 +111,8 @@ const Sunburst = (props) => {
 
       const t = g.transition().duration(750);
       const tShort = g.transition().duration(100);
+
+      parent.style('cursor', () => (p.parent ? 'pointer' : null));
 
       parent.transition(t).attr('fill', () => {
         return parentColor(p);

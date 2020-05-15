@@ -93,19 +93,6 @@ const Sunburst = (props) => {
     [x, y]
   );
 
-  const textFits = useCallback(
-    (d) => {
-      const charSpace = 6;
-
-      const deltaAngle = x(d.x1) - x(d.x0);
-      const radius = Math.max(0, (y(d.y0) + y(d.y1)) / 2);
-      const perimeter = radius * deltaAngle;
-
-      return d.data.name.length * charSpace < perimeter;
-    },
-    [x, y]
-  );
-
   const focusOn = useCallback(
     (svg, d = { x0: 0, x1: 1, y0: 0, y1: 1 }) => {
       // reset to top-level if no data point specified
@@ -129,9 +116,6 @@ const Sunburst = (props) => {
       transition
         .selectAll('path.hidden-arc')
         .attrTween('d', (d) => () => middleArcLine(d));
-      transition
-        .selectAll('text')
-        .attrTween('display', (d) => () => (textFits(d) ? null : 'none'));
 
       const moveStackToFront = (elementId) => {
         svg
@@ -147,7 +131,7 @@ const Sunburst = (props) => {
 
       moveStackToFront(d);
     },
-    [sunburstArc, middleArcLine, textFits, x, y]
+    [sunburstArc, middleArcLine, x, y]
   );
 
   useEffect(() => {
@@ -198,7 +182,6 @@ const Sunburst = (props) => {
 
     const text = newSlices
       .append('text')
-      .attr('display', (d) => (textFits(d) ? null : 'none'))
       .style('pointer-events', 'none')
       .style('dominant-baseline', 'middle')
       .style('text-anchor', 'middle');
@@ -211,7 +194,7 @@ const Sunburst = (props) => {
       .text((d) => d.data.name)
       .style('fill', 'none')
       .style('stroke', '#fff')
-      .style('stroke-width', 5)
+      .style('stroke-width', 2)
       .style('stroke-linejoin', 'round');
 
     text
@@ -228,7 +211,6 @@ const Sunburst = (props) => {
     sunburstArc,
     middleArcLine,
     color,
-    textFits,
   ]);
 
   return <main ref={ref}></main>;

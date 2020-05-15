@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { TransitionGroup } from 'react-transition-group';
 
@@ -25,7 +25,7 @@ const Alphabet = ({ x, y }) => {
   const [alphabet, setAlphabet] = useState([]);
 
   useEffect(() => {
-    const intervalId = interval(() => setAlphabet(shuffle(sentences)[0]), 2000);
+    const intervalId = interval(() => setAlphabet(shuffle(sentences)[0]), 3000);
 
     return () => intervalId.stop();
   }, [sentences]);

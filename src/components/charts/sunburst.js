@@ -32,9 +32,14 @@ const Sunburst = (props) => {
     height,
   ]);
 
-  const y = useMemo(() => d3.scaleSqrt().range([maxRadius * 0.1, maxRadius]), [
-    maxRadius,
-  ]);
+  const y = useMemo(
+    () =>
+      d3
+        .scaleSqrt()
+        .domain([0.25, 1])
+        .range([maxRadius * 0.05, maxRadius]),
+    [maxRadius]
+  );
 
   const root = useMemo(() => {
     const root = d3.hierarchy(jsonData);
@@ -110,7 +115,7 @@ const Sunburst = (props) => {
         .duration(750)
         .tween('scale', () => {
           const xd = d3.interpolate(x.domain(), [d.x0, d.x1]);
-          const yd = d3.interpolate(y.domain(), [d.y0, 1]);
+          const yd = d3.interpolate(y.domain(), [0.25, 1]);
 
           return (t) => {
             x.domain(xd(t));
@@ -159,11 +164,9 @@ const Sunburst = (props) => {
 
   useEffect(() => {
     if (sunburstSvg === null) return;
-
     const slice = sunburstSvg
       .selectAll('g.slice')
-      .data(partition(root).descendants());
-
+      .data(partition(root).descendants().slice(1));
     slice.exit().remove();
 
     const newSlices = slice

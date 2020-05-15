@@ -39,7 +39,7 @@ const FadeInAfterText = styled(Box)`
 const Index = () => {
   return (
     <>
-      <Box m={10}>
+      <Box mx={10} mt={2}>
         <FadeInH1>hey.</FadeInH1>
         {'how are you doing?'.split(' ').map((text, index) => (
           <span

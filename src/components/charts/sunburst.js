@@ -38,7 +38,7 @@ const Sunburst = (props) => {
       .select(ref.current)
       .append('svg')
       .style('width', '100vw')
-      .style('height', '90vh')
+      .style('height', '80vh')
       .attr('viewBox', [0, 0, width, width])
       .style('font', '10px sans-serif');
 
@@ -181,7 +181,6 @@ const Sunburst = (props) => {
 
 Sunburst.propTypes = {
   width: PropTypes.number.isRequired,
-  height: PropTypes.number.isRequired,
 };
 
 export default Sunburst;

@@ -1,9 +1,10 @@
 /** @jsx jsx */
-import styled from "@emotion/styled";
-import { keyframes } from "@emotion/core";
-import { Flex, Box, jsx } from "theme-ui";
+import styled from '@emotion/styled';
+import { keyframes } from '@emotion/core';
+import { jsx } from 'theme-ui';
+import { Grid, Box, Flex } from '@chakra-ui/core';
 
-import EmotionSelector from "@components/emotionSelector";
+import Sunburst from '@components/charts/sunburst';
 
 const fadeInTop = keyframes`
 from {
@@ -35,33 +36,31 @@ const FadeInAfterText = styled(Box)`
   animation: 2s ${fadeInBottom} ease 3s both;
 `;
 
-export default () => {
+const Index = () => {
   return (
     <>
-      <Flex
-        sx={{ alignItems: "center", justifyContent: "center", width: "100%" }}
-      >
-        <Box mb={4}>
-          <FadeInH1>hey.</FadeInH1>
-          {"how are you doing?".split(" ").map((text, index) => (
-            <span
-              key={text}
-              sx={{
-                animation: `2.5s ${fadeInTop} ${(index + 5) * 0.2}s ease both`,
-              }}
-            >
-              {text}{" "}
-            </span>
-          ))}
-        </Box>
-      </Flex>
-      <Flex
-        sx={{ alignItems: "center", justifyContent: "center", width: "100%" }}
-      >
-        <FadeInAfterText>
-          <EmotionSelector />
-        </FadeInAfterText>
-      </Flex>
+      <Box m={10}>
+        <FadeInH1>hey.</FadeInH1>
+        {'how are you doing?'.split(' ').map((text, index) => (
+          <span
+            key={text}
+            sx={{
+              animation: `2.5s ${fadeInTop} ${(index + 5) * 0.2}s ease both`,
+            }}
+          >
+            {text}{' '}
+          </span>
+        ))}
+      </Box>
+      <FadeInAfterText>
+        <Grid templateColumns='repeat(5, 1fr)' gap={6}>
+          <Box w='100%'>
+            <Sunburst width={600} />
+          </Box>
+        </Grid>
+      </FadeInAfterText>
     </>
   );
 };
+
+export default Index;

@@ -3,7 +3,7 @@ import { Flex, Box } from '@chakra-ui/core';
 
 import Sunburst from '@components/charts/sunburst';
 import SelectedBreadcrumb from '@components/emotionSelector/selectedBreadcrumb';
-import SelectionForm from '@components/emotionSelector/selectionForm';
+import EmotionSelectionForm from '@components/forms/emotionSelectionForm';
 
 const SunburtSelector = () => {
   const [selected, setSelected] = useState();
@@ -16,7 +16,9 @@ const SunburtSelector = () => {
       <Flex w='100%' h={30} justifyContent='center' alignItems='baseline'>
         {selected && <SelectedBreadcrumb {...{ selected }} />}
       </Flex>
-      <SelectionForm {...{ selected }} />
+      <Flex w='100%' justifyContent='center'>
+        <EmotionSelectionForm {...{ selected }} onSubmitSuccess={() => {}} />
+      </Flex>
     </>
   );
 };

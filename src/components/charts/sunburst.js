@@ -51,7 +51,7 @@ const Sunburst = ({ width = 600, onSelect }) => {
       .style('height', '80vh')
       .attr('viewBox', [0, 0, width, width])
       .style('font', '10px sans-serif');
-    console.log(svg);
+
     const g = svg
       .append('g')
       .attr('transform', `translate(${width / 2},${width / 2})`);

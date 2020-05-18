@@ -2,7 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import jsonData from '@static/emotions.json';
 
-import * as d3 from 'd3';
+import { partition as d3Partition, hierarchy } from 'd3-hierarchy';
+import { scaleLinear, scaleOrdinal } from 'd3-scale';
+import { quantize, interpolate } from 'd3-interpolate';
+import { interpolateRainbow } from 'd3-scale-chromatic';
+import { arc as d3Arc } from 'd3-shape';
+import { select as d3Select } from 'd3-selection';
+import { transition } from 'd3-transition';
 
 const Sunburst = (props) => {
   const ref = useRef(null);
@@ -10,10 +16,11 @@ const Sunburst = (props) => {
   const { width = 600 } = props;
 
   useEffect(() => {
+    // following example at https://observablehq.com/@d3/zoomable-sunburst
     const data = jsonData;
     const partition = (data) => {
-      const root = d3.hierarchy(data).sum((d) => d.size);
-      return d3.partition().size([2 * Math.PI, root.height + 1])(root);
+      const root = hierarchy(data).sum((d) => d.size);
+      return d3Partition().size([2 * Math.PI, root.height + 1])(root);
     };
 
     const root = partition(data);
@@ -22,17 +29,15 @@ const Sunburst = (props) => {
     const chartRadius = width / 3;
     const centerCircleRadius = 25;
 
-    const yScale = d3
-      .scaleLinear()
+    const yScale = scaleLinear()
       .domain([1, 3])
       .range([centerCircleRadius * 1.1, chartRadius]);
 
-    const color = d3.scaleOrdinal(
-      d3.quantize(d3.interpolateRainbow, data.children.length + 1)
+    const color = scaleOrdinal(
+      quantize(interpolateRainbow, data.children.length + 1)
     );
 
-    const arc = d3
-      .arc()
+    const arc = d3Arc()
       .startAngle((d) => d.x0)
       .endAngle((d) => d.x1)
       .padAngle((d) => Math.min((d.x1 - d.x0) / 2, 0.005))
@@ -41,14 +46,13 @@ const Sunburst = (props) => {
       .outerRadius((d) => yScale(d.y1))
       .cornerRadius(25);
 
-    const svg = d3
-      .select(ref.current)
+    const svg = d3Select(ref.current)
       .append('svg')
       .style('width', '100vw')
       .style('height', '80vh')
       .attr('viewBox', [0, 0, width, width])
       .style('font', '10px sans-serif');
-
+    console.log(svg);
     const g = svg
       .append('g')
       .attr('transform', `translate(${width / 2},${width / 2})`);
@@ -140,7 +144,7 @@ const Sunburst = (props) => {
       path
         .transition(t)
         .tween('data', (d) => {
-          const i = d3.interpolate(d.current, d.target);
+          const i = interpolate(d.current, d.target);
           return (t) => (d.current = i(t));
         })
         .filter(function (d) {

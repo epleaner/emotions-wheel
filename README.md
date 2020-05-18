@@ -43,4 +43,5 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 - [ ] Field editing in place
 - [ ] sunburst drop shadow: http://bl.ocks.org/cpbotha/5200394
 - [ ] sunburst colors
+- [ ] sunburst circle expands to fill space
 - [ ] Forms with https://jaredpalmer.com/formik/ (https://chakra-ui.com/formcontrol#usage-with-form-libraries)

@@ -31,7 +31,7 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 
 ### emotion selection
 
-- [ ] User sees a sunburst view of all emotions at once
+- [x] User sees a sunburst view of all emotions at once
 - [ ] User can select multiple emotions
 
 ### UI
@@ -41,4 +41,5 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 - [ ] Loading state for logging out
 - [ ] Loading placeholders for content
 - [ ] Field editing in place
+- [ ] sunburst drop shadow: http://bl.ocks.org/cpbotha/5200394
 - [ ] Forms with https://jaredpalmer.com/formik/ (https://chakra-ui.com/formcontrol#usage-with-form-libraries)

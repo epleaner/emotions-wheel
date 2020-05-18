@@ -1,7 +1,6 @@
 import React from 'react';
-import { Box } from '@chakra-ui/core';
 
-import SunburstSelector from '@components/emotionSelector/sunburstSelector';
+import SunburstSelector from '@components/emotionSelector';
 
 const Index = () => {
   return <SunburstSelector />;

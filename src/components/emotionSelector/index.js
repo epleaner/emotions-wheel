@@ -16,7 +16,7 @@ const SunburtSelector = () => {
       <Flex w='100%' h={30} justifyContent='center' alignItems='baseline'>
         {selected && <SelectedBreadcrumb {...{ selected }} />}
       </Flex>
-      <Flex w='100%' justifyContent='center'>
+      <Flex w='100%' mt={4} justifyContent='center'>
         <EmotionSelectionForm {...{ selected }} onSubmitSuccess={() => {}} />
       </Flex>
     </>

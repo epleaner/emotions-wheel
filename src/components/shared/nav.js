@@ -13,7 +13,7 @@ const Nav = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Flex as='header' m={2} alignItems='center'>
+    <Flex as='header' mx={2} mt={2} alignItems='center'>
       <Link href='/'>
         <UILink>feeels</UILink>
       </Link>

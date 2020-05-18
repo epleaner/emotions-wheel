@@ -54,7 +54,7 @@ const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
                     id='name'
                     type='text'
                     variant='flushed'
-                    width={[400, 600]}
+                    width={['100%', 600]}
                     borderColor={
                       selected
                         ? selected.color
@@ -72,7 +72,7 @@ const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
                     variant='outline'
                     borderColor={selected ? selected.color : 'gray.400'}
                     _hover={{ bg: selected ? selected.color : 'gray.100' }}
-                    size='xs'
+                    size='sm'
                     isDisabled={
                       !selected ||
                       Object.entries(errors).length ||

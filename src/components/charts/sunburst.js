@@ -7,7 +7,7 @@ import * as d3 from 'd3';
 const Sunburst = (props) => {
   const ref = useRef(null);
 
-  const { width = 800 } = props;
+  const { width = 600 } = props;
 
   useEffect(() => {
     const data = jsonData;
@@ -19,7 +19,14 @@ const Sunburst = (props) => {
     const root = partition(data);
     root.each((d) => (d.current = d));
 
-    const radius = width / 8;
+    const chartRadius = width / 3;
+    const centerCircleRadius = 25;
+
+    const yScale = d3
+      .scaleLinear()
+      .domain([1, 3])
+      .range([centerCircleRadius * 1.1, chartRadius]);
+
     const color = d3.scaleOrdinal(
       d3.quantize(d3.interpolateRainbow, data.children.length + 1)
     );
@@ -29,9 +36,9 @@ const Sunburst = (props) => {
       .startAngle((d) => d.x0)
       .endAngle((d) => d.x1)
       .padAngle((d) => Math.min((d.x1 - d.x0) / 2, 0.005))
-      .padRadius(radius * 1.5)
-      .innerRadius((d) => d.y0 * radius)
-      .outerRadius((d) => Math.max(d.y0 * radius, d.y1 * radius - 1))
+      .padRadius(chartRadius * 1.5)
+      .innerRadius((d) => yScale(d.y0))
+      .outerRadius((d) => yScale(d.y1))
       .cornerRadius(25);
 
     const svg = d3
@@ -75,7 +82,7 @@ const Sunburst = (props) => {
     const parent = g
       .append('circle')
       .datum(root)
-      .attr('r', radius / 1.1)
+      .attr('r', centerCircleRadius)
       .attr('fill', (d) => parentColor(d))
       .attr('pointer-events', 'all')
       .on('click', clicked);
@@ -162,16 +169,24 @@ const Sunburst = (props) => {
     }
 
     function arcVisible(d) {
-      return d.y1 <= 4 && d.y0 >= 1 && d.x1 > d.x0;
+      const layersToShow = 4; //isMobileOnly ? 3 : 4;
+
+      return d.y1 <= layersToShow && d.y0 >= 1 && d.x1 > d.x0;
     }
 
     function labelVisible(d) {
-      return d.y1 <= 4 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
+      const layersToShow = 4; //isMobileOnly ? 3 : 4;
+
+      return (
+        d.y1 <= layersToShow &&
+        d.y0 >= 1 &&
+        (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03
+      );
     }
 
     function labelTransform(d) {
       const x = (((d.x0 + d.x1) / 2) * 180) / Math.PI;
-      const y = ((d.y0 + d.y1) / 2) * radius;
+      const y = yScale((d.y0 + d.y1) / 2);
       return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
     }
   }, [width]);

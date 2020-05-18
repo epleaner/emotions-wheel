@@ -44,6 +44,9 @@ const customTheme = {
     nav: {
       cursor: 'pointer',
       transition: 'color .2s linear',
+      ':hover': {
+        textDecoration: 'none',
+      },
     },
   },
   forms: {

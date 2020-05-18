@@ -8,12 +8,11 @@ import { quantize, interpolate } from 'd3-interpolate';
 import { interpolateRainbow } from 'd3-scale-chromatic';
 import { arc as d3Arc } from 'd3-shape';
 import { select as d3Select } from 'd3-selection';
+// eslint-disable-next-line no-unused-vars
 import { transition } from 'd3-transition';
 
-const Sunburst = (props) => {
+const Sunburst = ({ width = 600, onSelect }) => {
   const ref = useRef(null);
-
-  const { width = 600 } = props;
 
   useEffect(() => {
     // following example at https://observablehq.com/@d3/zoomable-sunburst
@@ -102,6 +101,7 @@ const Sunburst = (props) => {
       .text((d) => d.data.name);
 
     function clicked(p) {
+      onSelect(p.parent ? { ...p, color: parentColor(p) } : null);
       parent.datum(p.parent || root);
 
       root.each(
@@ -193,13 +193,14 @@ const Sunburst = (props) => {
       const y = yScale((d.y0 + d.y1) / 2);
       return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
     }
-  }, [width]);
+  }, [width, onSelect]);
 
   return <main ref={ref}></main>;
 };
 
 Sunburst.propTypes = {
-  width: PropTypes.number.isRequired,
+  width: PropTypes.number,
+  onSelect: PropTypes.func.isRequired,
 };
 
 export default Sunburst;

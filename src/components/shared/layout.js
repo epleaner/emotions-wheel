@@ -1,21 +1,21 @@
-import Nav from "@components/shared/nav";
-import Footer from "@components/shared/footer";
-import styled from "@emotion/styled";
+import React from 'react';
+import PropTypes from 'prop-types';
+import Nav from '@components/shared/nav';
+import Footer from '@components/shared/footer';
+import { Flex, Box } from '@chakra-ui/core';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-`;
-const Body = styled.div`
-  height: 100%;
-  width: 100vw;
-`;
-
-export default ({ children }) => (
-  <Container>
+const Layout = ({ children }) => (
+  <Flex h='100%' direction='column'>
     <Nav />
-    <Body>{children}</Body>
+    <Box as='main' flex='1 0 auto'>
+      {children}
+    </Box>
     <Footer />
-  </Container>
+  </Flex>
 );
+
+Layout.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default Layout;

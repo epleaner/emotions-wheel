@@ -37,18 +37,13 @@ const customTheme = {
       },
     },
   },
-  text: {
-    small: {
-      fontSize: '.8rem',
-    },
-    heading: {
-      fontSize: '2.5rem',
-    },
+  borders: {
+    text: '1px solid',
   },
   links: {
     nav: {
       cursor: 'pointer',
-      transition: 'color .15s linear',
+      transition: 'color .2s linear',
     },
   },
   forms: {

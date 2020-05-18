@@ -1,18 +1,16 @@
-import Link from "next/link";
-import { Flex, Text, NavLink } from "theme-ui";
+import React from 'react';
+import Link from 'next/link';
+import { Flex, Text, Link as UILink } from '@chakra-ui/core';
 
-export default () => (
-  <Flex m={2} as="footer">
-    <Link href="/about">
-      <NavLink
-        pr={1}
-        sx={{ borderRight: (theme) => `1px solid ${theme.colors.text}` }}
-      >
-        <Text variant="small">about</Text>
-      </NavLink>
+const Footer = () => (
+  <Flex p={2} as='footer' flexShrink={1}>
+    <Link href='/about'>
+      <UILink pr={3} mr={3} borderRight='text'>
+        <Text fontSize='xs'>about</Text>
+      </UILink>
     </Link>
-    <Text ml={1} variant="small">
-      made with 💛 by eli
-    </Text>
+    <Text fontSize='xs'>made with 💛 by eli</Text>
   </Flex>
 );
+
+export default Footer;

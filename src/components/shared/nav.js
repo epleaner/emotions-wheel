@@ -1,7 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useColorMode, Flex, Box, Link as UILink } from '@chakra-ui/core';
+import { useColorMode, Flex, Button, Box, Text } from '@chakra-ui/core';
 import ColorToggle from '@components/shared/colorToggle';
 import LoggedInLinks from '@components/nav/loggedInLinks';
 import LoggedOutLinks from '@components/nav/loggedOutLinks';
@@ -13,9 +12,20 @@ const Nav = () => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   return (
-    <Flex as='header' mx={2} mt={2} alignItems='center'>
+    <Flex as='header' mx={4} mt={2} alignItems='center'>
       <Link href='/'>
-        <UILink>feeels</UILink>
+        <Button
+          variantColor='black'
+          _hover={{
+            color: `green.${colorMode === 'light' ? 500 : 300}`,
+            textDecoration: 'none',
+          }}
+          variant='link'
+        >
+          <Text textTransform='uppercase' fontSize='sm'>
+            feels
+          </Text>
+        </Button>
       </Link>
       <Box mx={'auto'} />
       {!isFetching && (

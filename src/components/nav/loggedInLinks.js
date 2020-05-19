@@ -12,13 +12,13 @@ const LoggedInLinks = () => {
     await fetch('/api/auth', {
       method: 'DELETE',
     });
-    router.push('/');
 
     // set the user state to null
     mutate(null);
+    router.push('/');
   };
 
-  return (
+  return user ? (
     <>
       <Link href='/profile'>
         <UILink mr={1} pr={2} borderRight='text'>
@@ -29,7 +29,7 @@ const LoggedInLinks = () => {
         Log out
       </UILink>
     </>
-  );
+  ) : null;
 };
 
 export default LoggedInLinks;

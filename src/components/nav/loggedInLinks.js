@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Link as UILink } from '@chakra-ui/core';
+import { Button, Flex, Text, Divider } from '@chakra-ui/core';
 import useUser from '@hooks/useUser';
 
 const LoggedInLinks = () => {
@@ -19,16 +19,21 @@ const LoggedInLinks = () => {
   };
 
   return user ? (
-    <>
+    <Flex mr={2} alignItems='center'>
       <Link href='/profile'>
-        <UILink mr={1} pr={2} borderRight='text'>
-          {user.name}
-        </UILink>
+        <Button size='xs' variant='outline'>
+          <Text textTransform='uppercase' fontSize='sm'>
+            {user.name}
+          </Text>
+        </Button>
       </Link>
-      <UILink mx={1} onClick={handleLogout}>
-        Log out
-      </UILink>
-    </>
+      <Divider orientation='vertical' />
+      <Button size='xs' variant='ghost' onClick={handleLogout}>
+        <Text textTransform='uppercase' fontSize='xs'>
+          Log out
+        </Text>
+      </Button>
+    </Flex>
   ) : null;
 };
 

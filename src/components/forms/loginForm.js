@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import Link from 'next/link';
+import useUser from '@hooks/useUser';
 
 import {
   FormControl,
@@ -17,6 +18,8 @@ import {
 import LoginSchema from '@schemas/formValidations/loginFormValidations';
 
 const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
+  const [, { mutate }] = useUser();
+
   const [formErrorMessage, setFormErrorMessage] = useState('');
   return (
     <Formik
@@ -32,6 +35,8 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
 
         switch (res.status) {
           case 200:
+            // set user state to user response
+            mutate(await res.json());
             await onSubmitSuccess(res);
             setSubmitting(false);
             break;

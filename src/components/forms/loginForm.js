@@ -11,11 +11,12 @@ import {
   Button,
   Input,
   Link as ChakraLink,
+  Flex,
 } from '@chakra-ui/core';
 
 import LoginSchema from '@schemas/formValidations/loginFormValidations';
 
-const LoginForm = ({ onSubmitSuccess }) => {
+const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
   const [formErrorMessage, setFormErrorMessage] = useState('');
   return (
     <Formik
@@ -45,45 +46,45 @@ const LoginForm = ({ onSubmitSuccess }) => {
     >
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>
-          <Field name="email">
+          <Field name='email'>
             {({ field, form }) => (
               <FormControl
                 mb={8}
                 isRequired
                 isInvalid={form.errors.email && form.touched.email}
               >
-                <FormLabel htmlFor="email">Email</FormLabel>
+                <FormLabel htmlFor='email'>Email</FormLabel>
                 <Input
-                  aria-label="Email"
-                  variant="flushed"
+                  aria-label='Email'
+                  variant='flushed'
                   {...field}
-                  id="email"
-                  type="email"
-                  placeholder=""
+                  id='email'
+                  type='email'
+                  placeholder=''
                 />
                 <FormErrorMessage>{form.errors.email}</FormErrorMessage>
               </FormControl>
             )}
           </Field>
-          <Field name="password">
+          <Field name='password'>
             {({ field, form }) => (
               <FormControl
                 mb={8}
                 isRequired
                 isInvalid={form.errors.password && form.touched.password}
               >
-                <FormLabel htmlFor="password">Password</FormLabel>
+                <FormLabel htmlFor='password'>Password</FormLabel>
                 <Input
-                  aria-label="Password"
-                  variant="flushed"
+                  aria-label='Password'
+                  variant='flushed'
                   {...field}
-                  id="password"
-                  type="password"
-                  placeholder=""
+                  id='password'
+                  type='password'
+                  placeholder=''
                 />
                 <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                 <FormHelperText>
-                  <Link href="/forgot-password">
+                  <Link href='/forgot-password'>
                     <ChakraLink>Forgot your password?</ChakraLink>
                   </Link>
                 </FormHelperText>
@@ -92,21 +93,34 @@ const LoginForm = ({ onSubmitSuccess }) => {
           </Field>
           <FormControl isInvalid={formErrorMessage}>
             <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
-            <Button
-              mt={4}
-              variantColor="green"
-              isDisabled={
-                !dirty ||
-                Object.entries(errors).length ||
-                isSubmitting ||
-                isValidating
-              }
-              isLoading={isSubmitting}
-              loadingText="Logging in"
-              type="submit"
-            >
-              Login
-            </Button>
+            <Flex justifyContent='space-between'>
+              <Button
+                mt={4}
+                variantColor='green'
+                isDisabled={
+                  !dirty ||
+                  Object.entries(errors).length ||
+                  isSubmitting ||
+                  isValidating
+                }
+                isLoading={isSubmitting}
+                loadingText='Logging in'
+                type='submit'
+              >
+                Login
+              </Button>
+              {cancellable && (
+                <Button
+                  mt={4}
+                  variant='ghost'
+                  isDisabled={isSubmitting || isValidating}
+                  type='button'
+                  onClick={onCancel}
+                >
+                  Cancel
+                </Button>
+              )}
+            </Flex>
           </FormControl>
         </Form>
       )}
@@ -115,7 +129,9 @@ const LoginForm = ({ onSubmitSuccess }) => {
 };
 
 LoginForm.propTypes = {
-  onSubmitSuccess: PropTypes.func,
+  onSubmitSuccess: PropTypes.func.isRequired,
+  cancellable: PropTypes.bool,
+  onCancel: PropTypes.func,
 };
 
 export default LoginForm;

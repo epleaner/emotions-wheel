@@ -86,7 +86,7 @@ const Sunburst = ({ width = 600, onSelect }) => {
       .append('circle')
       .datum(root)
       .attr('r', centerCircleRadius)
-      .attr('fill', (d) => parentColor(d))
+      .attr('opacity', () => 0)
       .attr('pointer-events', 'all')
       .on('click', clicked);
 
@@ -125,9 +125,16 @@ const Sunburst = ({ width = 600, onSelect }) => {
 
       parent.style('cursor', () => (p.parent ? 'pointer' : null));
 
-      parent.transition(t).attr('fill', () => {
-        return parentColor(p);
-      });
+      if (p.parent) {
+        parent
+          .transition(t)
+          .attr('fill', () => {
+            return parentColor(p);
+          })
+          .attr('opacity', 1);
+      } else {
+        parent.transition(t).attr('opacity', 0);
+      }
 
       parentLabel
         .transition(tShort)
@@ -163,7 +170,7 @@ const Sunburst = ({ width = 600, onSelect }) => {
     }
 
     function parentColor(d) {
-      if (d.depth === 0) return 'white';
+      if (d.depth === 0) return null;
       while (d.depth > 1) d = d.parent;
       return color(d.data.name);
     }

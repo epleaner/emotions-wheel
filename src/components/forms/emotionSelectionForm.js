@@ -34,8 +34,8 @@ const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
 
     switch (res.status) {
       case 200:
-        await onSubmitSuccess(res);
         onClose();
+        await onSubmitSuccess(res);
         break;
       default:
         setFormErrorMessage('There was an error, please try again.');

@@ -26,9 +26,7 @@ const Footer = () => {
         borderColor={colorMode === 'light' ? 'gray.500' : 'white'}
         orientation='vertical'
       />
-      <Text textTransform='uppercase' fontSize='xs'>
-        made with 💛 by eli
-      </Text>
+      <Text fontSize='xs'>made with 💛 by eli</Text>
     </Flex>
   );
 };

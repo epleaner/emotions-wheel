@@ -13,7 +13,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/core';
 
-import SignUpModal from '@components/modals/signUpModal';
+import LogInSignUpModal from '@components/modals/logInsignUpModal';
 
 const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
   const [user, , isFetching] = useUser();
@@ -45,7 +45,9 @@ const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
 
   return (
     <>
-      <SignUpModal {...{ isOpen, onClose, onSubmitSuccess: handleSubmit }} />
+      <LogInSignUpModal
+        {...{ isOpen, onClose, onSubmitSuccess: handleSubmit }}
+      />
       <Formik
         initialValues={{ note: '' }}
         validate={() => setFormErrorMessage(null)}

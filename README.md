@@ -45,3 +45,8 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 - [ ] sunburst colors
 - [ ] sunburst circle expands to fill space
 - [ ] Forms with https://jaredpalmer.com/formik/ (https://chakra-ui.com/formcontrol#usage-with-form-libraries)
+
+### Bugs
+
+- [ ] Delete account still shows a logged in user
+- [ ] Logging out shows stale state

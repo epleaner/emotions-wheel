@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import useUser from '@hooks/useUser';
@@ -10,96 +10,113 @@ import {
   Button,
   Input,
   useColorMode,
+  useDisclosure,
 } from '@chakra-ui/core';
+
+import SignUpModal from '@components/modals/signUpModal';
 
 const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
   const [user, , isFetching] = useUser();
 
   const { colorMode } = useColorMode();
 
-  const [formErrorMessage, setFormErrorMessage] = useState('');
-  return (
-    <Formik
-      initialValues={{ note: '' }}
-      validate={() => setFormErrorMessage(null)}
-      onSubmit={async (values, { setSubmitting }) => {
-        if (!user) console.log('no user');
-        else {
-          const res = await fetch('/api/emotions', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ ...values, emotion: selected.data.name }),
-          });
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
-          switch (res.status) {
-            case 200:
-              await onSubmitSuccess(res);
-              setSubmitting(false);
-              break;
-            default:
-              setFormErrorMessage('There was an error, please try again.');
-              break;
+  const [formErrorMessage, setFormErrorMessage] = useState('');
+  const [formValues, setFormValues] = useState();
+
+  const handleSubmit = useCallback(async () => {
+    const res = await fetch('/api/emotions', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...formValues, emotion: selected.data.name }),
+    });
+
+    switch (res.status) {
+      case 200:
+        await onSubmitSuccess(res);
+        onClose();
+        break;
+      default:
+        setFormErrorMessage('There was an error, please try again.');
+        break;
+    }
+  }, [formValues, onClose, onSubmitSuccess, selected]);
+
+  return (
+    <>
+      <SignUpModal {...{ isOpen, onClose, onSubmitSuccess: handleSubmit }} />
+      <Formik
+        initialValues={{ note: '' }}
+        validate={() => setFormErrorMessage(null)}
+        onSubmit={async (values, { setSubmitting }) => {
+          setFormValues(values);
+
+          if (!user) onOpen();
+          else {
+            await handleSubmit();
+            setSubmitting(false);
           }
-        }
-      }}
-    >
-      {({ isSubmitting, errors }) => (
-        <Form>
-          <Field name='note'>
-            {({ field }) => (
-              <FormControl>
-                <Flex w='100%' alignItems='baseline'>
-                  <Input
-                    aria-label='Note'
-                    id='name'
-                    type='text'
-                    variant='flushed'
-                    width={['100%', 600]}
-                    borderColor={
-                      selected
-                        ? selected.color
-                        : colorMode === 'light'
-                        ? 'gray.100'
-                        : 'gray.500'
-                    }
-                    focusBorderColor={selected ? selected.color : 'gray.100'}
-                    mr={2}
-                    size='xs'
-                    {...field}
-                    placeholder='Want to talk about it?'
-                  />
-                  <Button
-                    variant='outline'
-                    borderColor={selected ? selected.color : 'gray.400'}
-                    _hover={{ bg: selected ? selected.color : 'gray.100' }}
-                    size='sm'
-                    isDisabled={
-                      !selected ||
-                      Object.entries(errors).length ||
-                      isSubmitting ||
-                      isFetching
-                    }
-                    isLoading={isSubmitting}
-                    loadingText='Saving'
-                    type='submit'
-                  >
-                    Save
-                  </Button>
-                </Flex>
-              </FormControl>
-            )}
-          </Field>
-          <FormControl isInvalid={formErrorMessage}>
-            <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
-          </FormControl>
-        </Form>
-      )}
-    </Formik>
+        }}
+      >
+        {({ isSubmitting, errors }) => (
+          <Form>
+            <Field name='note'>
+              {({ field }) => (
+                <FormControl>
+                  <Flex w='100%' alignItems='baseline'>
+                    <Input
+                      aria-label='Note'
+                      id='name'
+                      type='text'
+                      variant='flushed'
+                      width={['100%', 600]}
+                      borderColor={
+                        selected
+                          ? selected.color
+                          : colorMode === 'light'
+                          ? 'gray.100'
+                          : 'gray.500'
+                      }
+                      focusBorderColor={selected ? selected.color : 'gray.100'}
+                      mr={2}
+                      size='xs'
+                      {...field}
+                      placeholder='Want to talk about it?'
+                    />
+                    <Button
+                      variant='outline'
+                      borderColor={selected ? selected.color : 'gray.400'}
+                      _hover={{ bg: selected ? selected.color : 'gray.100' }}
+                      size='sm'
+                      isDisabled={
+                        !selected ||
+                        Object.entries(errors).length ||
+                        isSubmitting ||
+                        isFetching
+                      }
+                      isLoading={isSubmitting}
+                      loadingText='Saving'
+                      type='submit'
+                    >
+                      Save
+                    </Button>
+                  </Flex>
+                </FormControl>
+              )}
+            </Field>
+            <FormControl isInvalid={formErrorMessage}>
+              <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
+            </FormControl>
+          </Form>
+        )}
+      </Formik>
+    </>
   );
 };
 
 EmotionSelectionForm.propTypes = {
-  onSubmitSuccess: PropTypes.func,
+  onSubmitSuccess: PropTypes.func.isRequired,
   selected: PropTypes.object,
 };
 

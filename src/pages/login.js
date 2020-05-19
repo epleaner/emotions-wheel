@@ -9,16 +9,14 @@ import useUser from '@hooks/useUser';
 
 const LoginPage = () => {
   const router = useRouter();
-  const [user, { mutate }] = useUser();
+  const [user] = useUser();
 
   useEffect(() => {
     // redirect to home if user is authenticated
     if (user) router.replace('/');
   }, [user, router]);
 
-  const onSubmitSuccess = async (res) => {
-    const userObj = await res.json();
-    mutate(userObj);
+  const onSubmitSuccess = () => {
     router.replace('/');
   };
 

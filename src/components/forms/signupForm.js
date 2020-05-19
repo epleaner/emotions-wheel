@@ -43,7 +43,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
                 isRequired
                 isInvalid={form.errors.name && form.touched.name}
               >
-                <FormLabel htmlFor='name'>Name</FormLabel>
+                <FormLabel htmlFor='name'>Username</FormLabel>
                 <Input
                   aria-label='Name'
                   variant='flushed'

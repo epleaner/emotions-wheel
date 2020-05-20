@@ -13,7 +13,7 @@ import {
   useDisclosure,
 } from '@chakra-ui/core';
 
-import LogInSignUpModal from '@components/modals/logInsignUpModal';
+import LogInSignUpModal from '@components/modals/logInSignUpModal';
 
 const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
   const [user, , isFetching] = useUser();
@@ -59,8 +59,7 @@ const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
             await handleSubmit();
             setSubmitting(false);
           }
-        }}
-      >
+        }}>
         {({ isSubmitting, errors }) => (
           <Form>
             <Field name='note'>
@@ -99,8 +98,7 @@ const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
                       }
                       isLoading={isSubmitting}
                       loadingText='Saving'
-                      type='submit'
-                    >
+                      type='submit'>
                       Save
                     </Button>
                   </Flex>

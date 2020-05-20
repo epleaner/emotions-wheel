@@ -7,8 +7,7 @@ const customTheme = {
   useColorSchemeMediaQuery: true,
   useCustomProperties: true,
   colors: {
-    grayscale: 
-    {
+    grayscale: {
       50: '#f2f2f2',
       100: '#d9d9d9',
       200: '#bfbfbf',
@@ -21,17 +20,17 @@ const customTheme = {
       900: '#0d0d0d',
     },
     primary: {
-      50: '#daf0ff',
-      100: '#add5ff',
-      200: '#7cbdff',
-      300: '#4aa9ff',
-      400: '#1a97ff',
-      500: '#0086e6',
-      600: '#005cb4',
-      700: '#003982',
-      800: '#001d51',
-      900: '#000721',
-    }
+      50: '#e7e6ff',
+      100: '#bab8fb',
+      200: '#8c89f5',
+      300: '#5f5af0',
+      400: '#332ceb',
+      500: '#1b13d2',
+      600: '#140fa4',
+      700: '#0d0a76',
+      800: '#060649',
+      900: '#02011d',
+    },
   },
   borders: {
     text: '1px solid',

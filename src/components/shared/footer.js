@@ -17,7 +17,7 @@ const Footer = () => {
             color: `gray.${colorMode === 'light' ? 500 : 300}`,
           }}
         >
-          <Text textTransform='uppercase' fontSize='xs'>
+          <Text fontSize='xs'>
             about
           </Text>
         </Button>

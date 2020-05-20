@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Button, Flex, Text, Divider } from '@chakra-ui/core';
@@ -7,14 +7,17 @@ import useUser from '@hooks/useUser';
 const LoggedInLinks = () => {
   const router = useRouter();
   const [user, { mutate }] = useUser();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const handleLogout = async () => {
+    setIsLoggingOut(true);
     await fetch('/api/auth', {
       method: 'DELETE',
     });
 
     // set the user state to null
     mutate(null);
+    setIsLoggingOut(false);
     router.push('/');
   };
 
@@ -28,10 +31,13 @@ const LoggedInLinks = () => {
         </Button>
       </Link>
       <Divider orientation='vertical' />
-      <Button size='xs' variant='ghost' onClick={handleLogout}>
-        <Text textTransform='uppercase' fontSize='xs'>
-          Log out
-        </Text>
+      <Button
+        size='xs'
+        variant='ghost'
+        onClick={handleLogout}
+        isLoading={isLoggingOut}
+        loadingText='logging out'>
+        log out
       </Button>
     </Flex>
   ) : null;

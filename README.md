@@ -36,11 +36,6 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 
 ### UI
 
-- [ ] Loading states for buttons
-- [ ] Loading states for pages
-- [x] Loading state for logging out
-- [ ] Loading placeholders for content
-- [ ] Field editing in place
 - [ ] sunburst drop shadow: http://bl.ocks.org/cpbotha/5200394
 - [ ] sunburst colors
 - [ ] sunburst circle expands to fill space

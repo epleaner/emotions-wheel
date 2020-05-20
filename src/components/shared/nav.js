@@ -1,6 +1,13 @@
 import React from 'react';
 import Link from 'next/link';
-import { useColorMode, Flex, Button, Box, Text } from '@chakra-ui/core';
+import {
+  useColorMode,
+  Flex,
+  Button,
+  Box,
+  Text,
+  Skeleton,
+} from '@chakra-ui/core';
 import ColorToggle from '@components/shared/colorToggle';
 import LoggedInLinks from '@components/nav/loggedInLinks';
 import LoggedOutLinks from '@components/nav/loggedOutLinks';
@@ -15,22 +22,26 @@ const Nav = () => {
     <Flex as='header' mx={4} mt={2} alignItems='center'>
       <Link href='/'>
         <Button
-          variantColor='black'
+          variantColor='grayscale'
           _hover={{
             color: `green.${colorMode === 'light' ? 500 : 300}`,
             textDecoration: 'none',
           }}
-          variant='link'
-        >
+          variant='link'>
           <Text textTransform='uppercase' fontSize='sm'>
             feels
           </Text>
         </Button>
       </Link>
       <Box mx={'auto'} />
-      {!isFetching && (
-        <Box mr={2}>{user ? <LoggedInLinks /> : <LoggedOutLinks />}</Box>
-      )}
+      <Box mr={2}>
+        <Skeleton
+          isLoaded={!isFetching}
+          colorStart='#e7e6ff'
+          colorEnd='#bab8fb'>
+          {user ? <LoggedInLinks /> : <LoggedOutLinks />}
+        </Skeleton>
+      </Box>
       <ColorToggle mode={colorMode} onClick={toggleColorMode} />
     </Flex>
   );

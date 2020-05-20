@@ -3,7 +3,8 @@ import Link from 'next/link';
 
 import {
   Flex,
-  Box,
+  Link as UILink,
+  Spinner,
   Icon,
   Tooltip,
   Button,
@@ -36,38 +37,50 @@ const ProfilePage = () => {
   return (
     <CenteredContainer>
       {isFetching ? (
-        <Text>Loading...</Text>
+        <Spinner />
       ) : !user ? (
-        <Text>Please log in.</Text>
+        <Text>
+          <Text fontSize='6xl'>Welcome!</Text>
+          <Text fontSize='5xl'>
+            Please{' '}
+            <Link href='/login'>
+              <UILink color='blue.200'>log in</UILink>
+            </Link>{' '}
+            or{' '}
+            <Link href='/signup'>
+              <UILink color='green.200'>sign up</UILink>
+            </Link>{' '}
+            first.
+          </Text>
+        </Text>
       ) : (
         <Section>
           <Heading mb={4}>{name}</Heading>
-          <Flex alignItems="center">
+          <Flex alignItems='center'>
             <Text mr={3}>{email}</Text>
             {emailVerified ? (
-              <Tooltip label="Verified" placement="right" bg="green.300">
-                <Icon name="check-circle" color="green.300" />
+              <Tooltip label='Verified' placement='right' bg='green.300'>
+                <Icon name='check-circle' color='green.300' />
               </Tooltip>
             ) : sentVerification ? (
-              <Text fontSize="xs" variantColor="green">
+              <Text fontSize='xs' variantColor='green'>
                 Verification email sent!
               </Text>
             ) : (
               <Button
-                size="xs"
-                type="button"
-                variantColor="green"
+                size='xs'
+                type='button'
+                variantColor='green'
                 isDisabled={sendingVerification}
-                onClick={sendVerification}
-              >
+                onClick={sendVerification}>
                 Verify
               </Button>
             )}
           </Flex>
           <Divider />
           {emotions && <EmotionList emotions={emotions} />}
-          <Link href="/profile/edit">
-            <Button type="button" mt={4}>
+          <Link href='/profile/edit'>
+            <Button type='button' mt={4}>
               Edit
             </Button>
           </Link>

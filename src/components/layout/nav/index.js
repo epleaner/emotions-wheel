@@ -8,9 +8,11 @@ import {
   Text,
   Skeleton,
 } from '@chakra-ui/core';
-import ColorToggle from '@components/shared/colorToggle';
-import LoggedInLinks from '@components/nav/loggedInLinks';
-import LoggedOutLinks from '@components/nav/loggedOutLinks';
+
+import ColorToggle from '@components/layout/nav/colorToggle';
+import LoggedInLinks from '@components/layout/nav/loggedInLinks';
+import LoggedOutLinks from '@components/layout/nav/loggedOutLinks';
+
 import useUser from '@hooks/useUser';
 
 const Nav = () => {
@@ -24,7 +26,7 @@ const Nav = () => {
         <Button
           variantColor='grayscale'
           _hover={{
-            color: `green.${colorMode === 'light' ? 500 : 300}`,
+            color: `primary.${colorMode === 'light' ? 100 : 300}`,
             textDecoration: 'none',
           }}
           variant='link'>

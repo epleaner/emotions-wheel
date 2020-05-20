@@ -38,7 +38,7 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 
 - [ ] Loading states for buttons
 - [ ] Loading states for pages
-- [ ] Loading state for logging out
+- [x] Loading state for logging out
 - [ ] Loading placeholders for content
 - [ ] Field editing in place
 - [ ] sunburst drop shadow: http://bl.ocks.org/cpbotha/5200394
@@ -48,5 +48,6 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 
 ### Bugs
 
-- [ ] Delete account still shows a logged in user
+- [x] Delete account still shows a logged in user
 - [ ] Logging out shows stale state
+- [ ] sunburst form displaced before sunburst loads

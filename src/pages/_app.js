@@ -1,10 +1,10 @@
 import React from 'react';
 import App from 'next/app';
-import Layout from '@components/shared/layout';
-import Head from '@components/shared/head';
+import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
 import theme from '@styles/theme';
 import GlobalStyles from '@styles/globalStyles';
-import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';
+import Layout from '@components/layout';
+import SEO from '@components/shared/seo';
 class MyApp extends App {
   render() {
     const { Component, pageProps } = this.props;
@@ -14,7 +14,7 @@ class MyApp extends App {
         <ColorModeProvider>
           <GlobalStyles />
           <CSSReset />
-          <Head title='feeels' />
+          <SEO title='feeels' />
           <Layout>
             <Component {...pageProps} />
           </Layout>

@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Nav from '@components/shared/nav';
-import Footer from '@components/shared/footer';
 import { Flex, Box } from '@chakra-ui/core';
+import Footer from '@components/layout/footer';
+import Nav from '@components/layout/nav';
 
 const Layout = ({ children }) => (
   <Flex h='100%' direction='column'>

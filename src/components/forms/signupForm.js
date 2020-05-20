@@ -32,8 +32,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
           await onSubmitSuccess(res);
           setSubmitting(false);
         } else setFormErrorMessage(await res.text());
-      }}
-    >
+      }}>
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>
           <Field name='name'>
@@ -41,8 +40,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
               <FormControl
                 mb={8}
                 isRequired
-                isInvalid={form.errors.name && form.touched.name}
-              >
+                isInvalid={form.errors.name && form.touched.name}>
                 <FormLabel htmlFor='name'>Username</FormLabel>
                 <Input
                   aria-label='Name'
@@ -61,8 +59,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
               <FormControl
                 mb={8}
                 isRequired
-                isInvalid={form.errors.email && form.touched.email}
-              >
+                isInvalid={form.errors.email && form.touched.email}>
                 <FormLabel htmlFor='email'>Email</FormLabel>
                 <Input
                   aria-label='Email'
@@ -85,8 +82,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
               <FormControl
                 mb={8}
                 isRequired
-                isInvalid={form.errors.password && form.touched.password}
-              >
+                isInvalid={form.errors.password && form.touched.password}>
                 <FormLabel htmlFor='password'>Password</FormLabel>
                 <Input
                   aria-label='Password'
@@ -114,8 +110,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
                 }
                 isLoading={isSubmitting}
                 loadingText='Signing up'
-                type='submit'
-              >
+                type='submit'>
                 Sign up
               </Button>
               {cancellable && (
@@ -124,8 +119,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
                   variant='ghost'
                   isDisabled={isSubmitting || isValidating}
                   type='button'
-                  onClick={onCancel}
-                >
+                  onClick={onCancel}>
                   Cancel
                 </Button>
               )}

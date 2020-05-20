@@ -9,7 +9,6 @@ import {
   Button,
   Input,
   FormHelperText,
-  Text,
   Icon,
 } from '@chakra-ui/core';
 
@@ -58,74 +57,70 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
           );
 
           setFormSuccessMessage(resJson.message);
-          setSubmitting(false);
+          actions.setSubmitting(false);
         } else {
           setFormSuccessMessage(null);
           setFormErrorMessage(resJson.message);
         }
-      }}
-    >
+      }}>
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>
-          <Field name="name">
+          <Field name='name'>
             {({ field, form }) => (
               <FormControl
                 mb={8}
                 isRequired
-                isInvalid={form.errors.name && form.touched.name}
-              >
-                <FormLabel htmlFor="name">Name</FormLabel>
+                isInvalid={form.errors.name && form.touched.name}>
+                <FormLabel htmlFor='name'>Name</FormLabel>
                 <Input
-                  aria-label="name"
-                  variant="flushed"
+                  aria-label='name'
+                  variant='flushed'
                   {...field}
-                  id="name"
-                  type="test"
-                  placeholder=""
+                  id='name'
+                  type='test'
+                  placeholder=''
                 />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
           </Field>
-          <Field name="email">
+          <Field name='email'>
             {({ field, form }) => (
               <FormControl
                 mb={8}
                 isRequired
-                isInvalid={form.errors.email && form.touched.email}
-              >
-                <FormLabel htmlFor="email">Email</FormLabel>
+                isInvalid={form.errors.email && form.touched.email}>
+                <FormLabel htmlFor='email'>Email</FormLabel>
                 <Input
-                  aria-label="Email"
-                  variant="flushed"
+                  aria-label='Email'
+                  variant='flushed'
                   {...field}
-                  id="email"
-                  type="email"
-                  placeholder=""
+                  id='email'
+                  type='email'
+                  placeholder=''
                 />
                 <FormErrorMessage>{form.errors.email}</FormErrorMessage>
               </FormControl>
             )}
           </Field>
-          <Heading as="h2" size="md">
+          <Heading as='h2' size='md'>
             Change Password
           </Heading>
-          <Field name="passwords.oldPassword">
+          <Field name='passwords.oldPassword'>
             {({ field, form }) => (
               <FormControl
                 mb={8}
                 isInvalid={
                   form.errors.passwords && !!form.errors.passwords.oldPassword
-                }
-              >
-                <FormLabel htmlFor="oldPassword">Current Password</FormLabel>
+                }>
+                <FormLabel htmlFor='oldPassword'>Current Password</FormLabel>
                 <Input
-                  aria-label="Old Password"
-                  variant="flushed"
+                  aria-label='Old Password'
+                  variant='flushed'
                   {...field}
-                  id="oldPassword"
-                  type="password"
-                  placeholder=""
+                  id='oldPassword'
+                  type='password'
+                  placeholder=''
                 />
                 <FormErrorMessage>
                   {form.errors.passwords && form.errors.passwords.oldPassword}
@@ -133,22 +128,21 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
               </FormControl>
             )}
           </Field>
-          <Field name="passwords.newPassword">
+          <Field name='passwords.newPassword'>
             {({ field, form }) => (
               <FormControl
                 mb={8}
                 isInvalid={
                   form.errors.passwords && !!form.errors.passwords.newPassword
-                }
-              >
-                <FormLabel htmlFor="newPassword">New Password</FormLabel>
+                }>
+                <FormLabel htmlFor='newPassword'>New Password</FormLabel>
                 <Input
-                  aria-label="New Password"
-                  variant="flushed"
+                  aria-label='New Password'
+                  variant='flushed'
                   {...field}
-                  id="newPassword"
-                  type="password"
-                  placeholder=""
+                  id='newPassword'
+                  type='password'
+                  placeholder=''
                 />
                 <FormErrorMessage>
                   {form.errors.passwords && form.errors.passwords.newPassword}
@@ -158,15 +152,15 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
           </Field>
           <FormControl isInvalid={formErrorMessage}>
             {formSuccessMessage && (
-              <FormHelperText color="green.500">
-                <Icon name="check" mr={2} />
+              <FormHelperText color='green.500'>
+                <Icon name='check' mr={2} />
                 {formSuccessMessage}
               </FormHelperText>
             )}
             <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
             <Button
               mt={4}
-              variantColor="green"
+              variantColor='green'
               isDisabled={
                 !dirty ||
                 Object.entries(errors).length ||
@@ -174,9 +168,8 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
                 isValidating
               }
               isLoading={isSubmitting}
-              loadingText="Saving"
-              type="submit"
-            >
+              loadingText='Saving'
+              type='submit'>
               Save changes
             </Button>
           </FormControl>

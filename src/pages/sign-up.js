@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import useUser from '@hooks/useUser';
-import SignUpForm from '@components/forms/signupForm';
+import SignUpForm from '@components/forms/signUpForm';
 import CenteredContainer from '@components/shared/centeredContainer';
 import Section from '@components/shared/section';
 

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/router';
 import { Text, Spinner, Divider } from '@chakra-ui/core';
 import useUser from '@hooks/useUser';
 
@@ -9,21 +10,26 @@ import ProfileForm from '@components/forms/profileForm';
 import DeleteAccountButtons from '@components/deleteAccountButtons';
 
 const EditProfile = () => {
+  const router = useRouter();
   const [user, { mutate }, isFetching] = useUser();
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [justDeleted, setJustDeleted] = useState(false);
 
-  const onSubmitSuccess = async (resJson) => {
+  useEffect(() => {
+    if(!isFetching && !justDeleted && !user) router.replace('/');
+  }, [router, isFetching, justDeleted, user]);
+
+  const onSubmitSuccess = useCallback(async (resJson) => {
     mutate({
       user: {
         ...user,
         ...(await resJson.user),
       },
     });
-  };
+  }, [user, mutate]);
 
-  const handleDelete = async (e) => {
+  const handleDelete = useCallback(async (e) => {
     e.preventDefault();
 
     setIsDeleting(true);
@@ -33,15 +39,16 @@ const EditProfile = () => {
     });
 
     const resJson = await res.json();
-
+    
     if (resJson.ok) {
+      mutate(null);
       setJustDeleted(true);
     } else {
-      setMsg({ message: resJson.message, isError: true });
+      console.log({ message: resJson.message, isError: true });
     }
 
     setIsDeleting(false);
-  };
+  }, [mutate]);
 
   return (
     <CenteredContainer>

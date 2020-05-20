@@ -7,8 +7,19 @@ const customTheme = {
   useColorSchemeMediaQuery: true,
   useCustomProperties: true,
   colors: {
-    text: '#000',
-    background: '#fff',
+    grayscale: 
+    {
+      50: '#f2f2f2',
+      100: '#d9d9d9',
+      200: '#bfbfbf',
+      300: '#a6a6a6',
+      400: '#8c8c8c',
+      500: '#737373',
+      600: '#595959',
+      700: '#404040',
+      800: '#262626',
+      900: '#0d0d0d',
+    },
     primary: {
       50: '#daf0ff',
       100: '#add5ff',
@@ -20,22 +31,7 @@ const customTheme = {
       700: '#003982',
       800: '#001d51',
       900: '#000721',
-    },
-    secondary: '#609',
-    muted: '#c1c1c1',
-    warning: '#ff4242',
-    modes: {
-      dark: {
-        text: '#fff',
-        background: '#222',
-        primary: '#0cf',
-        secondary: '#90c',
-        colorToggle: {
-          primary: 'blue',
-          secondary: 'blue',
-        },
-      },
-    },
+    }
   },
   borders: {
     text: '1px solid',

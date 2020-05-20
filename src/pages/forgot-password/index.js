@@ -1,51 +1,25 @@
-import React, { useState } from "react";
-import { Flex, Input, Button } from "theme-ui";
+import React, { useState } from 'react';
+
+import CenteredContainer from '@components/shared/centeredContainer';
+import Heading from '@components/shared/heading';
+import Section from '@components/shared/section';
+import ForgotPasswordForm from '@components/forms/forgotPasswordForm';
 
 const ForgotPassword = () => {
-  const [email, setEmail] = useState("");
-  const [formStatus, setFormStatus] = useState({ ok: true, message: "" });
-  const [submitting, setSubmitting] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormStatus({ ok: true, message: "" });
-
-    setSubmitting(true);
-
-    const body = { email };
-
-    const res = await fetch("/api/user/password/reset", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    });
-
-    const responseJson = await res.json();
-
-    setEmail("");
-    setFormStatus(responseJson);
-    setSubmitting(false);
-  };
-
+  const [submitted, setSubmitted] = useState(false);
   return (
-    <Flex sx={{ justifyContent: "center" }}>
-      <section>
-        <h1>Forgot password?</h1>
-        {formStatus.message}
-        <form onSubmit={handleSubmit}>
-          <Input
-            id="email"
-            type="email"
-            placeholder="Your email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <Button type="submit" disabled={submitting}>
-            Submit
-          </Button>
-        </form>
-      </section>
-    </Flex>
+    <CenteredContainer>
+      <Section>
+        {submitted ? (
+          <Heading>Help should be on its way!</Heading>
+        ) : (
+          <>
+            <Heading>Forgot your password?</Heading>
+            <ForgotPasswordForm onSubmitSuccess={() => setSubmitted(true)} />
+          </>
+        )}
+      </Section>
+    </CenteredContainer>
   );
 };
 

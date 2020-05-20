@@ -9,17 +9,14 @@ const Footer = () => {
     <Flex px={4} py={2} as='footer' flexShrink={1}>
       <Link href='/about'>
         <Button
-          variantColor='black'
+          color='grayscale'
           size='xs'
           variant='link'
           _hover={{
             textDecoration: 'none',
             color: `gray.${colorMode === 'light' ? 500 : 300}`,
-          }}
-        >
-          <Text fontSize='xs'>
-            about
-          </Text>
+          }}>
+          <Text fontSize='xs'>about</Text>
         </Button>
       </Link>
       <Divider

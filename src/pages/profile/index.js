@@ -52,7 +52,7 @@ const ProfilePage = () => {
                 hey, {name}
               </Heading>
               <Link href='/profile/edit'>
-                <Button type='button' mt={4} size='xs'>
+                <Button leftIcon='edit' type='button' mt={4} size='xs'>
                   Edit profile
                 </Button>
               </Link>

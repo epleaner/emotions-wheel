@@ -6,7 +6,6 @@ import useUser from '@hooks/useUser';
 
 import {
   FormControl,
-  FormLabel,
   FormErrorMessage,
   FormHelperText,
   Button,
@@ -47,8 +46,7 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
             setFormErrorMessage('There was an error, please try again.');
             break;
         }
-      }}
-    >
+      }}>
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>
           <Field name='email'>
@@ -56,16 +54,15 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
               <FormControl
                 mb={8}
                 isRequired
-                isInvalid={form.errors.email && form.touched.email}
-              >
-                <FormLabel htmlFor='email'>Email</FormLabel>
+                isInvalid={form.errors.email && form.touched.email}>
                 <Input
+                  _invalid={{ boxShadow: 'none' }}
                   aria-label='Email'
                   variant='flushed'
                   {...field}
                   id='email'
                   type='email'
-                  placeholder=''
+                  placeholder='Email'
                 />
                 <FormErrorMessage>{form.errors.email}</FormErrorMessage>
               </FormControl>
@@ -76,16 +73,15 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
               <FormControl
                 mb={8}
                 isRequired
-                isInvalid={form.errors.password && form.touched.password}
-              >
-                <FormLabel htmlFor='password'>Password</FormLabel>
+                isInvalid={form.errors.password && form.touched.password}>
                 <Input
+                  _invalid={{ boxShadow: 'none' }}
                   aria-label='Password'
                   variant='flushed'
                   {...field}
                   id='password'
                   type='password'
-                  placeholder=''
+                  placeholder='Password'
                 />
                 <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                 <FormHelperText>
@@ -110,8 +106,7 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
                 }
                 isLoading={isSubmitting}
                 loadingText='Logging in'
-                type='submit'
-              >
+                type='submit'>
                 Login
               </Button>
               {cancellable && (
@@ -120,8 +115,7 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
                   variant='ghost'
                   isDisabled={isSubmitting || isValidating}
                   type='button'
-                  onClick={onCancel}
-                >
+                  onClick={onCancel}>
                   Cancel
                 </Button>
               )}

@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import {
   FormControl,
-  FormLabel,
   FormErrorMessage,
   FormHelperText,
   Button,
@@ -41,14 +40,14 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
                 mb={8}
                 isRequired
                 isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel htmlFor='name'>Username</FormLabel>
                 <Input
+                  _invalid={{ boxShadow: 'none' }}
                   aria-label='Name'
                   variant='flushed'
                   {...field}
                   id='name'
                   type='text'
-                  placeholder=''
+                  placeholder='Username'
                 />
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
@@ -60,14 +59,14 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
                 mb={8}
                 isRequired
                 isInvalid={form.errors.email && form.touched.email}>
-                <FormLabel htmlFor='email'>Email</FormLabel>
                 <Input
+                  _invalid={{ boxShadow: 'none' }}
                   aria-label='Email'
                   variant='flushed'
                   {...field}
                   id='email'
                   type='email'
-                  placeholder=''
+                  placeholder='Email'
                 />
                 <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                 <FormHelperText id='email-helper-text'>
@@ -83,14 +82,14 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
                 mb={8}
                 isRequired
                 isInvalid={form.errors.password && form.touched.password}>
-                <FormLabel htmlFor='password'>Password</FormLabel>
                 <Input
+                  _invalid={{ boxShadow: 'none' }}
                   aria-label='Password'
                   variant='flushed'
                   {...field}
                   id='password'
                   type='password'
-                  placeholder=''
+                  placeholder='Password'
                 />
                 <FormErrorMessage>{form.errors.password}</FormErrorMessage>
               </FormControl>

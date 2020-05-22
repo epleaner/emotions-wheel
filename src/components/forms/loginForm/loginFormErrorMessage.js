@@ -31,6 +31,6 @@ const LoginFormErrorMessage = ({ message }) => {
   }
 };
 LoginFormErrorMessage.propTypes = {
-  message: PropTypes.string.isRequired,
+  message: PropTypes.string,
 };
 export default LoginFormErrorMessage;

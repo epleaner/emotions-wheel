@@ -1,12 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 
 import {
-  Flex,
   Link as UILink,
   Spinner,
-  Icon,
-  Tooltip,
+  Stack,
   Button,
   Text,
   Heading,
@@ -16,77 +14,55 @@ import {
 import useUser from '@hooks/useUser';
 import EmotionList from '@components/emotionList';
 import CenteredContainer from '@components/shared/centeredContainer';
+import Container from '@components/shared/container';
 import Section from '@components/shared/section';
 
 const ProfilePage = () => {
   const [user, , isFetching] = useUser();
-  const { name, email, emailVerified, emotions } = user || {};
-  const [sendingVerification, setSendingVerification] = useState(false);
-  const [sentVerification, setSentVerification] = useState(false);
-
-  const sendVerification = async () => {
-    setSendingVerification(true);
-    const res = await fetch('/api/user/email/verify', { method: 'POST' });
-
-    const responseJson = await res.json();
-
-    if (responseJson.ok) setSentVerification(true);
-    setSendingVerification(false);
-  };
+  const { name, emotions } = user || {};
 
   return (
-    <CenteredContainer>
+    <>
       {isFetching ? (
-        <Spinner />
+        <CenteredContainer>
+          <Spinner />
+        </CenteredContainer>
       ) : !user ? (
-        <Text>
-          <Text fontSize='6xl'>Welcome!</Text>
-          <Text fontSize='5xl'>
-            Please{' '}
-            <Link href='/login'>
-              <UILink color='blue.200'>log in</UILink>
-            </Link>{' '}
-            or{' '}
-            <Link href='/signup'>
-              <UILink color='green.200'>sign up</UILink>
-            </Link>{' '}
-            first.
+        <CenteredContainer>
+          <Text>
+            <Text fontSize='6xl'>Welcome!</Text>
+            <Text fontSize='5xl'>
+              Please{' '}
+              <Link href='/login'>
+                <UILink color='blue.200'>log in</UILink>
+              </Link>{' '}
+              or{' '}
+              <Link href='/signup'>
+                <UILink color='green.200'>sign up</UILink>
+              </Link>{' '}
+              first.
+            </Text>
           </Text>
-        </Text>
+        </CenteredContainer>
       ) : (
-        <Section>
-          <Heading mb={4}>{name}</Heading>
-          <Flex alignItems='center'>
-            <Text mr={3}>{email}</Text>
-            {emailVerified ? (
-              <Tooltip label='Verified' placement='right' bg='green.300'>
-                <Icon name='check-circle' color='green.300' />
-              </Tooltip>
-            ) : sentVerification ? (
-              <Text fontSize='xs' variantColor='green'>
-                Verification email sent!
-              </Text>
-            ) : (
-              <Button
-                size='xs'
-                type='button'
-                variantColor='green'
-                isDisabled={sendingVerification}
-                onClick={sendVerification}>
-                Verify
-              </Button>
-            )}
-          </Flex>
-          <Divider />
-          {emotions && <EmotionList emotions={emotions} />}
-          <Link href='/profile/edit'>
-            <Button type='button' mt={4}>
-              Edit
-            </Button>
-          </Link>
-        </Section>
+        <Container justifyContent='center' mt='4'>
+          <Section>
+            <Stack direction='row' justify='space-between' align='baseline'>
+              <Heading mb={4} fontSize='6xl'>
+                hey, {name}.
+              </Heading>
+              <Link href='/profile/edit'>
+                <Button type='button' mt={4} size='xs'>
+                  Edit profile
+                </Button>
+              </Link>
+            </Stack>
+            <Divider />
+            <EmotionList emotions={emotions} />
+          </Section>
+        </Container>
       )}
-    </CenteredContainer>
+    </>
   );
 };
 

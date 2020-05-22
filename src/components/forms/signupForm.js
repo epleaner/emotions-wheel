@@ -12,7 +12,7 @@ import {
   Text,
 } from '@chakra-ui/core';
 
-import SignUpSchema from '@schemas/formValidations/signupFormValidations';
+import SignupSchema from '@schemas/formValidations/signupFormValidations';
 import Heading from '@components/shared/heading';
 const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
   const [formErrorMessage, setFormErrorMessage] = useState('');
@@ -35,7 +35,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
         <Formik
           initialValues={{ name: '', email: '', password: '' }}
           validate={() => setFormErrorMessage(null)}
-          validationSchema={SignUpSchema}
+          validationSchema={SignupSchema}
           onSubmit={async (values, { setSubmitting }) => {
             const res = await fetch('/api/user', {
               method: 'POST',

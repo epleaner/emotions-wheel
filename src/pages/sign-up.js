@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 import useUser from '@hooks/useUser';
-import SignUpForm from '@components/forms/signUpForm';
+import SignupForm from '@components/forms/signupForm';
 import CenteredContainer from '@components/shared/centeredContainer';
 import Section from '@components/shared/section';
 
@@ -17,7 +17,7 @@ const SignupPage = () => {
   return (
     <CenteredContainer>
       <Section>
-        <SignUpForm onSubmitSuccess={() => {}} />
+        <SignupForm onSubmitSuccess={() => {}} />
       </Section>
     </CenteredContainer>
   );

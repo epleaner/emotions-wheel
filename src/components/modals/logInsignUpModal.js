@@ -15,10 +15,10 @@ import {
   TabPanel,
 } from '@chakra-ui/core';
 
-import SignUpForm from '@components/forms/signUpForm';
+import SignupForm from '@components/forms/signupForm';
 import LoginForm from '@components/forms/loginForm';
 
-const LoginSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
+const LoginSignupModal = ({ isOpen, onClose, onSubmitSuccess }) => {
   const initialRef = React.useRef();
 
   return (
@@ -56,7 +56,7 @@ const LoginSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
                 />
               </TabPanel>
               <TabPanel>
-                <SignUpForm
+                <SignupForm
                   cancellable
                   onCancel={onClose}
                   onSubmitSuccess={onSubmitSuccess}
@@ -71,10 +71,10 @@ const LoginSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
   );
 };
 
-LoginSignUpModal.propTypes = {
+LoginSignupModal.propTypes = {
   onSubmitSuccess: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default LoginSignUpModal;
+export default LoginSignupModal;

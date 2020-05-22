@@ -9,7 +9,7 @@ const Footer = () => {
     <Flex px={4} py={2} as='footer' flexShrink={1}>
       <Link href='/about'>
         <Button
-          color='grayscale'
+          variantColor='grayscale'
           size='xs'
           variant='link'
           _hover={{
@@ -19,11 +19,10 @@ const Footer = () => {
           <Text fontSize='xs'>about</Text>
         </Button>
       </Link>
-      <Divider
-        borderColor={colorMode === 'light' ? 'gray.500' : 'white'}
-        orientation='vertical'
-      />
-      <Text fontSize='xs'>made with 💛 by eli</Text>
+      <Divider borderColor='grayscale' orientation='vertical' />
+      <Text color='grayscale.300' fontSize='xs'>
+        made with 💛 by eli
+      </Text>
     </Flex>
   );
 };

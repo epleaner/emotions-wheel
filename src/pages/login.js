@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-import LoginForm from '@components/forms/logInForm';
+import LoginForm from '@components/forms/loginForm';
 import CenteredContainer from '@components/shared/centeredContainer';
 import Section from '@components/shared/section';
 

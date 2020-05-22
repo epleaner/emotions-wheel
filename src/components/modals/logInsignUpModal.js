@@ -16,7 +16,7 @@ import {
 } from '@chakra-ui/core';
 
 import SignUpForm from '@components/forms/signUpForm';
-import LogInForm from '@components/forms/logInForm';
+import LoginForm from '@components/forms/loginForm';
 
 const LogInSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
   const initialRef = React.useRef();
@@ -48,7 +48,7 @@ const LogInSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
           <ModalBody pb={6}>
             <TabPanels>
               <TabPanel>
-                <LogInForm
+                <LoginForm
                   cancellable
                   onCancel={onClose}
                   onSubmitSuccess={onSubmitSuccess}

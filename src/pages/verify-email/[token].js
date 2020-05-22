@@ -1,49 +1,59 @@
-import React, { useState, useEffect } from "react";
-import fetch from "isomorphic-unfetch";
-import Link from "next/link";
-import { Flex, Text, Heading, NavLink } from "theme-ui";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import Link from 'next/link';
+
+import { Spinner, Text, Link as UILink } from '@chakra-ui/core';
+
+import CenteredContainer from '@components/shared/centeredContainer';
+import Heading from '@components/shared/heading';
+import Section from '@components/shared/section';
 
 const VerifyEmailToken = ({ token }) => {
-  const [valid, setValid] = useState(true);
-  const [fetchingValidity, setFetchingValidity] = useState(false);
+  const [validToken, setValidToken] = useState(false);
+  const [fetchingValidity, setFetchingValidity] = useState(true);
 
-  // useEffect(() => {
-  //   (async () => {
-  //     const res = await fetch(`/api/user/email/verify/${token}`, {
-  //       method: "PATCH",
-  //     });
+  useEffect(() => {
+    console.log('checking token');
+    (async () => {
+      const res = await fetch(`/api/user/email/verify/${token}`, {
+        method: 'PATCH',
+      });
 
-  //     const { ok } = await res.json();
-
-  //     setValid(ok);
-  //     setFetchingValidity(false);
-  //   })();
-  // }, []);
+      setValidToken(res.status === 200);
+      setFetchingValidity(false);
+    })();
+  }, [token]);
 
   return (
-    <Flex sx={{ justifyContent: "center", flexWrap: "wrap", mx: [2, 0] }}>
+    <CenteredContainer>
       {fetchingValidity ? (
-        <Text>Loading...</Text>
-      ) : valid ? (
-        <>
-          <Heading sx={{ textAlign: "center" }}>
-            Thanks for verifying, you're good to go!
-          </Heading>
-          <Flex sx={{ width: "100%", justifyContent: "center" }}>
-            <Link href="/">
-              <NavLink>Back to home.</NavLink>
-            </Link>
-          </Flex>
-        </>
+        <Spinner />
       ) : (
-        <Text>
-          This link may have expired.{" "}
-          <Link href="/verify-email">
-            <NavLink>Try again?</NavLink>
-          </Link>
-        </Text>
+        <Section>
+          {validToken ? (
+            <>
+              <Heading fontSize='2xl'>
+                Thanks for verifying, you're good to go!
+              </Heading>
+              <Text fontSize='6xl' color='primary.500'>
+                <Link href='/login'>
+                  <UILink>Log in.</UILink>
+                </Link>
+              </Text>
+            </>
+          ) : (
+            <>
+              <Heading fontSize='2xl'>This link may have expired...</Heading>
+              <Text fontSize='6xl' color='primary.500'>
+                <Link href='/verify-email'>
+                  <UILink>Try again?</UILink>
+                </Link>
+              </Text>
+            </>
+          )}
+        </Section>
       )}
-    </Flex>
+    </CenteredContainer>
   );
 };
 
@@ -51,6 +61,10 @@ VerifyEmailToken.getInitialProps = async (ctx) => {
   const { token } = ctx.query;
 
   return { token };
+};
+
+VerifyEmailToken.propTypes = {
+  token: PropTypes.string.isRequired,
 };
 
 export default VerifyEmailToken;

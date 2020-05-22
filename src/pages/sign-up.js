@@ -8,21 +8,16 @@ import Section from '@components/shared/section';
 
 const SignupPage = () => {
   const router = useRouter();
-  const [user, { mutate }] = useUser();
+  const [user] = useUser();
 
   useEffect(() => {
     if (user) router.replace('/');
-  }, [user]);
-
-  const onSubmitSuccess = async (res) => {
-    const userObj = await res.json();
-    mutate(userObj);
-  };
+  }, [user, router]);
 
   return (
     <CenteredContainer>
       <Section>
-        <SignUpForm onSubmitSuccess={onSubmitSuccess} />
+        <SignUpForm onSubmitSuccess={() => {}} />
       </Section>
     </CenteredContainer>
   );

@@ -7,6 +7,7 @@ import bcrypt from 'bcryptjs';
 
 import middleware from '@middleware/middleware';
 import { extractUser } from '@helpers/apiHelpers';
+import sendVerificationEmail from '@helpers/apiHelpers/sendVerificationEmail';
 
 const handler = nextConnect();
 
@@ -20,19 +21,23 @@ handler.post(async (req, res) => {
     const { name, password } = req.body;
     const email = normalizeEmail(req.body.email); // this is to handle things like jane.doe@gmail.com and janedoe@gmail.com being the same
 
-    if (!isEmail(email)) {
-      res.status(400).send("That doesn't seem to be a valid email.");
-      return;
-    }
+    if (!isEmail(email))
+      throw new Error({
+        status: 400,
+        message: "That doesn't seem to be a valid email",
+      });
 
-    if (!password || !name) {
-      res.status(400).send('Missing field(s)');
-      return;
-    }
+    if (!password || !name)
+      throw new Error({
+        status: 400,
+        message: 'Missing field(s)',
+      });
 
-    if ((await req.db.collection('user').countDocuments({ email })) > 0) {
-      res.status(403).send('That email is already in use.');
-    }
+    if ((await req.db.collection('user').countDocuments({ email })) > 0)
+      throw new Error({
+        status: 400,
+        message: 'That email is already in use',
+      });
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -46,15 +51,9 @@ handler.post(async (req, res) => {
       })
       .then(({ ops }) => ops[0]);
 
-    req.logIn(user, (err) => {
-      if (err) throw err;
-
-      res.status(201).json({
-        user: extractUser(req),
-      });
-    });
+    sendVerificationEmail(req, res, { email: user.email });
   } catch (e) {
-    res.json({ ok: false, message: e.message });
+    res.status(e.status || 500).json({ message: e.message });
   }
 });
 

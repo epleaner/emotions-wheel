@@ -33,9 +33,9 @@ const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
     });
 
     switch (res.status) {
-      case 200:
-        onClose();
+      case 201:
         await onSubmitSuccess(res);
+        onClose();
         break;
       default:
         setFormErrorMessage('Something went wrong, please try again');
@@ -50,10 +50,11 @@ const EmotionSelectionForm = ({ onSubmitSuccess, selected }) => {
       />
       <Formik
         initialValues={{ note: '' }}
-        validate={() => setFormErrorMessage(null)}
-        onSubmit={async (values, { setSubmitting }) => {
+        validate={(values) => {
           setFormValues(values);
-
+          setFormErrorMessage(null);
+        }}
+        onSubmit={async (values, { setSubmitting }) => {
           if (!user) onOpen();
           else {
             await handleSubmit();

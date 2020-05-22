@@ -23,14 +23,18 @@ const LoggedInLinks = () => {
 
   return user ? (
     <Flex mr={2} alignItems='center'>
-      <Link href='/profile'>
-        <Button size='xs' variant='outline'>
-          <Text textTransform='uppercase' fontSize='sm'>
-            {user.name}
-          </Text>
-        </Button>
-      </Link>
-      <Divider orientation='vertical' />
+      {!isLoggingOut && (
+        <>
+          <Link href='/profile'>
+            <Button size='xs' variant='outline'>
+              <Text textTransform='uppercase' fontSize='sm'>
+                {user.name}
+              </Text>
+            </Button>
+          </Link>
+          <Divider orientation='vertical' />
+        </>
+      )}
       <Button
         size='xs'
         variant='ghost'

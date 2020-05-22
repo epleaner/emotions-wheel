@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
+
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import Link from 'next/link';
@@ -17,7 +19,8 @@ import {
 import LoginSchema from '@schemas/formValidations/loginFormValidations';
 import LoginFormErrorMessage from '@components/forms/loginForm/loginFormErrorMessage';
 
-const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
+const LoginForm = ({ onSubmitSuccess, cancellable, onCancel, redirectTo }) => {
+  const router = useRouter();
   const [, { mutate }] = useUser();
 
   const [formErrorMessage, setFormErrorMessage] = useState('');
@@ -37,8 +40,13 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
           case 200:
             // set user state to user response
             mutate(await res.json());
-            await onSubmitSuccess(res);
 
+            console.log(onSubmitSuccess);
+
+            if (typeof onSubmitSuccess === 'function')
+              await onSubmitSuccess(res);
+
+            if (redirectTo) router.replace(redirectTo);
             break;
           case 401:
             setFormErrorMessage((await res.json()).message);
@@ -133,9 +141,10 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
 };
 
 LoginForm.propTypes = {
-  onSubmitSuccess: PropTypes.func.isRequired,
+  onSubmitSuccess: PropTypes.func,
   cancellable: PropTypes.bool,
   onCancel: PropTypes.func,
+  redirectTo: PropTypes.string,
 };
 
 export default LoginForm;

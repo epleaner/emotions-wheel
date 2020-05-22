@@ -52,13 +52,14 @@ const LogInSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
                   cancellable
                   onCancel={onClose}
                   onSubmitSuccess={onSubmitSuccess}
+                  redirectTo='/profile'
                 />
               </TabPanel>
               <TabPanel>
                 <SignUpForm
                   cancellable
                   onCancel={onClose}
-                  onSubmitSuccess={() => {}}
+                  onSubmitSuccess={onSubmitSuccess}
                   modal
                 />
               </TabPanel>

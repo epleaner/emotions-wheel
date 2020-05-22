@@ -16,14 +16,10 @@ const LoginPage = () => {
     if (user) router.replace('/');
   }, [user, router]);
 
-  const onSubmitSuccess = () => {
-    router.replace('/');
-  };
-
   return (
     <CenteredContainer>
       <Section>
-        <LoginForm onSubmitSuccess={onSubmitSuccess} />
+        <LoginForm redirectTo='/' />
       </Section>
     </CenteredContainer>
   );

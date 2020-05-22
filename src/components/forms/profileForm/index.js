@@ -10,6 +10,7 @@ import {
   Input,
   FormHelperText,
   Icon,
+  Stack,
 } from '@chakra-ui/core';
 
 import ProfileSchema from '@schemas/formValidations/profileFormValidations';
@@ -71,15 +72,22 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
                 mb={8}
                 isRequired
                 isInvalid={form.errors.name && form.touched.name}>
-                <FormLabel htmlFor='name'>Name</FormLabel>
-                <Input
-                  aria-label='name'
-                  variant='flushed'
-                  {...field}
-                  id='name'
-                  type='test'
-                  placeholder=''
-                />
+                <Stack direction='row' align='baseline'>
+                  <FormLabel fontSize='sm' htmlFor='name'>
+                    Name
+                  </FormLabel>
+                  <Input
+                    size='sm'
+                    size='sm'
+                    _invalid={{ boxShadow: 'none' }}
+                    aria-label='name'
+                    variant='flushed'
+                    {...field}
+                    id='name'
+                    type='test'
+                    placeholder=''
+                  />
+                </Stack>
                 <FormErrorMessage>{form.errors.name}</FormErrorMessage>
               </FormControl>
             )}
@@ -90,20 +98,26 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
                 mb={8}
                 isRequired
                 isInvalid={form.errors.email && form.touched.email}>
-                <FormLabel htmlFor='email'>Email</FormLabel>
-                <Input
-                  aria-label='Email'
-                  variant='flushed'
-                  {...field}
-                  id='email'
-                  type='email'
-                  placeholder=''
-                />
+                <Stack direction='row' align='baseline'>
+                  <FormLabel fontSize='sm' htmlFor='email'>
+                    Email
+                  </FormLabel>
+                  <Input
+                    size='sm'
+                    _invalid={{ boxShadow: 'none' }}
+                    aria-label='Email'
+                    variant='flushed'
+                    {...field}
+                    id='email'
+                    type='email'
+                    placeholder=''
+                  />
+                </Stack>
                 <FormErrorMessage>{form.errors.email}</FormErrorMessage>
               </FormControl>
             )}
           </Field>
-          <Heading as='h2' size='md'>
+          <Heading as='h2' size='sm'>
             Change Password
           </Heading>
           <Field name='passwords.oldPassword'>
@@ -113,15 +127,24 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
                 isInvalid={
                   form.errors.passwords && !!form.errors.passwords.oldPassword
                 }>
-                <FormLabel htmlFor='oldPassword'>Current Password</FormLabel>
-                <Input
-                  aria-label='Old Password'
-                  variant='flushed'
-                  {...field}
-                  id='oldPassword'
-                  type='password'
-                  placeholder=''
-                />
+                <Stack direction='row' align='baseline'>
+                  <FormLabel
+                    w={['160px', '140px']}
+                    fontSize='sm'
+                    htmlFor='oldPassword'>
+                    Old password
+                  </FormLabel>
+                  <Input
+                    size='sm'
+                    _invalid={{ boxShadow: 'none' }}
+                    aria-label='Old Password'
+                    variant='flushed'
+                    {...field}
+                    id='oldPassword'
+                    type='password'
+                    placeholder=''
+                  />
+                </Stack>
                 <FormErrorMessage>
                   {form.errors.passwords && form.errors.passwords.oldPassword}
                 </FormErrorMessage>
@@ -135,15 +158,24 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
                 isInvalid={
                   form.errors.passwords && !!form.errors.passwords.newPassword
                 }>
-                <FormLabel htmlFor='newPassword'>New Password</FormLabel>
-                <Input
-                  aria-label='New Password'
-                  variant='flushed'
-                  {...field}
-                  id='newPassword'
-                  type='password'
-                  placeholder=''
-                />
+                <Stack direction='row' align='baseline'>
+                  <FormLabel
+                    w={['160px', '140px']}
+                    fontSize='sm'
+                    htmlFor='newPassword'>
+                    New password
+                  </FormLabel>
+                  <Input
+                    size='sm'
+                    _invalid={{ boxShadow: 'none' }}
+                    aria-label='New Password'
+                    variant='flushed'
+                    {...field}
+                    id='newPassword'
+                    type='password'
+                    placeholder=''
+                  />
+                </Stack>
                 <FormErrorMessage>
                   {form.errors.passwords && form.errors.passwords.newPassword}
                 </FormErrorMessage>

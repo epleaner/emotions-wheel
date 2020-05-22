@@ -29,45 +29,42 @@ const DeleteAccountButtons = ({
       {showDeleteConfirmation ? (
         <>
           <FormControl>
-            <FormHelperText id="name-helper-text">
+            <FormHelperText id='name-helper-text'>
               Please enter your name ({confirmationName}) to confirm you want to
               delete your account.
             </FormHelperText>
             <Input
-              type="text"
-              size="sm"
+              type='text'
+              size='sm'
               my={2}
               value={name}
-              placeholder=""
-              aria-describedby="name-helper-text"
+              placeholder=''
+              aria-describedby='name-helper-text'
               onChange={handleNameChange}
             />
           </FormControl>
           <Button
-            size="xs"
+            size='xs'
             mr={2}
             isDisabled={isDisabled}
-            onClick={() => setShowDeleteConfirmation(false)}
-          >
+            onClick={() => setShowDeleteConfirmation(false)}>
             Never mind
           </Button>
           <Button
-            size="xs"
-            variantColor="red"
+            size='xs'
+            variantColor='red'
             onClick={handleDelete}
             isDisabled={isDisabled || !nameConfirmed}
             isLoading={isLoading}
-            loadingText="Deleting"
-          >
+            loadingText='Deleting'>
             Yes, really delete
           </Button>
         </>
       ) : (
         <Button
-          size="xs"
+          size='xs'
           isDisabled={isDisabled}
-          onClick={() => setShowDeleteConfirmation(true)}
-        >
+          onClick={() => setShowDeleteConfirmation(true)}>
           Delete account
         </Button>
       )}

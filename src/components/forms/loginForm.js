@@ -40,7 +40,7 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
             setSubmitting(false);
             break;
           case 401:
-            setFormErrorMessage("Sorry, that email and password didn't work.");
+            setFormErrorMessage((await res.json()).message);
             break;
           default:
             setFormErrorMessage('There was an error, please try again.');

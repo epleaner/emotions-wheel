@@ -26,8 +26,7 @@ const LogInSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
       initialFocusRef={initialRef}
       isOpen={isOpen}
       onClose={onClose}
-      isCentered
-    >
+      isCentered>
       <ModalOverlay />
       <ModalContent>
         <Tabs align='center' variant='soft-rounded' size='sm'>
@@ -35,14 +34,12 @@ const LogInSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
             <TabList>
               <Tab
                 color='blue.400'
-                _selected={{ color: 'white', bg: 'blue.300' }}
-              >
+                _selected={{ color: 'white', bg: 'blue.300' }}>
                 Log In
               </Tab>
               <Tab
-                color='green.400'
-                _selected={{ color: 'white', bg: 'green.300' }}
-              >
+                color='primary.400'
+                _selected={{ color: 'white', bg: 'primary.300' }}>
                 Sign Up
               </Tab>
             </TabList>
@@ -61,7 +58,8 @@ const LogInSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
                 <SignUpForm
                   cancellable
                   onCancel={onClose}
-                  onSubmitSuccess={onSubmitSuccess}
+                  onSubmitSuccess={() => {}}
+                  modal
                 />
               </TabPanel>
             </TabPanels>

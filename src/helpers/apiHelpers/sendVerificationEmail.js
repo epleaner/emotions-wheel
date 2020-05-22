@@ -12,15 +12,15 @@ export default async (req, res, { email }) => {
       .findOne({ email: normalizeEmail(email) });
 
     if (!user)
-      throw new Error({
+      throw {
         status: 400,
         message: 'Could not find a user with that email',
-      });
+      };
     if (user.emailVerified)
-      throw new Error({
+      throw {
         status: 400,
         message: 'This email is already verified',
-      });
+      };
 
     const token = crypto.randomBytes(32).toString('hex');
 
@@ -43,7 +43,8 @@ export default async (req, res, { email }) => {
     res.status(201).json({
       message: 'A verification email has been sent to your inbox.',
     });
-  } catch (e) {
-    res.status(e.status || 500).json({ message: e.message });
+  } catch ({ status, message }) {
+    console.log(status, message);
+    res.status(status || 500).json({ message });
   }
 };

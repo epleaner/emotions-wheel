@@ -38,16 +38,19 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
             // set user state to user response
             mutate(await res.json());
             await onSubmitSuccess(res);
+
             break;
           case 401:
             setFormErrorMessage((await res.json()).message);
+            setSubmitting(false);
+
             break;
           default:
-            setFormErrorMessage('Something went wrong, please try again.');
+            setFormErrorMessage('Something went wrong, please try again');
+            setSubmitting(false);
+
             break;
         }
-
-        setSubmitting(false);
       }}>
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>

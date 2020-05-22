@@ -71,6 +71,12 @@ handler.patch(async (req, res) => {
 
     let setBody = { name, email };
 
+    if ((await req.db.collection('user').countDocuments({ email })) > 0)
+      throw {
+        status: 400,
+        message: 'This email is already in use',
+      };
+
     if (oldPassword && newPassword) {
       if (!(await bcrypt.compare(oldPassword, req.user.password))) {
         throw {

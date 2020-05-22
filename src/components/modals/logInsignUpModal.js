@@ -18,7 +18,7 @@ import {
 import SignUpForm from '@components/forms/signUpForm';
 import LoginForm from '@components/forms/loginForm';
 
-const LogInSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
+const LoginSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
   const initialRef = React.useRef();
 
   return (
@@ -71,10 +71,10 @@ const LogInSignUpModal = ({ isOpen, onClose, onSubmitSuccess }) => {
   );
 };
 
-LogInSignUpModal.propTypes = {
+LoginSignUpModal.propTypes = {
   onSubmitSuccess: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-export default LogInSignUpModal;
+export default LoginSignUpModal;

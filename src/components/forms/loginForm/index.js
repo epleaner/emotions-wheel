@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/core';
 
 import LoginSchema from '@schemas/formValidations/loginFormValidations';
+import LoginFormErrorMessage from '@components/forms/loginForm/loginFormErrorMessage';
 
 const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
   const [, { mutate }] = useUser();
@@ -93,7 +94,7 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
             )}
           </Field>
           <FormControl isInvalid={formErrorMessage}>
-            <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
+            <LoginFormErrorMessage message={formErrorMessage} />
             <Flex justifyContent='space-between'>
               <Button
                 mt={4}

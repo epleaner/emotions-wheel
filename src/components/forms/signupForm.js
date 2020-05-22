@@ -14,7 +14,7 @@ import {
 
 import SignUpSchema from '@schemas/formValidations/signupFormValidations';
 import Heading from '@components/shared/heading';
-const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
+const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
   const [formErrorMessage, setFormErrorMessage] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
@@ -22,10 +22,13 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
     <>
       {submitSuccess ? (
         <>
-          <Heading fontSize='4xl'>Thanks for signing up!</Heading>
-          <Text fontSize='2xl'>
+          <Heading fontSize={modal ? 'xl' : '4xl'}>
+            Thanks for signing up!
+          </Heading>
+          <Text fontSize={modal ? 'md' : '2xl'}>
             Check your inbox for a link to verify your email, then you'll be
-            good to go.
+            good to go
+            {modal ? " – and don't worry, your entry is saved!" : '.'}
           </Text>
         </>
       ) : (
@@ -160,6 +163,7 @@ SignupForm.propTypes = {
   onSubmitSuccess: PropTypes.func.isRequired,
   cancellable: PropTypes.bool,
   onCancel: PropTypes.func,
+  modal: PropTypes.bool,
 };
 
 export default SignupForm;

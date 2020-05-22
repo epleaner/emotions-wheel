@@ -24,8 +24,8 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
         <>
           <Heading fontSize='4xl'>Thanks for signing up!</Heading>
           <Text fontSize='2xl'>
-            Check your inbox for a verification email, then you'll be good to
-            go.
+            Check your inbox for a link to verify your email, then you'll be
+            good to go.
           </Text>
         </>
       ) : (
@@ -40,11 +40,20 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
               body: JSON.stringify(values),
             });
 
-            if (res.status === 201) {
-              await onSubmitSuccess(res);
-              setSubmitting(false);
-              setSubmitSuccess(true);
-            } else setFormErrorMessage(await res.text());
+            switch (res.status) {
+              case 201:
+                await onSubmitSuccess(res);
+                setSubmitSuccess(true);
+                break;
+              case 400:
+                setFormErrorMessage((await res.json()).message);
+                break;
+              default:
+                setFormErrorMessage('Something went wrong, please try again');
+                break;
+            }
+
+            setSubmitting(false);
           }}>
           {({ isSubmitting, isValidating, errors, dirty }) => (
             <Form>

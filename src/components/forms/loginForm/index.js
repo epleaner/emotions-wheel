@@ -38,15 +38,16 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
             // set user state to user response
             mutate(await res.json());
             await onSubmitSuccess(res);
-            setSubmitting(false);
             break;
           case 401:
             setFormErrorMessage((await res.json()).message);
             break;
           default:
-            setFormErrorMessage('There was an error, please try again.');
+            setFormErrorMessage('Something went wrong, please try again.');
             break;
         }
+
+        setSubmitting(false);
       }}>
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>
@@ -108,7 +109,7 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel }) => {
                 isLoading={isSubmitting}
                 loadingText='Logging in'
                 type='submit'>
-                Login
+                Log in
               </Button>
               {cancellable && (
                 <Button

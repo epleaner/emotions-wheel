@@ -18,7 +18,10 @@ handler.post(async (req, res) => {
       .findOne({ email: req.body.email });
 
     if (!user)
-      throw new Error("Couldn't find an account associated with this email.");
+      throw {
+        status: 400,
+        message: "Couldn't find an account associated with this email.",
+      };
 
     const token = crypto.randomBytes(32).toString('hex');
 
@@ -38,11 +41,9 @@ handler.post(async (req, res) => {
 
     await sgMail.send(msg);
 
-    res.json({
-      ok: true,
-    });
-  } catch (e) {
-    res.json({ ok: false, message: e.message });
+    return res.status(200);
+  } catch ({ status, message }) {
+    res.status(status || 500).json({ message });
   }
 });
 

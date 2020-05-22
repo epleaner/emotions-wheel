@@ -29,15 +29,16 @@ const VerifyEmailForm = ({ onSubmitSuccess }) => {
         switch (res.status) {
           case 201:
             await onSubmitSuccess(res);
-            return;
+            break;
           case 400:
             setFormErrorMessage((await res.json()).message);
-            return;
+            break;
           default:
-            setSubmitting(false);
             setFormErrorMessage('Something went wrong, please try again.');
-            return;
+            break;
         }
+
+        setSubmitting(false);
       }}>
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>

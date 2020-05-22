@@ -13,7 +13,6 @@ const VerifyEmailToken = ({ token }) => {
   const [fetchingValidity, setFetchingValidity] = useState(true);
 
   useEffect(() => {
-    console.log('checking token');
     (async () => {
       const res = await fetch(`/api/user/email/verify/${token}`, {
         method: 'PATCH',

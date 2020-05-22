@@ -13,18 +13,18 @@ handler.patch(async (req, res) => {
     });
 
     if (!token)
-      throw new Error({
+      throw {
         status: 400,
         message: 'This link is no longer valid, please try again.',
-      });
+      };
 
     await req.db
       .collection('user')
       .updateOne({ _id: token.userId }, { $set: { emailVerified: true } });
 
     res.status(200).end();
-  } catch (e) {
-    res.status(e.status || 500).json({ message: e.toString() });
+  } catch ({ status, message }) {
+    res.status(status || 500).json({ message });
   }
 });
 

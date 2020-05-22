@@ -36,7 +36,7 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
         setFormErrorMessage(null);
       }}
       validationSchema={ProfileSchema}
-      onSubmit={async (values, actions) => {
+      onSubmit={async (values, { setFieldValue, setSubmitting }) => {
         const res = await fetch('/api/user', {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
@@ -45,24 +45,28 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
 
         const resJson = await res.json();
 
-        if (resJson.ok) {
-          await onSubmitSuccess(resJson);
+        switch (res.status) {
+          case 201:
+            await onSubmitSuccess(resJson);
 
-          actions.setFieldValue(
-            'passwords',
-            {
-              oldPassword: '',
-              newPassword: '',
-            },
-            false
-          );
+            setFieldValue(
+              'passwords',
+              {
+                oldPassword: '',
+                newPassword: '',
+              },
+              false
+            );
 
-          setFormSuccessMessage(resJson.message);
-          actions.setSubmitting(false);
-        } else {
-          setFormSuccessMessage(null);
-          setFormErrorMessage(resJson.message);
+            setFormSuccessMessage(resJson.message);
+            break;
+          default:
+            setFormSuccessMessage(null);
+            setFormErrorMessage(resJson.message);
+            break;
         }
+
+        setSubmitting(false);
       }}>
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>

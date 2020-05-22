@@ -49,7 +49,7 @@ const ProfilePage = () => {
           <Section>
             <Stack direction='row' justify='space-between' align='baseline'>
               <Heading mb={4} fontSize='6xl'>
-                hey, {name}.
+                hey, {name}
               </Heading>
               <Link href='/profile/edit'>
                 <Button type='button' mt={4} size='xs'>

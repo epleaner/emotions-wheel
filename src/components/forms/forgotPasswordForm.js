@@ -27,9 +27,9 @@ const ForgotPasswordForm = ({ onSubmitSuccess }) => {
         });
 
         if (res.status === 200) {
+          setSubmitting(false);
           await onSubmitSuccess(res);
         } else setFormErrorMessage('Something went wrong, please try again.');
-        setSubmitting(false);
       }}>
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>

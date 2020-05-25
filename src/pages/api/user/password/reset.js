@@ -36,7 +36,7 @@ handler.post(async (req, res) => {
       to: user.email,
       from: process.env.EMAIL_FROM,
       subject: '[feeels] Resetting your password',
-      html: `Hey ${user.name}, <a href=${process.env.NOW_URL}/forgot-password/${token}>here</a> is a link to reset your password.`,
+      html: `Hey ${user.name}, <a href=${process.env.API_ROOT_URL}/forgot-password/${token}>here</a> is a link to reset your password.`,
     };
 
     await sgMail.send(msg);

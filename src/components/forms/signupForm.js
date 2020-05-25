@@ -46,17 +46,18 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
             switch (res.status) {
               case 201:
                 await onSubmitSuccess(res);
+                setSubmitting(false);
                 setSubmitSuccess(true);
                 break;
               case 400:
+                setSubmitting(false);
                 setFormErrorMessage((await res.json()).message);
                 break;
               default:
+                setSubmitting(false);
                 setFormErrorMessage('Something went wrong, please try again');
                 break;
             }
-
-            setSubmitting(false);
           }}>
           {({ isSubmitting, isValidating, errors, dirty }) => (
             <Form>

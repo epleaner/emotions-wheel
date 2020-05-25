@@ -44,5 +44,6 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 ### Bugs
 
 - [x] Delete account still shows a logged in user
-- [ ] Logging out shows stale state
+- [x] Emotion form error when signing up
+- [ ] Email links funky
 - [ ] sunburst form displaced before sunburst loads

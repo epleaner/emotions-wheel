@@ -35,7 +35,7 @@ export default async (req, res, { email }) => {
       to: user.email,
       from: process.env.EMAIL_FROM,
       subject: '[feeels] Please verify your email',
-      html: `Hey ${user.name}, please verify your email <a href=${process.env.NOW_URL}/verify-email/${token}>here</a>.`,
+      html: `Hey ${user.name}, please verify your email <a href=${process.env.APP_ROOT_URL}/verify-email/${token}>here</a>.`,
     };
 
     await sgMail.send(msg);

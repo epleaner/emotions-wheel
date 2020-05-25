@@ -51,7 +51,15 @@ handler.post(async (req, res) => {
       })
       .then(({ ops }) => ops[0]);
 
-    return sendVerificationEmail(req, res, { email: user.email });
+    const emailRes = await sendVerificationEmail(req, res, {
+      email: user.email,
+    });
+
+    if (!emailRes.ok) throw emailRes;
+
+    return res
+      .status(201)
+      .json({ message: emailRes.message, user_id: user._id });
   } catch ({ status, message }) {
     return res.status(status || 500).json({ message });
   }

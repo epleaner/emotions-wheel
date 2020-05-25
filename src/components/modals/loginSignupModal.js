@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -17,9 +17,24 @@ import {
 
 import SignupForm from '@components/forms/signupForm';
 import LoginForm from '@components/forms/loginForm';
+import Heading from '@components/shared/heading';
 
 const LoginSignupModal = ({ isOpen, onClose, onSubmitSuccess }) => {
   const initialRef = React.useRef();
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
+
+  const onLoginFormSuccess = useCallback(async () => {
+    await onSubmitSuccess();
+    onClose();
+  }, [onClose, onSubmitSuccess]);
+
+  const onSignupFormSuccess = useCallback(
+    async (res) => {
+      await onSubmitSuccess(res);
+      setSignUpSuccess(true);
+    },
+    [onSubmitSuccess]
+  );
 
   return (
     <Modal
@@ -31,18 +46,26 @@ const LoginSignupModal = ({ isOpen, onClose, onSubmitSuccess }) => {
       <ModalContent>
         <Tabs align='center' variant='soft-rounded' size='sm'>
           <ModalHeader>
-            <TabList>
-              <Tab
-                color='blue.400'
-                _selected={{ color: 'white', bg: 'blue.300' }}>
-                Log In
-              </Tab>
-              <Tab
-                color='primary.400'
-                _selected={{ color: 'white', bg: 'primary.300' }}>
-                Sign Up
-              </Tab>
-            </TabList>
+            {!signUpSuccess && (
+              <>
+                <Heading size='sm' mt={5} mx={5}>
+                  Hey, you'll need to log in or sign up in order to save your
+                  feel 🙃
+                </Heading>
+                <TabList>
+                  <Tab
+                    color='blue.400'
+                    _selected={{ color: 'white', bg: 'blue.300' }}>
+                    Log In
+                  </Tab>
+                  <Tab
+                    color='primary.400'
+                    _selected={{ color: 'white', bg: 'primary.300' }}>
+                    Sign Up
+                  </Tab>
+                </TabList>
+              </>
+            )}
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody pb={6}>
@@ -51,7 +74,7 @@ const LoginSignupModal = ({ isOpen, onClose, onSubmitSuccess }) => {
                 <LoginForm
                   cancellable
                   onCancel={onClose}
-                  onSubmitSuccess={onSubmitSuccess}
+                  onSubmitSuccess={onLoginFormSuccess}
                   redirectTo='/profile'
                 />
               </TabPanel>
@@ -59,7 +82,7 @@ const LoginSignupModal = ({ isOpen, onClose, onSubmitSuccess }) => {
                 <SignupForm
                   cancellable
                   onCancel={onClose}
-                  onSubmitSuccess={onSubmitSuccess}
+                  onSubmitSuccess={onSignupFormSuccess}
                   modal
                 />
               </TabPanel>

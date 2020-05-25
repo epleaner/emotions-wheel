@@ -26,8 +26,10 @@ const VerifyEmailForm = ({ onSubmitSuccess }) => {
           body: JSON.stringify(values),
         });
 
+        setSubmitting(false);
+
         switch (res.status) {
-          case 201:
+          case 200:
             await onSubmitSuccess(res);
             break;
           case 400:
@@ -37,8 +39,6 @@ const VerifyEmailForm = ({ onSubmitSuccess }) => {
             setFormErrorMessage('Something went wrong, please try again.');
             break;
         }
-
-        setSubmitting(false);
       }}>
       {({ isSubmitting, isValidating, errors, dirty }) => (
         <Form>

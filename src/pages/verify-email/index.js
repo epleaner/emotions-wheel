@@ -7,7 +7,7 @@ import Heading from '@components/shared/heading';
 
 import VerifyEmailForm from '@components/forms/verifyEmailForm';
 
-const ForgotPassword = () => {
+const VerifyEmail = () => {
   const [showWhy, setShowWhy] = React.useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -47,4 +47,4 @@ const ForgotPassword = () => {
   );
 };
 
-export default ForgotPassword;
+export default VerifyEmail;

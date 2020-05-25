@@ -25,22 +25,25 @@ const EmotionSelectionForm = ({ selected }) => {
   const [formErrorMessage, setFormErrorMessage] = useState('');
   const [formValues, setFormValues] = useState();
 
-  const handleSubmit = useCallback(async () => {
-    const res = await fetch('/api/emotions', {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ ...formValues, emotion: selected.data.name }),
-    });
+  const handleSubmit = useCallback(
+    async (dbRes) => {
+      const { user_id } = await dbRes.json();
 
-    switch (res.status) {
-      case 201:
-        onClose();
-        break;
-      default:
+      const res = await fetch('/api/emotions', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formValues,
+          emotion: selected.data.name,
+          user_id,
+        }),
+      });
+
+      if (res.status >= 400)
         setFormErrorMessage('Something went wrong, please try again');
-        break;
-    }
-  }, [formValues, onClose, selected]);
+    },
+    [formValues, selected]
+  );
 
   return (
     <>
@@ -49,11 +52,13 @@ const EmotionSelectionForm = ({ selected }) => {
       />
       <Formik
         initialValues={{ note: '' }}
-        validate={(values) => {
-          setFormValues(values);
+        validate={() => {
           setFormErrorMessage(null);
         }}
         onSubmit={async (values, { setSubmitting }) => {
+          console.log('setting form values', values);
+          setFormValues(values);
+
           if (!user) onOpen();
           else {
             await handleSubmit();

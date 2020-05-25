@@ -40,11 +40,12 @@ export default async (req, res, { email }) => {
 
     await sgMail.send(msg);
 
-    res.status(201).json({
+    return {
+      ok: true,
+      status: 200,
       message: 'A verification email has been sent to your inbox.',
-    });
+    };
   } catch ({ status, message }) {
-    console.log(status, message);
-    res.status(status || 500).json({ message });
+    return { ok: false, status, message };
   }
 };

@@ -14,7 +14,7 @@ const LoginFormErrorMessage = ({ message }) => {
   switch (message) {
     case 'Email not verified':
       return (
-        <Text color='blue.500' fontSize='sm'>
+        <Text as='aside' color='blue.500' fontSize='sm'>
           <Flex alignItems='center'>
             <Icon name='info' mr='2' />
             <Text>

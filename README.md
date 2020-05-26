@@ -1,6 +1,6 @@
 - [feeels](#feeels)
 
-  - [Features to add](#features-to-add)
+  - [Roadmap](#roadmap)
     - [account](#account)
     - [entry management](#entry-management)
     - [emotion selection](#emotion-selection)
@@ -10,9 +10,9 @@
 
 For checking in with yourself.
 
-Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth supported by Passport.
+Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported by Passport. Hosted on Now.
 
-## Features to add
+## Roadmap
 
 ### account
 
@@ -22,6 +22,7 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 - [x] User can delete their account
 - [x] Password length / form requirements
 - [ ] Email for profile updates
+- [ ] Email looks good
 
 ### entry management
 
@@ -33,6 +34,7 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 
 - [x] User sees a sunburst view of all emotions at once
 - [ ] User can select multiple emotions
+- [ ] Form resets after selecting
 
 ### UI
 
@@ -40,10 +42,9 @@ Built using React + Next, MongoDB, emotion, Theme-UI, with serverless auth suppo
 - [ ] sunburst colors
 - [ ] sunburst circle expands to fill space
 - [ ] Forms with https://jaredpalmer.com/formik/ (https://chakra-ui.com/formcontrol#usage-with-form-libraries)
+- [ ] log in --> email verification needed --> send in form
 
 ### Bugs
 
-- [x] Delete account still shows a logged in user
-- [x] Emotion form error when signing up
-- [ ] Email links funky
 - [ ] sunburst form displaced before sunburst loads
+- [ ] log in --> email verification needed --> first click does not redirect

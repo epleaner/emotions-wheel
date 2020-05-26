@@ -29,6 +29,7 @@ const EmotionSelectionForm = ({ selected }) => {
     async (dbRes) => {
       let user_id = null;
       if (dbRes) user_id = await dbRes.json();
+      console.log(formValues);
 
       const res = await fetch('/api/emotions', {
         method: 'PUT',
@@ -53,7 +54,8 @@ const EmotionSelectionForm = ({ selected }) => {
       />
       <Formik
         initialValues={{ note: '' }}
-        validate={() => {
+        validate={(values) => {
+          setFormValues(values);
           setFormErrorMessage(null);
         }}
         onSubmit={async (values, { setSubmitting }) => {

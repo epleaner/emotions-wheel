@@ -8,10 +8,14 @@ import EmotionListItem from '@components/emotionList/emotionListItem';
 
 const EmotionList = ({ emotions }) => (
   <>
-    {emotions ? (
+    {emotions.length > 0 ? (
       <ul>
         {emotions.map((emotion) => (
-          <EmotionListItem key={emotion.date} emotionData={emotion} />
+          <EmotionListItem
+            key={`${emotion.date}-${emotion.data.name}`}
+            emotion={emotion}
+            mb={8}
+          />
         ))}
       </ul>
     ) : (

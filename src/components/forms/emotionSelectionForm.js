@@ -35,7 +35,7 @@ const EmotionSelectionForm = ({ selected }) => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formValues,
-          emotion: selected.data,
+          emotion: selected,
           user_id,
         }),
       });

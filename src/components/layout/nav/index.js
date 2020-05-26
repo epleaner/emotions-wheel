@@ -31,7 +31,7 @@ const Nav = () => {
           }}
           variant='link'>
           <Text textTransform='uppercase' fontSize='sm'>
-            feels
+            feeels
           </Text>
         </Button>
       </Link>

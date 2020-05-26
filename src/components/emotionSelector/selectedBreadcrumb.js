@@ -1,27 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Box, Text, Icon } from '@chakra-ui/core';
+import { Box, Icon, Badge } from '@chakra-ui/core';
 
 const SelectedBreadcrumb = ({ selected }) => {
-  const color = selected.color;
+  let { data, color } = selected;
   const path = [];
 
-  while (selected.parent) {
-    path.push(selected);
-    selected = selected.parent;
+  while (data.parent) {
+    path.push(data);
+    data = data.parent;
   }
   return path.reverse().map((p, i) => (
-    <Box key={p.data.name}>
-      <Text>
-        {p.data.name}
-        {i < path.length - 1 && <Icon color={color} name='chevron-right' />}
-      </Text>
+    <Box key={p.name}>
+      <Badge
+        boxShadow='none'
+        bg={i < path.length - 1 ? 'none' : color}
+        color={i < path.length - 1 ? color : 'white'}
+        variant={i < path.length - 1 ? 'outline' : 'solid'}>
+        {p.name}
+      </Badge>
+      {i < path.length - 1 && <Icon color={color} name='chevron-right' />}
     </Box>
   ));
 };
 
 SelectedBreadcrumb.propTypes = {
-  selected: PropTypes.shape({ parent: PropTypes.object }).isRequired,
+  selected: PropTypes.shape({
+    color: PropTypes.string.isRequired,
+    data: PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      parent: PropTypes.object.isRequired,
+    }),
+  }).isRequired,
 };
 
 export default SelectedBreadcrumb;

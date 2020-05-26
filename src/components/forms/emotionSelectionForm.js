@@ -27,14 +27,15 @@ const EmotionSelectionForm = ({ selected }) => {
 
   const handleSubmit = useCallback(
     async (dbRes) => {
-      const { user_id } = await dbRes.json();
+      let user_id = null;
+      if (dbRes) user_id = await dbRes.json();
 
       const res = await fetch('/api/emotions', {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           ...formValues,
-          emotion: selected.data.name,
+          emotion: selected.data,
           user_id,
         }),
       });
@@ -56,7 +57,6 @@ const EmotionSelectionForm = ({ selected }) => {
           setFormErrorMessage(null);
         }}
         onSubmit={async (values, { setSubmitting }) => {
-          console.log('setting form values', values);
           setFormValues(values);
 
           if (!user) onOpen();
@@ -76,7 +76,7 @@ const EmotionSelectionForm = ({ selected }) => {
                       id='name'
                       type='text'
                       variant='flushed'
-                      width={['100%', 600]}
+                      width={['100%', '100%', 600]}
                       borderColor={
                         selected
                           ? selected.color

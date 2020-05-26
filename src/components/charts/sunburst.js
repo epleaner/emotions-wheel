@@ -101,7 +101,9 @@ const Sunburst = ({ width = 600, onSelect }) => {
       .text((d) => d.data.name);
 
     function clicked(p) {
-      onSelect(p.parent ? { ...p, color: parentColor(p) } : null);
+      onSelect(
+        p.parent ? { data: getHierarchy(p), color: parentColor(p) } : null
+      );
       parent.datum(p.parent || root);
 
       root.each(
@@ -167,6 +169,21 @@ const Sunburst = ({ width = 600, onSelect }) => {
         .transition(t)
         .attr('fill-opacity', (d) => +labelVisible(d.target))
         .attrTween('transform', (d) => () => labelTransform(d.current));
+    }
+
+    function getHierarchy(p) {
+      const hierarchy = {};
+      let currentData = hierarchy;
+      let current = p;
+
+      while (current.parent) {
+        currentData.name = current.data.name;
+        currentData.parent = {};
+        currentData = currentData.parent;
+        current = current.parent;
+      }
+
+      return hierarchy;
     }
 
     function parentColor(d) {

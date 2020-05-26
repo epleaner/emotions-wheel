@@ -1,9 +1,9 @@
 import React from 'react';
 
-import SunburstSelector from '@components/emotionSelector';
+import EmotionSelector from '@components/emotionSelector';
 
 const Index = () => {
-  return <SunburstSelector />;
+  return <EmotionSelector />;
 };
 
 export default Index;

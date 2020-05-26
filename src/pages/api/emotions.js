@@ -13,16 +13,17 @@ handler.put(async (req, res) => {
 
     const _id = req.user ? req.user._id : ObjectId(req.body.user_id);
 
-    const { color, data, note } = req.body;
+    const {
+      emotion: { color, data },
+      note,
+    } = req.body;
 
-    const { modifiedCount } = await req.db
-      .collection('user')
-      .updateOne(
-        { _id },
-        {
-          $push: { emotions: { date: new Date().toJSON(), color, data, note } },
-        }
-      );
+    const { modifiedCount } = await req.db.collection('user').updateOne(
+      { _id },
+      {
+        $push: { emotions: { date: new Date().toJSON(), color, data, note } },
+      }
+    );
 
     if (modifiedCount !== 1)
       throw { status: 400, message: 'Entry unable to be saved' };

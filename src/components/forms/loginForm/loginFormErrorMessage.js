@@ -16,7 +16,7 @@ const LoginFormErrorMessage = ({ message }) => {
       return (
         <Text as='aside' color='blue.500' fontSize='sm'>
           <Flex alignItems='center'>
-            <Icon name='info' mr='2' />
+            <Icon name='info' mr={2} />
             <Text>
               This email still needs to be verified.{' '}
               <Link href='/verify-email'>

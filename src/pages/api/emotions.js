@@ -13,13 +13,15 @@ handler.put(async (req, res) => {
 
     const _id = req.user ? req.user._id : ObjectId(req.body.user_id);
 
-    const { color, data } = req.body;
+    const { color, data, note } = req.body;
 
     const { modifiedCount } = await req.db
       .collection('user')
       .updateOne(
         { _id },
-        { $push: { emotions: { date: new Date().toJSON(), color, data } } }
+        {
+          $push: { emotions: { date: new Date().toJSON(), color, data, note } },
+        }
       );
 
     if (modifiedCount !== 1)

@@ -27,7 +27,7 @@ Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported 
 ### entry management
 
 - [ ] User can edit entries
-- [ ] User can delete entries
+- [x] User can delete entries
 - [ ] User can choose visibility of entries
 
 ### emotion selection

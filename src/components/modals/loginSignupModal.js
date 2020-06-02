@@ -49,8 +49,7 @@ const LoginSignupModal = ({ isOpen, onClose, onSubmitSuccess }) => {
             {!signUpSuccess && (
               <>
                 <Heading size='sm' mt={5} mx={5}>
-                  Hey, you'll need to log in or sign up in order to save your
-                  feel 🙃
+                  Hey, you'll just need to log in or sign up first
                 </Heading>
                 <TabList>
                   <Tab

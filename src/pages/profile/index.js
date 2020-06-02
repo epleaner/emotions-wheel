@@ -20,9 +20,9 @@ import Section from '@components/shared/section';
 const ProfilePage = () => {
   const [user, { mutate }, isFetching] = useUser();
   const { name } = user || {};
-  const [emotions, setEmotions] = useState(user ? user.emotions : []);
+  const [emotions, setEmotions] = useState(user ? user.emotions || [] : []);
 
-  useEffect(() => void setEmotions(user ? user.emotions : []), [user]);
+  useEffect(() => void setEmotions(user ? user.emotions || [] : []), [user]);
 
   const onDeleteSuccess = (idx) => () => {
     setEmotions(emotions.filter((_, i) => i !== idx));

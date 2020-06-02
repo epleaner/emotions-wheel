@@ -41,7 +41,7 @@ const Header = ({ emotion, onDeleteSuccess }) => {
           })}
         </Text>
 
-        <EmotionBreadcrumb selected={emotion} ml={-1} />
+        <EmotionBreadcrumb selected={emotion} />
       </Box>
 
       <Box>

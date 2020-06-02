@@ -4,11 +4,11 @@ import { Box, Stack } from '@chakra-ui/core';
 import Header from '@components/emotionList/listItem/header';
 import Body from '@components/emotionList/listItem/body';
 
-const EmotionListItem = ({ emotion, ...otherProps }) => {
+const EmotionListItem = ({ emotion, onDeleteSuccess, ...otherProps }) => {
   return (
     <Box pt={4} pb={0} my={4} overflow='hidden'>
       <Stack as='li' {...otherProps}>
-        <Header {...emotion} />
+        <Header {...{ emotion, onDeleteSuccess }} />
         <Body {...emotion} />
       </Stack>
     </Box>
@@ -25,6 +25,7 @@ EmotionListItem.propTypes = {
       parent: PropTypes.object.isRequired,
     }),
   }).isRequired,
+  onDeleteSuccess: PropTypes.func.isRequired,
 };
 
 export default EmotionListItem;

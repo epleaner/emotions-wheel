@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 import {
@@ -18,8 +18,21 @@ import Container from '@components/shared/container';
 import Section from '@components/shared/section';
 
 const ProfilePage = () => {
-  const [user, , isFetching] = useUser();
-  const { name, emotions } = user || {};
+  const [user, { mutate }, isFetching] = useUser();
+  const { name } = user || {};
+  const [emotions, setEmotions] = useState(user ? user.emotions : []);
+
+  useEffect(() => void setEmotions(user ? user.emotions : []), [user]);
+
+  const onDeleteSuccess = (idx) => () => {
+    setEmotions(emotions.filter((_, i) => i !== idx));
+    mutate({
+      user: {
+        ...user,
+        emotions,
+      },
+    });
+  };
 
   return (
     <>
@@ -58,7 +71,7 @@ const ProfilePage = () => {
               </Link>
             </Stack>
             <Divider />
-            <EmotionList emotions={emotions} />
+            <EmotionList {...{ emotions, onDeleteSuccess }} />
           </Section>
         </Container>
       )}

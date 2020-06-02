@@ -41,8 +41,6 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel, redirectTo }) => {
             // set user state to user response
             mutate(await res.json());
 
-            console.log(onSubmitSuccess);
-
             if (typeof onSubmitSuccess === 'function')
               await onSubmitSuccess(res);
 

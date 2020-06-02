@@ -17,6 +17,7 @@ const EditProfile = () => {
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [justDeleted, setJustDeleted] = useState(false);
+  const [deletingError, setDeletingError] = useState(null);
 
   useEffect(() => {
     if (!isFetching && !justDeleted && !user) router.replace('/');
@@ -39,18 +40,17 @@ const EditProfile = () => {
       e.preventDefault();
 
       setIsDeleting(true);
+      setDeletingError(null);
 
       const res = await fetch('/api/user', {
         method: 'DELETE',
       });
 
-      const resJson = await res.json();
-
-      if (resJson.ok) {
+      if (res.status === 200) {
         mutate(null);
         setJustDeleted(true);
       } else {
-        console.log({ message: resJson.message, isError: true });
+        setDeletingError('Something went wrong, please try again');
       }
 
       setIsDeleting(false);
@@ -89,6 +89,11 @@ const EditProfile = () => {
             isLoading={isDeleting}
             handleDelete={handleDelete}
           />
+          {deletingError && (
+            <Text fontSize='xs' color='red'>
+              {deletingError}
+            </Text>
+          )}
         </Section>
       )}
     </CenteredContainer>

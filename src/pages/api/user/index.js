@@ -105,7 +105,9 @@ handler.patch(async (req, res) => {
       message: 'Your changes have been updated successfully.',
     });
   } catch ({ status, message }) {
-    res.status(status || 500).json({ message });
+    res
+      .status(status || 500)
+      .json({ message: message || 'Something went wrong' });
   }
 });
 
@@ -118,12 +120,14 @@ handler.delete(async (req, res) => {
 
     req.logOut();
 
-    res.status(201).json({
+    res.status(200).json({
       user: null,
       message: 'Your account has been deleted.',
     });
   } catch ({ status, message }) {
-    res.status(status || 500).json({ message });
+    res
+      .status(status || 500)
+      .json({ message: message || 'Something went wrong' });
   }
 });
 

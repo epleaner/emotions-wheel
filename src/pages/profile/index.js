@@ -45,7 +45,7 @@ const ProfilePage = () => {
           </Text>
         </CenteredContainer>
       ) : (
-        <Container justifyContent='center' mt='4'>
+        <Container justifyContent='center' mt='4' mx={[4, 0]}>
           <Section>
             <Stack direction='row' justify='space-between' align='baseline'>
               <Heading mb={4} fontSize='6xl'>

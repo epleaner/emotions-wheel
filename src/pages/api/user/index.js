@@ -13,7 +13,13 @@ const handler = nextConnect();
 
 handler.use(middleware);
 
-handler.get(async (req, res) => res.json({ user: extractUser(req) }));
+handler.get(async (req, res) => {
+  try {
+    return res.json({ user: extractUser(req) });
+  } catch (e) {
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
+});
 
 // POST /api/user
 handler.post(async (req, res) => {

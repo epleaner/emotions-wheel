@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { Text, Link as UILink } from '@chakra-ui/core';
 
-import EmotionListItem from '@components/emotionList/emotionListItem';
+import EmotionListItem from '@components/emotionList/listItem';
 
 const EmotionList = ({ emotions }) => (
   <>

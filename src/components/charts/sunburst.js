@@ -80,8 +80,8 @@ const Sunburst = ({
         .padAngle((d) => Math.min((d.x1 - d.x0) / 2, 0.005))
         .padRadius(chartRadius * 1.5)
         .innerRadius((d) => yScale(d.y0))
-        .outerRadius((d) => yScale(d.y1))
-        .cornerRadius(25),
+        .outerRadius((d) => yScale(d.y1) - 5)
+        .cornerRadius(10),
     [chartRadius, yScale]
   );
 

@@ -24,8 +24,8 @@ const ProfilePage = () => {
 
   useEffect(() => void setEmotions(user ? user.emotions || [] : []), [user]);
 
-  const onDeleteSuccess = (idx) => () => {
-    setEmotions(emotions.filter((_, i) => i !== idx));
+  const onDeleteSuccess = (emotion) => () => {
+    setEmotions(emotions.filter((e) => e !== emotion));
     mutate({
       user: {
         ...user,

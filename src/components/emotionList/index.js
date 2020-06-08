@@ -7,16 +7,20 @@ import { Text, Link as UILink } from '@chakra-ui/core';
 import EmotionListItem from '@components/emotionList/listItem';
 
 const EmotionList = ({ emotions, onDeleteSuccess }) => {
+  const sortByDate = (emotions) => {
+    return emotions.sort((a, b) => new Date(b.date) - new Date(a.date));
+  };
+
   return (
     <>
       {emotions.length > 0 ? (
         <ul>
-          {emotions.map((emotion, idx) => (
+          {sortByDate(emotions).map((emotion) => (
             <EmotionListItem
               key={`${emotion.date}-${emotion.data.name}`}
               emotion={emotion}
               mb={8}
-              onDeleteSuccess={onDeleteSuccess(idx)}
+              onDeleteSuccess={onDeleteSuccess(emotion)}
             />
           ))}
         </ul>

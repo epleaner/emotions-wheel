@@ -2,7 +2,14 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
-import { Text, Spinner, Divider, Link as UILink } from '@chakra-ui/core';
+import {
+  Text,
+  Button,
+  Spinner,
+  Divider,
+  Stack,
+  Link as UILink,
+} from '@chakra-ui/core';
 import useUser from '@hooks/useUser';
 
 import CenteredContainer from '@components/shared/centeredContainer';
@@ -80,7 +87,15 @@ const EditProfile = () => {
         </Text>
       ) : (
         <Section>
-          <Heading size='md'>Edit Profile</Heading>
+          <Link href='/profile'>
+            <Button size='xs' leftIcon='arrow-back' variant='ghost'>
+              Back
+            </Button>
+          </Link>
+          <Heading size='md' mt={8}>
+            Edit Profile
+          </Heading>
+
           <ProfileForm onSubmitSuccess={onSubmitSuccess} user={user} />
           <Divider my={4} />
           <DeleteAccountButtons

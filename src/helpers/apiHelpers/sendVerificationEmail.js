@@ -34,8 +34,17 @@ export default async (req, res, { email }) => {
     const msg = {
       to: user.email,
       from: process.env.EMAIL_FROM,
-      subject: '[feeels] Please verify your email',
-      html: `Hey ${user.name}, please verify your email <a href=${process.env.APP_ROOT_URL}/verify-email/${token}>here</a>.`,
+      templateId: 'd-3c6627053fd34c9d94876e55d8411a7c',
+
+      dynamic_template_data: {
+        subject: '[feeels] Please verify your email',
+        action: 'account activation',
+        actionHeader: 'Activate Account',
+        text: `Hey ${user.name}, welcome! To finish activating your account, please click the link below.`,
+        actionLink: `${process.env.APP_ROOT_URL}/verify-email/${token}`,
+        actionButton: 'Activate Account',
+        appRootUrl: `${process.env.APP_ROOT_URL}`,
+      },
     };
 
     await sgMail.send(msg);

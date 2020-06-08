@@ -15,7 +15,7 @@ import {
 
 import LoginSignupModal from '@components/modals/loginSignupModal';
 
-const EmotionSelectionForm = ({ selected }) => {
+const EmotionSelectionForm = ({ selected, onSubmitSuccess }) => {
   const [user, , isFetching] = useUser();
 
   const { colorMode } = useColorMode();
@@ -57,13 +57,15 @@ const EmotionSelectionForm = ({ selected }) => {
           setFormValues(values);
           setFormErrorMessage(null);
         }}
-        onSubmit={async (values, { setSubmitting }) => {
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           setFormValues(values);
 
           if (!user) onOpen();
           else {
             await handleSubmit();
+            await onSubmitSuccess();
             setSubmitting(false);
+            resetForm();
           }
         }}>
         {({ isSubmitting, errors }) => (
@@ -123,6 +125,7 @@ const EmotionSelectionForm = ({ selected }) => {
 
 EmotionSelectionForm.propTypes = {
   selected: PropTypes.object,
+  onSubmitSuccess: PropTypes.func.isRequired,
 };
 
 export default EmotionSelectionForm;

@@ -21,9 +21,9 @@ Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported 
 - [x] User can change email
 - [x] User can delete their account
 - [x] Password length / form requirements
-- [ ] Email for profile updates
 - [ ] Email looks good
 - [ ] Back button for editing account
+- [ ] Email for profile updates
 
 ### entry management
 
@@ -35,7 +35,7 @@ Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported 
 
 - [x] User sees a sunburst view of all emotions at once
 - [ ] User can select multiple emotions
-- [ ] Form resets after selecting
+- [x] Form resets after selecting
 
 ### UI
 
@@ -44,9 +44,12 @@ Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported 
 - [ ] sunburst circle expands to fill space
 - [ ] Forms with https://jaredpalmer.com/formik/ (https://chakra-ui.com/formcontrol#usage-with-form-libraries)
 - [ ] log in --> email verification needed --> send in form
+- [ ] verification UI should allow to resend
 
 ### Bugs
 
 - [ ] Cannot save account edit because of email check
 - [ ] sunburst form displaced before sunburst loads
 - [ ] log in --> email verification needed --> first click does not redirect
+- [ ] log in does not recognize email dot variations
+- [ ] sign up form does not prompt for email verification if already exists

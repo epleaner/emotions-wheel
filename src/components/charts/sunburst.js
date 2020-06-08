@@ -174,6 +174,10 @@ const Sunburst = ({
         parentRef.current.transition(t).attr('opacity', 0);
       }
 
+      parentRef.current
+        .transition(t)
+        .attr('r', p.height === 0 ? chartRadius / 2 : centerCircleRadius);
+
       parentLabelRef.current
         .transition(tShort)
         .attr('fill-opacity', () => 0)
@@ -213,6 +217,8 @@ const Sunburst = ({
       gRef,
       arc,
       root,
+      chartRadius,
+      centerCircleRadius,
       onSelect,
       getHierarchy,
       arcVisible,
@@ -262,10 +268,10 @@ const Sunburst = ({
   }, [width]);
 
   useEffect(() => {
-    function handleMouseOver(d) {
+    function handleMouseOver() {
       d3Select(this).style('filter', 'url(#glow)');
     }
-    function handleMouseOut(d) {
+    function handleMouseOut() {
       d3Select(this).style('filter', 'none');
     }
     const path = gRef.current

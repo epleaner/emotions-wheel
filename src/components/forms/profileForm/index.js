@@ -132,12 +132,6 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
                   form.errors.passwords && !!form.errors.passwords.oldPassword
                 }>
                 <Stack direction='row' align='baseline'>
-                  <FormLabel
-                    w={['160px', '140px']}
-                    fontSize='sm'
-                    htmlFor='oldPassword'>
-                    Old password
-                  </FormLabel>
                   <Input
                     size='sm'
                     _invalid={{ boxShadow: 'none' }}
@@ -146,7 +140,7 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
                     {...field}
                     id='oldPassword'
                     type='password'
-                    placeholder=''
+                    placeholder='Old password'
                   />
                 </Stack>
                 <FormErrorMessage>
@@ -163,12 +157,6 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
                   form.errors.passwords && !!form.errors.passwords.newPassword
                 }>
                 <Stack direction='row' align='baseline'>
-                  <FormLabel
-                    w={['160px', '140px']}
-                    fontSize='sm'
-                    htmlFor='newPassword'>
-                    New password
-                  </FormLabel>
                   <Input
                     size='sm'
                     _invalid={{ boxShadow: 'none' }}
@@ -177,7 +165,7 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
                     {...field}
                     id='newPassword'
                     type='password'
-                    placeholder=''
+                    placeholder='New password'
                   />
                 </Stack>
                 <FormErrorMessage>

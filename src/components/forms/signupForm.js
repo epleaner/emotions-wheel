@@ -98,8 +98,8 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
                     <FormErrorMessage>{form.errors.email}</FormErrorMessage>
                     <FormHelperText fontSize='xs' id='email-helper-text'>
                       We won't share your email with anyone or send annoying
-                      updates – this will only be used to help reset your
-                      password if you've forgotten it.
+                      updates – this will only be used to help you manage your
+                      account.
                     </FormHelperText>
                   </FormControl>
                 )}

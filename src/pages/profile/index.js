@@ -26,6 +26,10 @@ const ProfilePage = () => {
 
   const onDeleteSuccess = (emotion) => () => {
     setEmotions(emotions.filter((e) => e !== emotion));
+    updateUser();
+  };
+
+  const updateUser = () => {
     mutate({
       user: {
         ...user,

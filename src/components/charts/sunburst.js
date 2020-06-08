@@ -8,7 +8,7 @@ import { quantize, interpolate } from 'd3-interpolate';
 import { interpolateRainbow } from 'd3-scale-chromatic';
 import { arc as d3Arc } from 'd3-shape';
 import { select as d3Select } from 'd3-selection';
-// eslint-disable-next-line no-unused-vars
+// eslint-disable-next-line no-unused-consts
 import { transition } from 'd3-transition';
 
 // following example at https://observablehq.com/@d3/zoomable-sunburst
@@ -239,12 +239,35 @@ const Sunburst = ({
 
     gRef.current = g;
 
+    // filters go in defs element
+    const defs = svg.append('defs');
+
+    //Code taken from http://stackoverflow.com/questions/9630008/how-can-i-create-a-glow-around-a-rectangle-with-svg
+    //Filter for the outside glow
+    const filter = defs.append('filter').attr('id', 'glow');
+
+    filter
+      .append('feGaussianBlur')
+      .attr('class', 'blur')
+      .attr('stdDeviation', '2')
+      .attr('result', 'coloredBlur');
+
+    const feMerge = filter.append('feMerge');
+    feMerge.append('feMergeNode').attr('in', 'coloredBlur');
+    feMerge.append('feMergeNode').attr('in', 'SourceGraphic');
+
     return () => {
       d3Select('svg').remove();
     };
   }, [width]);
 
   useEffect(() => {
+    function handleMouseOver(d) {
+      d3Select(this).style('filter', 'url(#glow)');
+    }
+    function handleMouseOut(d) {
+      d3Select(this).style('filter', 'none');
+    }
     const path = gRef.current
       .append('g')
       .selectAll('path')
@@ -254,6 +277,8 @@ const Sunburst = ({
       .attr('fill-opacity', (d) => opacity(d))
       .attr('d', (d) => arc(d.current))
       .style('cursor', 'pointer')
+      .on('mouseover', handleMouseOver)
+      .on('mouseout', handleMouseOut)
       .on('click', clicked);
 
     path.append('title').text((d) => d.data.name);
@@ -281,6 +306,8 @@ const Sunburst = ({
       .attr('r', centerCircleRadius)
       .attr('opacity', () => 0)
       .attr('pointer-events', 'all')
+      .on('mouseover', handleMouseOver)
+      .on('mouseout', handleMouseOut)
       .on('click', clicked);
 
     parentRef.current = parent;

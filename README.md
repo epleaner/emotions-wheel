@@ -23,6 +23,7 @@ Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported 
 - [x] Password length / form requirements
 - [ ] Email for profile updates
 - [ ] Email looks good
+- [ ] Back button for editing account
 
 ### entry management
 
@@ -46,5 +47,6 @@ Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported 
 
 ### Bugs
 
+- [ ] Cannot save account edit because of email check
 - [ ] sunburst form displaced before sunburst loads
 - [ ] log in --> email verification needed --> first click does not redirect

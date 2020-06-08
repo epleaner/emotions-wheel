@@ -14,12 +14,15 @@ const EmotionSelector = () => {
     setSelected(null);
   }, [setSelected, setShouldResetSunburst]);
 
+  const onResetSunburst = useCallback(() => setShouldResetSunburst(false), [setShouldResetSunburst])
+
   return (
     <>
       <Box w='100%'>
         <Sunburst
           width={600}
           shouldReset={shouldResetSunburst}
+          onReset={onResetSunburst}
           onSelect={setSelected}
         />
       </Box>

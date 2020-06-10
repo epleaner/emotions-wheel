@@ -1,28 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Text, Divider, Textarea, Box } from '@chakra-ui/core';
+import { action } from 'mobx';
 import { observer } from 'mobx-react';
 
-const Body = observer(({ emotion: { note, color }, store: { isEditing } }) => {
-  const [noteEdits, setNoteEdits] = useState(note);
+const Body = observer(({ emotion: { note, color }, store }) => {
+  const setEditBody = useCallback(
+    (edit) => action(() => void (store.editBody = edit))(),
+    [store]
+  );
 
   useEffect(() => {
-    if (!isEditing) {
-      setNoteEdits(note);
+    if (!store.editing) {
+      setEditBody(note);
     }
-  }, [note, isEditing]);
+  }, [note, setEditBody, store.editing]);
 
   return (
     <>
       {note && <Divider borderColor={color} />}
       <Box mt={3}>
-        {isEditing ? (
+        {store.editing ? (
           <Textarea
-            value={noteEdits}
-            onChange={(e) => setNoteEdits(e.target.value)}
+            value={store.editBody}
+            onChange={(e) => setEditBody(e.target.value)}
           />
         ) : (
-          <Text>{isEditing ? noteEdits : note}</Text>
+          <Text>{store.editing ? store.editBody : note}</Text>
         )}
       </Box>
     </>

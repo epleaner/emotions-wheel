@@ -6,21 +6,45 @@ import { observer } from 'mobx-react';
 import { IconButton, Tooltip, Text, Button } from '@chakra-ui/core';
 
 const EditControls = observer(({ store }) => {
-  const [errorMessage, setErrorMessage] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
 
-  const toggleEditing = action(() => void (store.isEditing = !store.isEditing));
+  const startEditing = action(() => void (store.editing = true));
+  const stopEditing = action(() => void (store.editing = false));
 
-  const handleToggleButtonClick = useCallback(() => {
-    toggleEditing();
+  const handleStartButtonClick = useCallback(() => {
+    startEditing();
 
-    setShowConfirmation((prev) => !prev);
-  }, [toggleEditing]);
+    setShowConfirmation(true);
+  }, [startEditing]);
 
-  const handleConfirmButtonClick = useCallback(() => {
+  const handleCancelButtonClick = useCallback(() => {
+    stopEditing();
+
+    setShowConfirmation(false);
+  }, [stopEditing]);
+
+  const handleConfirmButtonClick = useCallback(async () => {
     setIsSaving(true);
-  }, []);
+    const res = await fetch('/api/emotions', {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        date: store.emotion.date,
+        data: store.emotion.data,
+        newNote: store.editBody,
+      }),
+    });
+
+    if (res.status >= 400)
+      setErrorMessage('Something went wrong, please try again');
+    else {
+      setIsSaving(false);
+      setShowConfirmation(false);
+      stopEditing();
+    }
+  }, [stopEditing, store.emotion, store.editBody]);
 
   if (errorMessage) {
     return (
@@ -64,7 +88,7 @@ const EditControls = observer(({ store }) => {
             variant='ghost'
             isRound
             size='sm'
-            onClick={handleToggleButtonClick}
+            onClick={handleCancelButtonClick}
           />
         </Tooltip>
       </>
@@ -83,7 +107,7 @@ const EditControls = observer(({ store }) => {
         icon='edit'
         size='sm'
         isRound
-        onClick={handleToggleButtonClick}
+        onClick={handleStartButtonClick}
       />
     </Tooltip>
   );

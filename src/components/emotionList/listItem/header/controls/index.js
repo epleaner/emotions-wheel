@@ -9,7 +9,7 @@ import EditControls from '@components/emotionList/listItem/header/controls/editC
 
 const Controls = observer(({ data, date, onDeleteSuccess, store }) => {
   return (
-    <Flex>
+    <Flex alignItems='center'>
       <EditControls {...{ store }} />
       <Divider orientation='vertical' />
       <DeleteControls {...{ data, date, onDeleteSuccess }} />

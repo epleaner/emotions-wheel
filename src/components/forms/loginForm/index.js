@@ -23,11 +23,11 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel, redirectTo }) => {
   const router = useRouter();
   const [, { mutate }] = useUser();
 
-  const [formErrorMessage, setFormErrorMessage] = useState('');
+  const [formErrorBody, setFormErrorBody] = useState(null);
   return (
     <Formik
       initialValues={{ email: '', password: '' }}
-      validate={() => setFormErrorMessage(null)}
+      validate={() => setFormErrorBody(null)}
       validateOnBlur={false}
       validationSchema={LoginSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -48,12 +48,17 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel, redirectTo }) => {
             if (redirectTo) router.replace(redirectTo);
             break;
           case 401:
-            setFormErrorMessage((await res.json()).message);
+            setFormErrorBody({
+              message: (await res.json()).message,
+              email: values.email,
+            });
             setSubmitting(false);
 
             break;
           default:
-            setFormErrorMessage('Something went wrong, please try again');
+            setFormErrorBody({
+              message: 'Something went wrong, please try again',
+            });
             setSubmitting(false);
 
             break;
@@ -104,8 +109,8 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel, redirectTo }) => {
               </FormControl>
             )}
           </Field>
-          <FormControl isInvalid={formErrorMessage}>
-            <LoginFormErrorMessage message={formErrorMessage} />
+          <FormControl isInvalid={formErrorBody}>
+            {formErrorBody && <LoginFormErrorMessage body={formErrorBody} />}
             <Flex justifyContent='space-between'>
               <Button
                 mt={4}

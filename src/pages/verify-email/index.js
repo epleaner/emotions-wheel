@@ -19,7 +19,7 @@ const VerifyEmail = () => {
         {submitted ? (
           <Heading>
             An email has been sent to your inbox containing a link to verify
-            your account.
+            your account!
           </Heading>
         ) : (
           <>

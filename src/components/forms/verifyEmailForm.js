@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useRouter } from 'next/router';
 
 import { Formik, Form, Field } from 'formik';
-import {
-  FormControl,
-  FormLabel,
-  FormErrorMessage,
-  Button,
-  Input,
-} from '@chakra-ui/core';
+import { FormControl, FormErrorMessage, Button, Input } from '@chakra-ui/core';
 
 import VerifyEmailSchema from '@schemas/formValidations/verifyEmailFormValidations';
 
 const VerifyEmailForm = ({ onSubmitSuccess }) => {
+  const { query } = useRouter();
+
+  const email = query.email;
+
   const [formErrorMessage, setFormErrorMessage] = useState('');
   return (
     <Formik
-      initialValues={{ email: '' }}
+      initialValues={{ email }}
       validate={() => setFormErrorMessage(null)}
       validationSchema={VerifyEmailSchema}
       onSubmit={async (values, { setSubmitting }) => {
@@ -40,7 +39,7 @@ const VerifyEmailForm = ({ onSubmitSuccess }) => {
             break;
         }
       }}>
-      {({ isSubmitting, isValidating, errors, dirty }) => (
+      {({ isSubmitting, isValidating, errors, values }) => (
         <Form>
           <Field name='email'>
             {({ field, form }) => (
@@ -66,7 +65,7 @@ const VerifyEmailForm = ({ onSubmitSuccess }) => {
               mt={4}
               variantColor='green'
               isDisabled={
-                !dirty ||
+                !values.email ||
                 Object.entries(errors).length ||
                 isSubmitting ||
                 isValidating

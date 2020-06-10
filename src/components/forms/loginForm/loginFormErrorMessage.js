@@ -10,7 +10,7 @@ import {
   Link as UILink,
 } from '@chakra-ui/core';
 
-const LoginFormErrorMessage = ({ message }) => {
+const LoginFormErrorMessage = ({ body: { message, email } }) => {
   switch (message) {
     case 'Email not verified':
       return (
@@ -19,7 +19,7 @@ const LoginFormErrorMessage = ({ message }) => {
             <Icon name='info' mr={2} />
             <Text>
               This email still needs to be verified.{' '}
-              <Link href='/verify-email'>
+              <Link href={`/verify-email?email=${email}`}>
                 <UILink fontWeight='600'>Resend verification email?</UILink>
               </Link>
             </Text>
@@ -31,6 +31,9 @@ const LoginFormErrorMessage = ({ message }) => {
   }
 };
 LoginFormErrorMessage.propTypes = {
-  message: PropTypes.string,
+  body: PropTypes.shape({
+    message: PropTypes.string.isRequired,
+    email: PropTypes.string,
+  }),
 };
 export default LoginFormErrorMessage;

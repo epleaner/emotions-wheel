@@ -1,5 +1,9 @@
 import React, { useState, useCallback } from 'react';
-import { Box, Collapse, Text, Input, Button } from '@chakra-ui/core';
+import Link from 'next/link';
+
+import { useRouter } from 'next/router';
+
+import { Box, Collapse, Text, Button, Link as UILink } from '@chakra-ui/core';
 
 import CenteredContainer from '@components/shared/centeredContainer';
 import Section from '@components/shared/section';
@@ -8,6 +12,10 @@ import Heading from '@components/shared/heading';
 import VerifyEmailForm from '@components/forms/verifyEmailForm';
 
 const VerifyEmail = () => {
+  const {
+    query: { email },
+  } = useRouter();
+
   const [showWhy, setShowWhy] = React.useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -17,10 +25,18 @@ const VerifyEmail = () => {
     <CenteredContainer>
       <Section>
         {submitted ? (
-          <Heading>
-            An email has been sent to your inbox containing a link to verify
-            your account!
-          </Heading>
+          <>
+            <Heading>
+              An email has been sent to your inbox containing a link to verify
+              your account!
+            </Heading>
+            <Text fontSize='md'>
+              Didn't show up?{' '}
+              <UILink color='blue.200' onClick={() => setSubmitted(false)}>
+                Resend
+              </UILink>
+            </Text>
+          </>
         ) : (
           <>
             <Box mb={4}>
@@ -39,6 +55,7 @@ const VerifyEmail = () => {
             <VerifyEmailForm
               mt={4}
               onSubmitSuccess={() => setSubmitted(true)}
+              email={email}
             />
           </>
         )}

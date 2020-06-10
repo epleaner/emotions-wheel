@@ -1,17 +1,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
 
 import { Formik, Form, Field } from 'formik';
 import { FormControl, FormErrorMessage, Button, Input } from '@chakra-ui/core';
 
 import VerifyEmailSchema from '@schemas/formValidations/verifyEmailFormValidations';
 
-const VerifyEmailForm = ({ onSubmitSuccess }) => {
-  const { query } = useRouter();
-
-  const email = query.email;
-
+const VerifyEmailForm = ({ onSubmitSuccess, email }) => {
   const [formErrorMessage, setFormErrorMessage] = useState('');
   return (
     <Formik
@@ -84,6 +79,7 @@ const VerifyEmailForm = ({ onSubmitSuccess }) => {
 
 VerifyEmailForm.propTypes = {
   onSubmitSuccess: PropTypes.func.isRequired,
+  email: PropTypes.string,
 };
 
 export default VerifyEmailForm;

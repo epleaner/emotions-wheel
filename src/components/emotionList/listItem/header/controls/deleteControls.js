@@ -52,11 +52,12 @@ const DeleteControls = ({ data, date, onDeleteSuccess }) => {
     return (
       <>
         <Tooltip
+          showDelay={200}
           placement='top'
-          label='Really delete'
-          aria-label='Really delete'>
+          label='Really Delete'
+          aria-label='Really Delete'>
           <IconButton
-            aria-label='Really delete'
+            aria-label='Really Delete'
             icon='check'
             variantColor='red'
             variant='ghost'
@@ -66,9 +67,13 @@ const DeleteControls = ({ data, date, onDeleteSuccess }) => {
           />
         </Tooltip>
 
-        <Tooltip placement='top' label='Cancel' aria-label='Cancel'>
+        <Tooltip
+          showDelay={200}
+          placement='top'
+          label='Cancel Deleting'
+          aria-label='Cancel Deleting'>
           <IconButton
-            aria-label='Cancel'
+            aria-label='Cancel Deleting'
             icon='close'
             variant='ghost'
             isRound
@@ -82,6 +87,7 @@ const DeleteControls = ({ data, date, onDeleteSuccess }) => {
 
   return (
     <Tooltip
+      showDelay={200}
       placement='top'
       label='Delete this entry'
       aria-label='Delete this entry'>

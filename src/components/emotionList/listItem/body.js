@@ -1,10 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Text, Divider, Textarea, Box } from '@chakra-ui/core';
 import { observer } from 'mobx-react';
 
 const Body = observer(({ emotion: { note, color }, store: { isEditing } }) => {
   const [noteEdits, setNoteEdits] = useState(note);
+
+  useEffect(() => {
+    if (!isEditing) {
+      setNoteEdits(note);
+    }
+  }, [note, isEditing]);
+
   return (
     <>
       {note && <Divider borderColor={color} />}
@@ -15,7 +22,7 @@ const Body = observer(({ emotion: { note, color }, store: { isEditing } }) => {
             onChange={(e) => setNoteEdits(e.target.value)}
           />
         ) : (
-          <Text>{noteEdits}</Text>
+          <Text>{isEditing ? noteEdits : note}</Text>
         )}
       </Box>
     </>

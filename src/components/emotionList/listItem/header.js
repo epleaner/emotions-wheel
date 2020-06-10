@@ -1,13 +1,20 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
+import { action } from 'mobx';
+import { observer } from 'mobx-react';
+
 import { Text, IconButton, Stack, Box, Button, Tooltip } from '@chakra-ui/core';
 import EmotionBreadcrumb from '@components/emotionSelector/selectedBreadcrumb';
 
-const Header = ({ emotion, onDeleteSuccess }) => {
+const Header = observer(({ emotion, onDeleteSuccess, store }) => {
   const { date, data } = emotion;
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const [deleteErrorMessage, setDeleteErrorMessage] = useState(null);
+
+  const handleEditButtonClick = action(
+    () => void (store.isEditing = !store.isEditing)
+  );
 
   const handleDeleteButtonClick = useCallback(async () => {
     setIsDeleting(true);
@@ -97,6 +104,7 @@ const Header = ({ emotion, onDeleteSuccess }) => {
                 icon='edit'
                 size='sm'
                 isRound
+                onClick={handleEditButtonClick}
               />
             </Tooltip>
             <Tooltip
@@ -117,9 +125,10 @@ const Header = ({ emotion, onDeleteSuccess }) => {
       </Box>
     </Stack>
   );
-};
+});
 
 Header.propTypes = {
+  store: PropTypes.object.isRequired,
   emotion: PropTypes.shape({
     date: PropTypes.string.isRequired,
     data: PropTypes.object.isRequired,

@@ -28,6 +28,7 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel, redirectTo }) => {
     <Formik
       initialValues={{ email: '', password: '' }}
       validate={() => setFormErrorMessage(null)}
+      validateOnBlur={false}
       validationSchema={LoginSchema}
       onSubmit={async (values, { setSubmitting }) => {
         const res = await fetch('/api/auth', {

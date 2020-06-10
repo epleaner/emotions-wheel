@@ -14,9 +14,12 @@ import {
 
 import SignupSchema from '@schemas/formValidations/signupFormValidations';
 import Heading from '@components/shared/heading';
+import LoginFormErrorMessage from '@components/forms/loginForm/loginFormErrorMessage';
+
 const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
-  const [formErrorMessage, setFormErrorMessage] = useState('');
   const [submitSuccess, setSubmitSuccess] = useState(false);
+
+  const [formErrorBody, setFormErrorBody] = useState(null);
 
   return (
     <>
@@ -34,7 +37,8 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
       ) : (
         <Formik
           initialValues={{ name: '', email: '', password: '' }}
-          validate={() => setFormErrorMessage(null)}
+          validate={() => setFormErrorBody(null)}
+          validateOnBlur={false}
           validationSchema={SignupSchema}
           onSubmit={async (values, { setSubmitting }) => {
             const res = await fetch('/api/user', {
@@ -50,12 +54,17 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
                 setSubmitSuccess(true);
                 break;
               case 400:
+                setFormErrorBody({
+                  message: (await res.json()).message,
+                  email: values.email,
+                });
                 setSubmitting(false);
-                setFormErrorMessage((await res.json()).message);
                 break;
               default:
+                setFormErrorBody({
+                  message: 'Something went wrong, please try again',
+                });
                 setSubmitting(false);
-                setFormErrorMessage('Something went wrong, please try again');
                 break;
             }
           }}>
@@ -123,8 +132,11 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
                   </FormControl>
                 )}
               </Field>
-              <FormControl isInvalid={formErrorMessage}>
-                <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
+              <FormControl isInvalid={formErrorBody}>
+                {formErrorBody && (
+                  <LoginFormErrorMessage signUp body={formErrorBody} />
+                )}
+
                 <Flex justifyContent='space-between'>
                   <Button
                     mt={4}

@@ -39,11 +39,16 @@ handler.post(async (req, res) => {
         message: 'Missing field(s)',
       };
 
-    if ((await req.db.collection('user').countDocuments({ email })) > 0)
+    const existingUser = await req.db.collection('user').findOne({ email });
+
+    if (existingUser) {
       throw {
         status: 400,
-        message: 'This email is already in use',
+        message: existingUser.emailVerified
+          ? 'This email is already in use'
+          : 'Email not verified',
       };
+    }
 
     const hashedPassword = await bcrypt.hash(password, 10);
 

@@ -26,7 +26,7 @@ const Body = observer(({ emotion: { note, color }, store }) => {
             onChange={(e) => setEditBody(e.target.value)}
           />
         ) : (
-          <Text>{store.editing ? store.editBody : note}</Text>
+          <Text>{store.note}</Text>
         )}
       </Box>
     </>

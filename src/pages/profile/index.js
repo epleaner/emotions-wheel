@@ -22,10 +22,21 @@ const ProfilePage = () => {
   const { name } = user || {};
   const [emotions, setEmotions] = useState(user ? user.emotions || [] : []);
 
-  useEffect(() => void setEmotions(user ? user.emotions || [] : []), [user]);
+  useEffect(() => setEmotions(user ? user.emotions || [] : []), [user]);
 
   const onDeleteSuccess = (emotion) => () => {
     setEmotions(emotions.filter((e) => e !== emotion));
+    updateUser();
+  };
+
+  const onEditSuccess = (emotion) => (editedNote) => {
+    setEmotions(
+      emotions.map((e) => {
+        if (e._id !== emotion._id) return e;
+        e.note = editedNote;
+        return e;
+      })
+    );
     updateUser();
   };
 
@@ -75,7 +86,7 @@ const ProfilePage = () => {
               </Link>
             </Stack>
             <Divider />
-            <EmotionList {...{ emotions, onDeleteSuccess }} />
+            <EmotionList {...{ emotions, onDeleteSuccess, onEditSuccess }} />
           </Section>
         </Container>
       )}

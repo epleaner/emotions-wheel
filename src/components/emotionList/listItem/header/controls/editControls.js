@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 
 import { IconButton, Tooltip, Text, Button } from '@chakra-ui/core';
 
-const EditControls = observer(({ store }) => {
+const EditControls = observer(({ onEditSuccess, store }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -31,8 +31,7 @@ const EditControls = observer(({ store }) => {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        date: store.emotion.date,
-        data: store.emotion.data,
+        _id: store._id,
         newNote: store.editBody,
       }),
     });
@@ -43,8 +42,9 @@ const EditControls = observer(({ store }) => {
       setIsSaving(false);
       setShowConfirmation(false);
       stopEditing();
+      onEditSuccess(store.editBody);
     }
-  }, [stopEditing, store.emotion, store.editBody]);
+  }, [stopEditing, store._id, store.editBody, onEditSuccess]);
 
   if (errorMessage) {
     return (

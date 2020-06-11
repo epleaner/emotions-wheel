@@ -1,3 +1,5 @@
+import 'mobx-react/batchingForReactDom';
+
 import React from 'react';
 import App from 'next/app';
 import { ThemeProvider, CSSReset, ColorModeProvider } from '@chakra-ui/core';

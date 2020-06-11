@@ -5,8 +5,8 @@ import { Text, Stack, Box } from '@chakra-ui/core';
 import EmotionBreadcrumb from '@components/emotionSelector/selectedBreadcrumb';
 import Controls from '@components/emotionList/listItem/header/controls';
 
-const Header = ({ emotion, onDeleteSuccess, store }) => {
-  const { date, data } = emotion;
+const Header = ({ emotion, onDeleteSuccess, onEditSuccess, store }) => {
+  const { date } = emotion;
 
   return (
     <Stack isInline justify='space-between' align='center'>
@@ -23,7 +23,7 @@ const Header = ({ emotion, onDeleteSuccess, store }) => {
         <EmotionBreadcrumb selected={emotion} />
       </Box>
 
-      <Controls {...{ date, data, onDeleteSuccess, store }} />
+      <Controls {...{ emotion, onDeleteSuccess, onEditSuccess, store }} />
     </Stack>
   );
 };
@@ -32,9 +32,9 @@ Header.propTypes = {
   store: PropTypes.object.isRequired,
   emotion: PropTypes.shape({
     date: PropTypes.string.isRequired,
-    data: PropTypes.object.isRequired,
   }).isRequired,
   onDeleteSuccess: PropTypes.func.isRequired,
+  onEditSuccess: PropTypes.func.isRequired,
 };
 
 export default Header;

@@ -1,4 +1,4 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { Box, Stack } from '@chakra-ui/core';
 import Header from '@components/emotionList/listItem/header';
@@ -7,21 +7,22 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 const EmotionListItem = observer(
-  ({ emotion, onDeleteSuccess, ...otherProps }) => {
+  ({ emotion, onDeleteSuccess, onEditSuccess, ...otherProps }) => {
     const store = useMemo(
       () =>
         observable({
-          emotion,
+          _id: emotion._id,
+          note: emotion.note,
           editing: false,
           editBody: emotion.note,
         }),
-      [emotion]
+      [emotion._id, emotion.note]
     );
 
     return (
       <Box pt={4} pb={0} my={4} overflow='hidden'>
         <Stack as='li' {...otherProps}>
-          <Header {...{ store, emotion, onDeleteSuccess }} />
+          <Header {...{ store, emotion, onDeleteSuccess, onEditSuccess }} />
           <Body {...{ store, emotion }} />
         </Stack>
       </Box>
@@ -31,6 +32,7 @@ const EmotionListItem = observer(
 
 EmotionListItem.propTypes = {
   emotion: PropTypes.shape({
+    _id: PropTypes.string.isRequired,
     note: PropTypes.string,
     color: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
@@ -40,6 +42,7 @@ EmotionListItem.propTypes = {
     }),
   }).isRequired,
   onDeleteSuccess: PropTypes.func.isRequired,
+  onEditSuccess: PropTypes.func.isRequired,
 };
 
 export default EmotionListItem;

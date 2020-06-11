@@ -21,7 +21,15 @@ handler.put(async (req, res) => {
     const { modifiedCount } = await req.db.collection('user').updateOne(
       { _id },
       {
-        $push: { emotions: { date: new Date().toJSON(), color, data, note } },
+        $push: {
+          emotions: {
+            _id: new ObjectId(),
+            date: new Date().toJSON(),
+            color,
+            data,
+            note,
+          },
+        },
       }
     );
 
@@ -43,10 +51,10 @@ handler.patch(async (req, res) => {
 
     const _id = req.user ? req.user._id : ObjectId(req.body.user_id);
 
-    const { date, data, newNote } = req.body;
+    const { _id: emotionId, newNote } = req.body;
 
     const { modifiedCount } = await req.db.collection('user').updateOne(
-      { _id, emotions: { $elemMatch: { date, data } } },
+      { _id, 'emotions._id': ObjectId(emotionId) },
       {
         $set: { 'emotions.$.note': newNote },
       }
@@ -59,7 +67,6 @@ handler.patch(async (req, res) => {
       message: 'Your entry has been edited successfully',
     });
   } catch ({ status, message }) {
-    console.log(message);
     return res.status(status || 500).json({ message });
   }
 });

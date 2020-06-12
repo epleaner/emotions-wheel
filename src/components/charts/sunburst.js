@@ -109,14 +109,11 @@ const Sunburst = ({
 
   const getHierarchy = useMemo(
     () => (p) => {
-      const hierarchy = {};
-      let currentData = hierarchy;
+      const hierarchy = [];
       let current = p;
 
       while (current.parent) {
-        currentData.name = current.data.name;
-        currentData.parent = {};
-        currentData = currentData.parent;
+        hierarchy.unshift(current.data.name);
         current = current.parent;
       }
 

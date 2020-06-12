@@ -6,7 +6,7 @@ import normalizeEmail from 'validator/lib/normalizeEmail';
 import bcrypt from 'bcryptjs';
 
 import middleware from '@middleware/middleware';
-import { extractUser } from '@helpers/apiHelpers';
+import extractUser from '@helpers/apiHelpers/extractUser';
 import sendVerificationEmail from '@helpers/apiHelpers/sendVerificationEmail';
 
 const handler = nextConnect();
@@ -15,7 +15,7 @@ handler.use(middleware);
 
 handler.get(async (req, res) => {
   try {
-    return res.json({ user: extractUser(req) });
+    return res.json({ user: extractUser(req.user) });
   } catch (e) {
     return res.status(500).json({ message: 'Something went wrong' });
   }

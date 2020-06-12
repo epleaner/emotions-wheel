@@ -1,34 +1,32 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { observer } from 'mobx-react-lite';
 import { Button, Flex, Text, Divider } from '@chakra-ui/core';
-import useUser from '@hooks/useUser';
+import useCurrentUser from '@hooks/useCurrentUser';
 
 const LoggedInLinks = () => {
   const router = useRouter();
-  const [user, { mutate }] = useUser();
-  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  const userStore = useCurrentUser();
 
   const handleLogout = async () => {
-    setIsLoggingOut(true);
-    await fetch('/api/auth', {
-      method: 'DELETE',
-    });
-
-    // set the user state to null
-    mutate(null);
-    setIsLoggingOut(false);
-    router.push('/');
+    try {
+      await userStore.logOut();
+      router.push('/');
+    } catch (e) {
+      console.log('couldnt log out', e);
+    }
   };
 
-  return user ? (
+  return userStore.isLoggedIn ? (
     <Flex mr={2} alignItems='center'>
-      {!isLoggingOut && (
+      {!userStore.isLoggingOut && (
         <>
           <Link href='/profile'>
             <Button size='xs' variant='outline'>
               <Text textTransform='uppercase' fontSize='sm'>
-                {user.name}
+                {userStore.currentUser.name}
               </Text>
             </Button>
           </Link>
@@ -39,7 +37,7 @@ const LoggedInLinks = () => {
         size='xs'
         variant='ghost'
         onClick={handleLogout}
-        isLoading={isLoggingOut}
+        isLoading={userStore.isLoggingOut}
         loadingText='logging out'>
         log out
       </Button>
@@ -47,4 +45,4 @@ const LoggedInLinks = () => {
   ) : null;
 };
 
-export default LoggedInLinks;
+export default observer(LoggedInLinks);

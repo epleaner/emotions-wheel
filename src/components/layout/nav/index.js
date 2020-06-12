@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { observer } from 'mobx-react-lite';
+
 import {
   useColorMode,
   Flex,
@@ -13,10 +15,10 @@ import ColorToggle from '@components/layout/nav/colorToggle';
 import LoggedInLinks from '@components/layout/nav/loggedInLinks';
 import LoggedOutLinks from '@components/layout/nav/loggedOutLinks';
 
-import useUser from '@hooks/useUser';
+import useCurrentUser from '@hooks/useCurrentUser';
 
 const Nav = () => {
-  const [user, , isFetching] = useUser();
+  const userStore = useCurrentUser();
 
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -38,10 +40,10 @@ const Nav = () => {
       <Box mx={'auto'} />
       <Box mr={2}>
         <Skeleton
-          isLoaded={!isFetching}
+          isLoaded={!userStore.isLoading}
           colorStart='#e7e6ff'
           colorEnd='#bab8fb'>
-          {user ? <LoggedInLinks /> : <LoggedOutLinks />}
+          {userStore.isLoggedIn ? <LoggedInLinks /> : <LoggedOutLinks />}
         </Skeleton>
       </Box>
       <ColorToggle mode={colorMode} onClick={toggleColorMode} />
@@ -49,4 +51,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default observer(Nav);

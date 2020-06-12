@@ -2,7 +2,7 @@ import nextConnect from 'next-connect';
 
 import middleware from '@middleware/middleware';
 import passport from '@lib/passport';
-import { extractUser } from '@helpers/apiHelpers';
+import extractUser from '@helpers/apiHelpers/extractUser';
 
 const handler = nextConnect();
 
@@ -16,6 +16,7 @@ handler.post((req, res) => {
         if (loginErr) {
           return res.status(401).json(loginErr.message);
         }
+        console.log('in auth api post,', user);
         return res.status(200).json({ user: extractUser(user) });
       });
     } else return res.status(401).json(info);

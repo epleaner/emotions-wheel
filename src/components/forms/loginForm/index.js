@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
 import Link from 'next/link';
-import useUser from '@hooks/useUser';
+import useCurrentUser from '@hooks/useCurrentUser';
 
 import {
   FormControl,
@@ -21,7 +21,7 @@ import LoginFormErrorMessage from '@components/forms/loginForm/loginFormErrorMes
 
 const LoginForm = ({ onSubmitSuccess, cancellable, onCancel, redirectTo }) => {
   const router = useRouter();
-  const [, { mutate }] = useUser();
+  const userStore = useCurrentUser();
 
   const [formErrorBody, setFormErrorBody] = useState(null);
   return (
@@ -31,37 +31,28 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel, redirectTo }) => {
       validateOnBlur={false}
       validationSchema={LoginSchema}
       onSubmit={async (values, { setSubmitting }) => {
-        const res = await fetch('/api/auth', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(values),
-        });
+        try {
+          const res = await userStore.logIn(values);
 
-        switch (res.status) {
-          case 200:
-            // set user state to user response
-            mutate(await res.json());
+          if (typeof onSubmitSuccess === 'function') await onSubmitSuccess(res);
 
-            if (typeof onSubmitSuccess === 'function')
-              await onSubmitSuccess(res);
-
-            if (redirectTo) router.replace(redirectTo);
-            break;
-          case 401:
-            setFormErrorBody({
-              message: (await res.json()).message,
-              email: values.email,
-            });
-            setSubmitting(false);
-
-            break;
-          default:
-            setFormErrorBody({
-              message: 'Something went wrong, please try again',
-            });
-            setSubmitting(false);
-
-            break;
+          if (redirectTo) router.replace(redirectTo);
+        } catch (e) {
+          switch (e.status) {
+            case 401:
+              setFormErrorBody({
+                message: e.json.message,
+                email: values.email,
+              });
+              setSubmitting(false);
+              break;
+            default:
+              setFormErrorBody({
+                message: 'Something went wrong, please try again',
+              });
+              setSubmitting(false);
+              break;
+          }
         }
       }}>
       {({ isSubmitting, isValidating, errors, dirty }) => (

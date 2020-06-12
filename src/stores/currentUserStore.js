@@ -20,7 +20,6 @@ class CurrentUserStore {
       this.state = 'done';
 
       const json = yield res.json();
-      console.log('fetching user', json);
 
       this.userData = json.user;
     } catch (error) {

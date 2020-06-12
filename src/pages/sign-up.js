@@ -1,26 +1,38 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { observer } from 'mobx-react-lite';
 
-import useUser from '@hooks/useUser';
+import { Spinner } from '@chakra-ui/core';
+
 import SignupForm from '@components/forms/signupForm';
 import CenteredContainer from '@components/shared/centeredContainer';
 import Section from '@components/shared/section';
 
+import useCurrentUser from '@hooks/useCurrentUser';
+
 const SignupPage = () => {
   const router = useRouter();
-  const [user] = useUser();
+  const currentUserStore = useCurrentUser();
 
   useEffect(() => {
-    if (user) router.replace('/');
-  }, [user, router]);
+    if (currentUserStore.isLoggedIn) router.replace('/');
+  }, [currentUserStore.isLoggedIn, router]);
 
   return (
     <CenteredContainer>
-      <Section>
-        <SignupForm onSubmitSuccess={() => {}} />
-      </Section>
+      {currentUserStore.isLoading ? (
+        <Spinner />
+      ) : (
+        <>
+          {!currentUserStore.isLoggedIn && (
+            <Section>
+              <SignupForm onSubmitSuccess={() => {}} />
+            </Section>
+          )}
+        </>
+      )}
     </CenteredContainer>
   );
 };
 
-export default SignupPage;
+export default observer(SignupPage);

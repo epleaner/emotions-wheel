@@ -4,7 +4,7 @@ import { Box, Stack } from '@chakra-ui/core';
 import Header from '@components/emotionList/listItem/header';
 import Body from '@components/emotionList/listItem/body';
 import { observable } from 'mobx';
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
 const EmotionListItem = observer(
   ({ emotion, onDeleteSuccess, onEditSuccess, ...otherProps }) => {

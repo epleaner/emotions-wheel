@@ -29,6 +29,8 @@ module.exports = {
         '@lib': path.resolve(__dirname, 'src/lib'),
         '@static': path.resolve(__dirname, 'src/static'),
         '@schemas': path.resolve(__dirname, 'src/schemas'),
+        '@stores': path.resolve(__dirname, 'src/stores'),
+        '@contexts': path.resolve(__dirname, 'src/contexts'),
       },
     };
 

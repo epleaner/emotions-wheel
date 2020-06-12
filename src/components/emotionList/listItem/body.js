@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Text, Divider, Textarea, Box } from '@chakra-ui/core';
 import { action } from 'mobx';
-import { observer } from 'mobx-react';
+import { observer } from 'mobx-react-lite';
 
 const Body = observer(({ emotion: { note, color }, store }) => {
   const setEditBody = useCallback(

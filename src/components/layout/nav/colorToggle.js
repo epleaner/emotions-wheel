@@ -1,26 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Flex } from 'theme-ui';
-import { FiSun, FiMoon, FiZap } from 'react-icons/fi';
+import { observer } from 'mobx-react-lite';
+
+import { IconButton, Flex } from '@chakra-ui/core';
 
 const ColorToggle = ({ mode, ...otherProps }) => {
-  let icon;
-  switch (mode) {
-    case 'light':
-      icon = <FiSun />;
-      break;
-    case 'default':
-      icon = <FiSun />;
-      break;
-    case 'dark':
-      icon = <FiMoon />;
-      break;
-    default:
-      icon = <FiZap />;
-  }
   return (
-    <Flex sx={{ alignItems: 'center', cursor: 'pointer' }} {...otherProps}>
-      {icon}
+    <Flex alignItems='center' cursor='pointer' {...otherProps}>
+      <IconButton
+        variant='ghost'
+        aria-label='Color Mode'
+        icon={mode === 'light' || mode === 'default' ? 'sun' : 'moon'}
+      />
     </Flex>
   );
 };
@@ -29,4 +20,4 @@ ColorToggle.propTypes = {
   mode: PropTypes.string.isRequired,
 };
 
-export default ColorToggle;
+export default observer(ColorToggle);

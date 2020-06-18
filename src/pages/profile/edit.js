@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import { observer } from 'mobx-react-lite';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 
@@ -7,10 +8,10 @@ import {
   Button,
   Spinner,
   Divider,
-  Stack,
   Link as UILink,
 } from '@chakra-ui/core';
-import useUser from '@hooks/useUser';
+
+import useCurrentUser from '@hooks/useCurrentUser';
 
 import CenteredContainer from '@components/shared/centeredContainer';
 import Section from '@components/shared/section';
@@ -18,28 +19,24 @@ import Heading from '@components/shared/heading';
 import ProfileForm from '@components/forms/profileForm';
 import DeleteAccountButtons from '@components/forms/profileForm/deleteAccountButtons';
 
-const EditProfile = () => {
+const EditProfile = observer(() => {
   const router = useRouter();
-  const [user, { mutate }, isFetching] = useUser();
+  const userStore = useCurrentUser();
 
   const [isDeleting, setIsDeleting] = useState(false);
   const [justDeleted, setJustDeleted] = useState(false);
   const [deletingError, setDeletingError] = useState(null);
 
   useEffect(() => {
-    if (!isFetching && !justDeleted && !user) router.replace('/');
-  }, [router, isFetching, justDeleted, user]);
+    if (!userStore.isLoading && !justDeleted && !userStore.currentUser)
+      router.replace('/');
+  }, [router, userStore, justDeleted]);
 
   const onSubmitSuccess = useCallback(
     async (resJson) => {
-      mutate({
-        user: {
-          ...user,
-          ...(await resJson.user),
-        },
-      });
+      userStore.updateCurrentUserData(await resJson.user);
     },
-    [user, mutate]
+    [userStore]
   );
 
   const handleDelete = useCallback(
@@ -54,7 +51,7 @@ const EditProfile = () => {
       });
 
       if (res.status === 200) {
-        mutate(null);
+        userStore.logOut();
         setJustDeleted(true);
       } else {
         setDeletingError('Something went wrong, please try again');
@@ -62,18 +59,18 @@ const EditProfile = () => {
 
       setIsDeleting(false);
     },
-    [mutate]
+    [userStore]
   );
 
   return (
     <CenteredContainer>
-      {isFetching ? (
+      {userStore.isLoading ? (
         <Spinner />
       ) : justDeleted ? (
         <Text fontSize='5xl'>
           Your account has been deleted. Sorry to see you go!
         </Text>
-      ) : !user ? (
+      ) : !userStore.currentUser ? (
         <Text fontSize='5xl'>
           Please{' '}
           <Link href='/login'>
@@ -96,11 +93,14 @@ const EditProfile = () => {
             Edit Profile
           </Heading>
 
-          <ProfileForm onSubmitSuccess={onSubmitSuccess} user={user} />
+          <ProfileForm
+            onSubmitSuccess={onSubmitSuccess}
+            user={userStore.currentUser}
+          />
           <Divider my={4} />
           <DeleteAccountButtons
-            confirmationName={user.name}
-            isDisabled={isFetching}
+            confirmationName={userStore.currentUser.name}
+            isDisabled={userStore.isLoading}
             isLoading={isDeleting}
             handleDelete={handleDelete}
           />
@@ -113,6 +113,6 @@ const EditProfile = () => {
       )}
     </CenteredContainer>
   );
-};
+});
 
 export default EditProfile;

@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
-import useUser from '@hooks/useUser';
+import useCurrentUser from '@hooks/useCurrentUser';
 
 import {
   Flex,
@@ -16,7 +16,7 @@ import {
 import LoginSignupModal from '@components/modals/loginSignupModal';
 
 const EmotionSelectionForm = ({ selected, onSubmitSuccess }) => {
-  const [user, , isFetching] = useUser();
+  const userStore = useCurrentUser();
 
   const { colorMode } = useColorMode();
 
@@ -60,7 +60,7 @@ const EmotionSelectionForm = ({ selected, onSubmitSuccess }) => {
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           setFormValues(values);
 
-          if (!user) onOpen();
+          if (!userStore.isLoggedIn) onOpen();
           else {
             await handleSubmit();
             await onSubmitSuccess();
@@ -102,7 +102,7 @@ const EmotionSelectionForm = ({ selected, onSubmitSuccess }) => {
                         !selected ||
                         Object.entries(errors).length ||
                         isSubmitting ||
-                        isFetching
+                        userStore.isLoading
                       }
                       isLoading={isSubmitting}
                       loadingText='Saving'

@@ -11,53 +11,31 @@ import {
   Divider,
 } from '@chakra-ui/core';
 
-import useUser from '@hooks/useUser';
+import useCurrentUser from '@hooks/useCurrentUser';
+import { observer } from 'mobx-react-lite';
+
 import EmotionList from '@components/emotionList';
 import CenteredContainer from '@components/shared/centeredContainer';
 import Container from '@components/shared/container';
 import Section from '@components/shared/section';
 
-const ProfilePage = () => {
-  const [user, { mutate }, isFetching] = useUser();
-  const { name } = user || {};
-  const [emotions, setEmotions] = useState(user ? user.emotions || [] : []);
+const ProfilePage = observer(() => {
+  const userStore = useCurrentUser();
 
-  useEffect(() => setEmotions(user ? user.emotions || [] : []), [user]);
+  const onDeleteSuccess = ({ _id }) => () => userStore.deleteEmotion(_id);
 
-  const onDeleteSuccess = (emotion) => () => {
-    setEmotions(emotions.filter((e) => e !== emotion));
-    updateUser();
-  };
-
-  const onEditSuccess = (emotion) => (editedNote) => {
-    setEmotions(
-      emotions.map((e) => {
-        if (e._id !== emotion._id) return e;
-        e.note = editedNote;
-        return e;
-      })
-    );
-    updateUser();
-  };
-
-  const updateUser = () => {
-    mutate({
-      user: {
-        ...user,
-        emotions,
-      },
-    });
-  };
+  const onEditSuccess = ({ _id }) => (editedNote) =>
+    userStore.updateEmotionNote(_id, editedNote);
 
   return (
     <>
-      {isFetching ? (
+      {userStore.isLoading ? (
         <CenteredContainer>
           <Spinner />
         </CenteredContainer>
-      ) : !user ? (
+      ) : !userStore.isLoggedIn ? (
         <CenteredContainer>
-          <Text>
+          <>
             <Text fontSize='6xl'>Welcome!</Text>
             <Text fontSize='5xl'>
               Please{' '}
@@ -70,28 +48,34 @@ const ProfilePage = () => {
               </Link>{' '}
               first.
             </Text>
-          </Text>
+          </>
         </CenteredContainer>
       ) : (
         <Container justifyContent='center' mt='4' mx={[4, 0]}>
           <Section>
             <Stack direction='row' justify='space-between' align='baseline'>
               <Heading mb={4} fontSize='6xl'>
-                hey, {name}
+                hey, {userStore.userData.name}
               </Heading>
-              <Link href='/profile/edit'>
-                <Button leftIcon='edit' type='button' mt={4} size='xs'>
-                  Edit profile
-                </Button>
-              </Link>
+              <Button leftIcon='edit' type='button' mt={4} size='xs'>
+                <Link href='/profile/edit'>
+                  <a>Edit profile</a>
+                </Link>
+              </Button>
             </Stack>
             <Divider />
-            <EmotionList {...{ emotions, onDeleteSuccess, onEditSuccess }} />
+            <EmotionList
+              {...{
+                emotions: userStore.currentUser.emotions,
+                onDeleteSuccess,
+                onEditSuccess,
+              }}
+            />
           </Section>
         </Container>
       )}
     </>
   );
-};
+});
 
 export default ProfilePage;

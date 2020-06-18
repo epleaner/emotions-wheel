@@ -65,6 +65,18 @@ class CurrentUserStore {
     }
   });
 
+  deleteEmotion = (_id) =>
+    (this.userData.emotions = this.userData.emotions.filter(
+      (e) => e._id !== _id
+    ));
+
+  updateEmotionNote = (_id, newNote) =>
+    (this.userData.emotions = this.userData.emotions.map((e) => {
+      if (e._id !== _id) return e;
+      e.note = newNote;
+      return e;
+    }));
+
   @computed({ keepAlive: true })
   get isLoading() {
     return this.state === 'loading';

@@ -8,7 +8,7 @@ import EmotionListItem from '@components/emotionList/listItem';
 
 const EmotionList = ({ emotions, onDeleteSuccess, onEditSuccess }) => {
   const sortByDate = (emotions) => {
-    return emotions.sort((a, b) => new Date(b.date) - new Date(a.date));
+    return emotions.slice().sort((a, b) => new Date(b.date) - new Date(a.date));
   };
 
   return (

@@ -42,12 +42,11 @@ class CurrentUserStore {
 
     switch (res.status) {
       case 200:
-        console.log('logged in!', resJson);
         this.userData = resJson.user;
 
         return res;
       default:
-        throw new Error({ status: res.status, json: resJson });
+        throw { status: res.status, json: resJson };
     }
   });
 
@@ -55,11 +54,9 @@ class CurrentUserStore {
     this.state = 'logging out';
 
     try {
-      console.log('logging out...');
       yield fetch('/api/auth', {
         method: 'DELETE',
       });
-      console.log('logged out!');
 
       this.userData = null;
       this.state = 'done';

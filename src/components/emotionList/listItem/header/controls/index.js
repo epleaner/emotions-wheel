@@ -23,7 +23,7 @@ Controls.propTypes = {
   store: PropTypes.object.isRequired,
   emotion: PropTypes.shape({
     date: PropTypes.string.isRequired,
-    data: PropTypes.object.isRequired,
+    data: PropTypes.array.isRequired,
   }).isRequired,
   onDeleteSuccess: PropTypes.func.isRequired,
   onEditSuccess: PropTypes.func.isRequired,

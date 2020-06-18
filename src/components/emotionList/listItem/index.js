@@ -36,10 +36,7 @@ EmotionListItem.propTypes = {
     note: PropTypes.string,
     color: PropTypes.string.isRequired,
     date: PropTypes.string.isRequired,
-    data: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      parent: PropTypes.object.isRequired,
-    }),
+    data: PropTypes.array.isRequired,
   }).isRequired,
   onDeleteSuccess: PropTypes.func.isRequired,
   onEditSuccess: PropTypes.func.isRequired,

@@ -33,7 +33,9 @@ const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
   const handleSubmit = useCallback(
     async (dbRes) => {
       let user_id = null;
-      if (dbRes) user_id = await dbRes.json();
+
+      const dbJson = await dbRes.json();
+      if (dbRes) user_id = dbJson.user_id;
 
       const res = await fetch('/api/emotions', {
         method: 'PUT',
@@ -47,8 +49,10 @@ const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
 
       switch (res.status) {
         case 201: {
-          const resJson = await res.json();
-          userStore.addEmotion(resJson);
+          if (userStore.isLoggedIn) {
+            const resJson = await res.json();
+            userStore.addEmotion(resJson);
+          }
           break;
         }
         default:
@@ -77,8 +81,8 @@ const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
           else {
             await handleSubmit();
             await onSubmitSuccess();
-            setSubmitting(false);
             resetForm();
+            setSubmitting(false);
           }
         }}>
         {({ isSubmitting, errors }) => (

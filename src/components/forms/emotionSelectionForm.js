@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react-lite';
 import { Formik, Form, Field } from 'formik';
@@ -15,6 +15,7 @@ import {
 } from '@chakra-ui/core';
 
 import LoginSignupModal from '@components/modals/loginSignupModal';
+import Fade from '@components/shared/transitions/fade';
 
 const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
   const userStore = useCurrentUser();
@@ -25,6 +26,9 @@ const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
 
   const [formErrorMessage, setFormErrorMessage] = useState('');
   const [formValues, setFormValues] = useState();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => setIsMounted(true), []);
 
   const handleSubmit = useCallback(
     async (dbRes) => {
@@ -52,7 +56,7 @@ const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
           break;
       }
     },
-    [formValues, selected]
+    [formValues, userStore, selected]
   );
 
   return (
@@ -82,43 +86,47 @@ const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
             <Field name='note'>
               {({ field }) => (
                 <FormControl>
-                  <Flex w='100%' alignItems='baseline'>
-                    <Input
-                      aria-label='Note'
-                      id='name'
-                      type='text'
-                      variant='flushed'
-                      width={['100%', '100%', 600]}
-                      borderColor={
-                        selected
-                          ? selected.color
-                          : colorMode === 'light'
-                          ? 'gray.100'
-                          : 'gray.500'
-                      }
-                      focusBorderColor={selected ? selected.color : 'gray.100'}
-                      mr={2}
-                      size='xs'
-                      {...field}
-                      placeholder='Want to talk about it?'
-                    />
-                    <Button
-                      variant='outline'
-                      borderColor={selected ? selected.color : 'gray.400'}
-                      _hover={{ bg: selected ? selected.color : 'gray.100' }}
-                      size='sm'
-                      isDisabled={
-                        !selected ||
-                        Object.entries(errors).length ||
-                        isSubmitting ||
-                        userStore.isLoading
-                      }
-                      isLoading={isSubmitting}
-                      loadingText='Saving'
-                      type='submit'>
-                      Save
-                    </Button>
-                  </Flex>
+                  <Fade in={isMounted}>
+                    <Flex w='100%' alignItems='baseline'>
+                      <Input
+                        aria-label='Note'
+                        id='name'
+                        type='text'
+                        variant='flushed'
+                        width={['100%', '100%', 600]}
+                        borderColor={
+                          selected
+                            ? selected.color
+                            : colorMode === 'light'
+                            ? 'gray.100'
+                            : 'gray.500'
+                        }
+                        focusBorderColor={
+                          selected ? selected.color : 'gray.100'
+                        }
+                        mr={2}
+                        size='xs'
+                        {...field}
+                        placeholder='Want to talk about it?'
+                      />
+                      <Button
+                        variant='outline'
+                        borderColor={selected ? selected.color : 'gray.400'}
+                        _hover={{ bg: selected ? selected.color : 'gray.100' }}
+                        size='sm'
+                        isDisabled={
+                          !selected ||
+                          Object.entries(errors).length ||
+                          isSubmitting ||
+                          userStore.isLoading
+                        }
+                        isLoading={isSubmitting}
+                        loadingText='Saving'
+                        type='submit'>
+                        Save
+                      </Button>
+                    </Flex>
+                  </Fade>
                 </FormControl>
               )}
             </Field>

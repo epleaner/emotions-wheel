@@ -18,17 +18,19 @@ handler.put(async (req, res) => {
       note,
     } = req.body;
 
+    const newEmotion = {
+      _id: new ObjectId(),
+      date: new Date().toJSON(),
+      color,
+      data,
+      note,
+    };
+
     const { modifiedCount } = await req.db.collection('user').updateOne(
       { _id },
       {
         $push: {
-          emotions: {
-            _id: new ObjectId(),
-            date: new Date().toJSON(),
-            color,
-            data,
-            note,
-          },
+          emotions: newEmotion,
         },
       }
     );
@@ -36,9 +38,7 @@ handler.put(async (req, res) => {
     if (modifiedCount !== 1)
       throw { status: 400, message: 'Entry unable to be saved' };
 
-    return res.status(201).json({
-      message: 'Your entry has been saved successfully',
-    });
+    return res.status(201).json(newEmotion);
   } catch ({ status, message }) {
     return res.status(status || 500).json({ message });
   }
@@ -91,7 +91,7 @@ handler.delete(async (req, res) => {
       throw { status: 400, message: 'Entry unable to be deleted' };
 
     return res.status(200).json({
-      message: 'Your entry has been deletedt successfully',
+      message: 'Your entry has been deleted successfully',
     });
   } catch ({ status, message }) {
     return res.status(status || 500).json({ message });

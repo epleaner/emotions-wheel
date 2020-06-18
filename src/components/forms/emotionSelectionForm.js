@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react-lite';
 import { Formik, Form, Field } from 'formik';
 import useCurrentUser from '@hooks/useCurrentUser';
 
@@ -15,7 +16,7 @@ import {
 
 import LoginSignupModal from '@components/modals/loginSignupModal';
 
-const EmotionSelectionForm = ({ selected, onSubmitSuccess }) => {
+const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
   const userStore = useCurrentUser();
 
   const { colorMode } = useColorMode();
@@ -40,8 +41,16 @@ const EmotionSelectionForm = ({ selected, onSubmitSuccess }) => {
         }),
       });
 
-      if (res.status >= 400)
-        setFormErrorMessage('Something went wrong, please try again');
+      switch (res.status) {
+        case 201: {
+          const resJson = await res.json();
+          userStore.addEmotion(resJson);
+          break;
+        }
+        default:
+          setFormErrorMessage('Something went wrong, please try again');
+          break;
+      }
     },
     [formValues, selected]
   );
@@ -121,7 +130,7 @@ const EmotionSelectionForm = ({ selected, onSubmitSuccess }) => {
       </Formik>
     </>
   );
-};
+});
 
 EmotionSelectionForm.propTypes = {
   selected: PropTypes.object,

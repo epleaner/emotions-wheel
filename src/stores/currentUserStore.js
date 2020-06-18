@@ -77,6 +77,8 @@ class CurrentUserStore {
       return e;
     }));
 
+  addEmotion = (emotion) => this.userData.emotions.push(emotion);
+
   @computed({ keepAlive: true })
   get isLoading() {
     return this.state === 'loading';

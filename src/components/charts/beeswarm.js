@@ -45,9 +45,7 @@ const emotions = [
   },
 ];
 
-const Beeswarm = () => {
-  const data = emotions;
-
+const Beeswarm = ({ data }) => {
   const width = 600;
   const height = 200;
   const margin = 50;
@@ -57,7 +55,11 @@ const Beeswarm = () => {
   const xScale = useMemo(
     () =>
       scaleTime()
-        .domain(extent(data, (d) => new Date(d.date)))
+        .domain(
+          data.length === 1
+            ? [data[0].date, data[0].date]
+            : extent(data, (d) => new Date(d.date))
+        )
         .range([0, width - margin]),
     [data, width]
   );
@@ -114,43 +116,63 @@ const Beeswarm = () => {
       .select('text')
       .attr('fill', (d) => d.color)
       .text((d) => d.note)
-      .attr('x', (d) => xScale(new Date(d.date)))
+      .transition()
+      .ease(easeCubicOut)
+      .duration(750)
+      .attr('x', function (d) {
+        const currentWidth = +this.getBBox().width;
+        const currentX = xScale(new Date(d.date));
+        let newX = currentX;
+
+        currentX + currentWidth > width - 50
+          ? (newX = currentX - currentWidth - 10)
+          : (newX = currentX + 10);
+        return newX;
+      })
       .attr('dy', -10)
+      .attr('dx', -5)
       .attr('y', (d) => d.y);
 
-    // enteredNodes
-    //   .insert('rect', 'text')
-    //   .attr('visibility', 'hidden')
-    //   .attr('class', 'annotation');
+    enteredNodes
+      .insert('rect', 'text')
+      .attr('visibility', 'hidden')
+      .attr('class', 'annotation');
 
-    // enteredNodes
-    //   .merge(updatedNodes)
-    //   .select('rect')
-    //   .attr('width', function () {
-    //     return (
-    //       d3Select(this.parentNode).select('text').node().getBBox().width + 10
-    //     );
-    //   })
-    //   .attr('height', function () {
-    //     return (
-    //       d3Select(this.parentNode).select('text').node().getBBox().height + 10
-    //     );
-    //   })
-    //   .attr('rx', 3)
-    //   .attr('ry', 3)
-    //   .attr('fill', '#bdbdbd')
-    //   .attr('fill-opacity', 0.8)
-    //   .transition()
-    //   .ease(easeCubicOut)
-    //   .duration(750)
-    //   .attr('x', function (d) {
-    //     let currentX = d.x;
-    //     d.x - 2 + +this.getAttribute('width') - 10 > width
-    //       ? (currentX = d.x - +this.getAttribute('width') + 5)
-    //       : (currentX = d.x - 10);
-    //     return currentX;
-    //   })
-    //   .attr('y', (d) => d.y);
+    enteredNodes
+      .merge(updatedNodes)
+      .select('rect')
+      .attr('width', function () {
+        const textWidth = d3Select(this.parentNode)
+          .select('text')
+          .node()
+          .getBBox().width;
+        return textWidth > 0 ? textWidth + 10 : textWidth;
+      })
+      .attr('height', function () {
+        const textHeight = d3Select(this.parentNode)
+          .select('text')
+          .node()
+          .getBBox().height;
+        return textHeight > 0 ? textHeight + 10 : textHeight;
+      })
+      .attr('rx', 3)
+      .attr('ry', 3)
+      .attr('fill', '#bdbdbd')
+      .attr('fill-opacity', 0.8)
+      .transition()
+      .ease(easeCubicOut)
+      .duration(750)
+      .attr('x', function (d) {
+        const currentWidth = +this.getBBox().width;
+        const currentX = xScale(new Date(d.date));
+        let newX = currentX;
+
+        currentX + currentWidth > width - 50
+          ? (newX = currentX - currentWidth - 10)
+          : (newX = currentX + 10);
+        return newX;
+      })
+      .attr('y', (d) => d.y - 30);
 
     updatedNodes
       .select('.circles')

@@ -32,32 +32,38 @@ const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
 
   const handleSubmit = useCallback(
     async (dbRes) => {
-      let user_id = null;
+      try {
+        let user_id = null;
 
-      const dbJson = await dbRes.json();
-      if (dbRes) user_id = dbJson.user_id;
-
-      const res = await fetch('/api/emotions', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...formValues,
-          emotion: selected,
-          user_id,
-        }),
-      });
-
-      switch (res.status) {
-        case 201: {
-          if (userStore.isLoggedIn) {
-            const resJson = await res.json();
-            userStore.addEmotion(resJson);
-          }
-          break;
+        if (dbRes) {
+          const dbJson = await dbRes.json();
+          user_id = dbJson.user_id;
         }
-        default:
-          setFormErrorMessage('Something went wrong, please try again');
-          break;
+
+        const res = await fetch('/api/emotions', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            ...formValues,
+            emotion: selected,
+            user_id,
+          }),
+        });
+
+        switch (res.status) {
+          case 201: {
+            if (userStore.isLoggedIn) {
+              const resJson = await res.json();
+              userStore.addEmotion(resJson);
+            }
+            break;
+          }
+          default:
+            setFormErrorMessage('Something went wrong, please try again');
+            break;
+        }
+      } catch (e) {
+        setFormErrorMessage('Something went wrong, please try again');
       }
     },
     [formValues, userStore, selected]

@@ -38,7 +38,6 @@ const LoginForm = ({ onSubmitSuccess, cancellable, onCancel, redirectTo }) => {
 
           if (redirectTo) router.replace(redirectTo);
         } catch (e) {
-          console.log(e);
           switch (e.status) {
             case 401:
               setFormErrorBody({

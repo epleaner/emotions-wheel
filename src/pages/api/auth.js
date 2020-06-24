@@ -16,7 +16,6 @@ handler.post((req, res) => {
         if (loginErr) {
           return res.status(401).json(loginErr.message);
         }
-        console.log('in auth api post,', user);
         return res.status(200).json({ user: extractUser(user) });
       });
     } else return res.status(401).json(info);

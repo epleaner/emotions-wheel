@@ -2,9 +2,12 @@ import React, { useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react-lite';
 
+import moment from 'moment';
+import uniq from 'lodash.uniq';
 import { scaleTime } from 'd3-scale';
 import { forceSimulation, forceCollide } from 'd3-force';
 import { axisBottom } from 'd3-axis';
+import { timeFormat } from 'd3-time-format';
 import { timeDay } from 'd3-time';
 import { extent } from 'd3-array';
 import { select as d3Select } from 'd3-selection';
@@ -14,36 +17,7 @@ import { easeCubicOut } from 'd3-ease';
 import { transition } from 'd3-transition';
 
 // following example at https://observablehq.com/@syyeo/commonwealth-magazine-csr-ranking-beeswarm-chart-large-en
-const emotions = [
-  {
-    _id: '5eeb605c4fc2496e371a3aa9',
-    date: '2020-06-18T12:38:52.880Z',
-    color: 'rgb(238, 67, 149)',
-    data: ['Joy', 'Happy', 'Jovial'],
-    note: 'asdf',
-  },
-  {
-    _id: '51eb605c4fc2496e371a3aa9',
-    date: '2020-05-18T12:38:52.880Z',
-    color: 'rgb(238, 67, 149)',
-    data: ['Joy', 'Happy', 'Jovial'],
-    note: 'aa',
-  },
-  {
-    _id: '52eb605c4fc2496e371a3aa9',
-    date: '2020-05-21T12:38:52.880Z',
-    color: 'rgb(238, 67, 149)',
-    data: ['Joy', 'Happy', 'Jovial'],
-    note: 'bb',
-  },
-  {
-    _id: '53eb605c4fc2496e371a3aa9',
-    date: '2020-05-21T12:38:52.880Z',
-    color: 'rgb(238, 67, 149)',
-    data: ['Joy', 'Happy', 'Jovial'],
-    note: '',
-  },
-];
+// as well as https://observablehq.com/d/895e1046752f8295
 
 const Beeswarm = ({ data }) => {
   const width = 600;
@@ -52,21 +26,30 @@ const Beeswarm = ({ data }) => {
   const radius = 5;
   const svgRef = useRef(null);
 
+  data = data.map((d) => ({
+    ...d,
+    date: new Date(moment(d.date).format('YYY/MM/DD')),
+  }));
+
   const xScale = useMemo(
     () =>
       scaleTime()
         .domain(
           data.length === 1
             ? [data[0].date, data[0].date]
-            : extent(data, (d) => new Date(d.date))
+            : extent(data, (d) => d.date)
         )
         .range([0, width - margin]),
     [data, width]
   );
 
   const xAxis = useMemo(
-    () => axisBottom().scale(xScale).ticks(timeDay.every(7)),
-    [xScale]
+    () =>
+      axisBottom()
+        .scale(xScale)
+        .tickValues(uniq(data.map((d) => d.date)))
+        .tickFormat(timeFormat('%m/%d')),
+    [xScale, data]
   );
 
   const forceSim = useMemo(
@@ -100,7 +83,7 @@ const Beeswarm = ({ data }) => {
       .append('circle')
       .attr('r', radius)
       .attr('fill', (d) => d.color)
-      .attr('cx', (d) => xScale(new Date(d.date)))
+      .attr('cx', (d) => xScale(d.date))
       .attr('cy', height / 2)
       .attr('class', 'circles');
 
@@ -121,7 +104,7 @@ const Beeswarm = ({ data }) => {
       .duration(750)
       .attr('x', function (d) {
         const currentWidth = +this.getBBox().width;
-        const currentX = xScale(new Date(d.date));
+        const currentX = xScale(d.date);
         let newX = currentX;
 
         currentX + currentWidth > width - 50
@@ -164,7 +147,7 @@ const Beeswarm = ({ data }) => {
       .duration(750)
       .attr('x', function (d) {
         const currentWidth = +this.getBBox().width;
-        const currentX = xScale(new Date(d.date));
+        const currentX = xScale(d.date);
         let newX = currentX;
 
         currentX + currentWidth > width - 50

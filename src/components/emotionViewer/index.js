@@ -1,22 +1,16 @@
 import React, { useState } from 'react';
-
-import { Stack, Button } from '@chakra-ui/core';
-
-import useCurrentUser from '@hooks/useCurrentUser';
 import { observer } from 'mobx-react-lite';
 
-import EmotionList from '@components/emotionViewer/emotionList';
-import EmotionBeeswarm from '@components/emotionViewer/emotionBeeswarm';
+import useCurrentUser from '@hooks/useCurrentUser';
+
+import { Stack, Button } from '@chakra-ui/core';
+import EmotionList from '@components/emotionViewer/list';
+import EmotionBeeswarm from '@components/emotionViewer/beeswarm';
 
 const EmotionViewer = () => {
   const userStore = useCurrentUser();
 
   const [view, setView] = useState('chart');
-
-  const onDeleteSuccess = ({ _id }) => () => userStore.deleteEmotion(_id);
-
-  const onEditSuccess = ({ _id }) => (editedNote) =>
-    userStore.updateEmotionNote(_id, editedNote);
 
   return (
     <>
@@ -39,16 +33,10 @@ const EmotionViewer = () => {
         </Button>
       </Stack>
       {view === 'list' && (
-        <EmotionList
-          {...{
-            emotions: userStore.currentUser.emotions,
-            onDeleteSuccess,
-            onEditSuccess,
-          }}
-        />
+        <EmotionList emotions={userStore.currentUser.emotions} />
       )}
       {view === 'chart' && (
-        <EmotionBeeswarm {...{ emotions: userStore.currentUser.emotions }} />
+        <EmotionBeeswarm emotions={userStore.currentUser.emotions} />
       )}
     </>
   );

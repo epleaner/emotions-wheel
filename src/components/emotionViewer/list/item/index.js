@@ -1,18 +1,17 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react-lite';
+
+import useCurrentUser from '@hooks/useCurrentUser';
 
 import { Box, Stack } from '@chakra-ui/core';
 import Header from '@components/emotionViewer/list/item/header';
 import Body from '@components/emotionViewer/list/item/body';
 
-const EmotionListItem = ({
-  emotion,
-  onDeleteSuccess,
-  onEditSuccess,
-  ...otherProps
-}) => {
+const EmotionListItem = ({ emotion, ...otherProps }) => {
+  const userStore = useCurrentUser();
+
   const store = useMemo(
     () =>
       observable({
@@ -22,6 +21,16 @@ const EmotionListItem = ({
         editBody: emotion.note,
       }),
     [emotion._id, emotion.note]
+  );
+
+  const onDeleteSuccess = useCallback(
+    () => userStore.deleteEmotion(emotion._id),
+    [userStore, emotion._id]
+  );
+
+  const onEditSuccess = useCallback(
+    (editedNote) => userStore.updateEmotionNote(emotion._id, editedNote),
+    [userStore, emotion._id]
   );
 
   return (
@@ -42,8 +51,6 @@ EmotionListItem.propTypes = {
     date: PropTypes.string.isRequired,
     data: PropTypes.array.isRequired,
   }).isRequired,
-  onDeleteSuccess: PropTypes.func.isRequired,
-  onEditSuccess: PropTypes.func.isRequired,
 };
 
 export default observer(EmotionListItem);

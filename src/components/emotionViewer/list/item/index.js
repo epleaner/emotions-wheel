@@ -34,8 +34,8 @@ const EmotionListItem = ({ emotion, ...otherProps }) => {
   );
 
   return (
-    <Box pt={4} pb={0} my={4} overflow='hidden'>
-      <Stack as='li' {...otherProps}>
+    <Box overflow='hidden' {...otherProps}>
+      <Stack as='li'>
         <Header {...{ store, emotion, onDeleteSuccess, onEditSuccess }} />
         <Body {...{ store, emotion }} />
       </Stack>
@@ -48,7 +48,7 @@ EmotionListItem.propTypes = {
     _id: PropTypes.string.isRequired,
     note: PropTypes.string,
     color: PropTypes.string.isRequired,
-    date: PropTypes.string.isRequired,
+    date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     data: PropTypes.array.isRequired,
   }).isRequired,
 };

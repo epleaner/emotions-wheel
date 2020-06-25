@@ -16,7 +16,12 @@ const EmotionList = ({ emotions }) => {
       {emotions.length > 0 ? (
         <ul>
           {sortByDate(emotions).map((emotion) => (
-            <EmotionListItem key={emotion._id} emotion={emotion} mb={8} />
+            <EmotionListItem
+              key={emotion._id}
+              emotion={emotion}
+              pt={4}
+              my={[12, 24]}
+            />
           ))}
         </ul>
       ) : (

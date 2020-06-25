@@ -104,7 +104,7 @@ const DeleteControls = ({ data, date, onDeleteSuccess }) => {
 };
 
 DeleteControls.propTypes = {
-  date: PropTypes.string.isRequired,
+  date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   data: PropTypes.array.isRequired,
   onDeleteSuccess: PropTypes.func.isRequired,
 };

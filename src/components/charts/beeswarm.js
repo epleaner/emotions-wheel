@@ -59,10 +59,20 @@ const Beeswarm = ({ data }) => {
 
   useEffect(() => {
     function showTooltip() {
-      d3Select(this).selectAll('.annotation').attr('visibility', 'visible');
+      const annotation = d3Select(this).selectAll('.annotation');
+      annotation
+        .attr('visibility', 'visible')
+        .transition()
+        .duration(250)
+        .attr('opacity', 1);
     }
     function hideTooltip() {
-      d3Select(this).selectAll('.annotation').attr('visibility', 'hidden');
+      const annotation = d3Select(this).selectAll('.annotation');
+      annotation
+        .transition()
+        .duration(250)
+        .attr('opacity', 0)
+        .on('end', () => annotation.attr('visibility', 'hidden'));
     }
 
     const svg = d3Select(svgRef.current)
@@ -89,14 +99,13 @@ const Beeswarm = ({ data }) => {
 
     circles.attr('opacity', 0).transition().duration(1000).attr('opacity', 1);
 
-    enteredNodes
-      .append('text')
-      .attr('visibility', 'hidden')
-      .attr('class', 'annotation');
+    enteredNodes.append('text').attr('class', 'annotation');
 
     enteredNodes
       .merge(updatedNodes)
       .select('text')
+      .attr('opacity', '0')
+      .attr('visibility', 'hidden')
       .attr('fill', (d) => d.color)
       .text((d) => d.note)
       .transition()
@@ -116,14 +125,13 @@ const Beeswarm = ({ data }) => {
       .attr('dx', -5)
       .attr('y', (d) => d.y);
 
-    enteredNodes
-      .insert('rect', 'text')
-      .attr('visibility', 'hidden')
-      .attr('class', 'annotation');
+    enteredNodes.insert('rect', 'text').attr('class', 'annotation');
 
     enteredNodes
       .merge(updatedNodes)
       .select('rect')
+      .attr('opacity', '0')
+      .attr('visibility', 'hidden')
       .attr('width', function () {
         const textWidth = d3Select(this.parentNode)
           .select('text')

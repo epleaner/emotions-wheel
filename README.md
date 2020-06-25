@@ -10,7 +10,7 @@
 
 For checking in with yourself.
 
-Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported by Passport. Hosted on Now.
+Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth supported by Passport. Hosted on Now.
 
 ## Roadmap
 
@@ -21,7 +21,8 @@ Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported 
 ### entry management
 
 - [ ] User can choose visibility of entries
-- [ ] see entries as beeswarm
+- [x] see entries as beeswarm
+- [ ] edit entries in beeswarm
 
 ### api
 

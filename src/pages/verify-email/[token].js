@@ -28,7 +28,7 @@ const VerifyEmailToken = ({ token }) => {
       {fetchingValidity ? (
         <Spinner />
       ) : (
-        <Section>
+        <Section contained>
           {validToken ? (
             <>
               <Heading fontSize='2xl'>

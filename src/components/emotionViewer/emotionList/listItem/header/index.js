@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { observer } from 'mobx-react-lite';
 
 import { Text, Stack, Box } from '@chakra-ui/core';
 import EmotionBreadcrumb from '@components/emotionSelector/selectedBreadcrumb';
-import Controls from '@components/emotionList/listItem/header/controls';
+import Controls from '@components/emotionViewer/emotionList/listItem/header/controls';
 
 const Header = ({ emotion, onDeleteSuccess, onEditSuccess, store }) => {
   const { date } = emotion;
@@ -37,4 +38,4 @@ Header.propTypes = {
   onEditSuccess: PropTypes.func.isRequired,
 };
 
-export default Header;
+export default observer(Header);

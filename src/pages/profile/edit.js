@@ -14,6 +14,7 @@ import {
 import useCurrentUser from '@hooks/useCurrentUser';
 
 import CenteredContainer from '@components/shared/centeredContainer';
+import Container from '@components/shared/container';
 import Section from '@components/shared/section';
 import Heading from '@components/shared/heading';
 import ProfileForm from '@components/forms/profileForm';
@@ -83,7 +84,7 @@ const EditProfile = observer(() => {
           first.
         </Text>
       ) : (
-        <Section>
+        <Section contained>
           <Link href='/profile'>
             <Button size='xs' leftIcon='arrow-back' variant='ghost'>
               Back

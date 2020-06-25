@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from "react";
-import fetch from "isomorphic-unfetch";
-import Link from "next/link";
-import { Flex, Input, Button, Text, NavLink } from "theme-ui";
+import React, { useState, useEffect } from 'react';
+import fetch from 'isomorphic-unfetch';
+import Link from 'next/link';
+import { Flex, Input, Button, Text, NavLink } from 'theme-ui';
 
 const ResetPasswordTokenPage = ({ token }) => {
   const [valid, setValid] = useState(false);
   const [fetchingValidity, setFetchingValidity] = useState(true);
-  const [password, setPassword] = useState("");
-  const [formStatus, setFormStatus] = useState({ ok: true, message: "" });
+  const [password, setPassword] = useState('');
+  const [formStatus, setFormStatus] = useState({ ok: true, message: '' });
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     (async () => {
       const res = await fetch(`/api/user/password/${token}`, {
-        method: "GET",
+        method: 'GET',
       });
 
       const { valid } = await res.json();
@@ -25,48 +25,48 @@ const ResetPasswordTokenPage = ({ token }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormStatus({ ok: true, message: "" });
+    setFormStatus({ ok: true, message: '' });
     setSubmitting(true);
 
     const body = { password };
 
     const res = await fetch(`/api/user/password/${token}`, {
-      method: "PATCH",
-      headers: { "Content-Type": "application/json" },
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body),
     });
 
     const responseJson = await res.json();
 
-    setPassword("");
+    setPassword('');
     setSubmitting(false);
     setFormStatus(responseJson);
   };
   return (
-    <Flex sx={{ justifyContent: "center" }}>
+    <Flex sx={{ justifyContent: 'center' }}>
       {fetchingValidity ? (
         <Text>Loading...</Text>
       ) : valid ? (
-        <section>
+        <section contained>
           <h1>Reset password</h1>
           {formStatus.message}
           <form onSubmit={handleSubmit}>
             <Input
-              id="password"
-              type="password"
-              placeholder="New password"
+              id='password'
+              type='password'
+              placeholder='New password'
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <Button type="submit" disabled={submitting}>
+            <Button type='submit' disabled={submitting}>
               Submit
             </Button>
           </form>
         </section>
       ) : (
         <Text>
-          This link may have expired.{" "}
-          <Link href="/forgot-password">
+          This link may have expired.{' '}
+          <Link href='/forgot-password'>
             <NavLink>Try again?</NavLink>
           </Link>
         </Text>

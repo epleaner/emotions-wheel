@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { Text, IconButton, Box, Button, Tooltip } from '@chakra-ui/core';
+import { Text, IconButton, Button, Tooltip } from '@chakra-ui/core';
 
 const DeleteControls = ({ data, date, onDeleteSuccess }) => {
   const [deleteErrorMessage, setDeleteErrorMessage] = useState(null);

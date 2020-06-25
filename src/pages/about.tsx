@@ -7,7 +7,7 @@ import Section from '@components/shared/section';
 
 const About: NextPage = () => (
   <CenteredContainer>
-    <Section>
+    <Section contained>
       <Heading as='h1' fontSize='6xl'>
         Feels is tool for checking in with yourself.
       </Heading>

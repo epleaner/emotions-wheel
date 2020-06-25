@@ -25,7 +25,7 @@ const SignupPage = () => {
       ) : (
         <>
           {!currentUserStore.isLoggedIn && (
-            <Section>
+            <Section contained>
               <SignupForm onSubmitSuccess={() => {}} />
             </Section>
           )}

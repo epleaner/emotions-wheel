@@ -25,7 +25,7 @@ const LoginPage = () => {
       ) : (
         <>
           {!currentUserStore.isLoggedIn && (
-            <Section>
+            <Section contained>
               <LoginForm redirectTo='/' />
             </Section>
           )}

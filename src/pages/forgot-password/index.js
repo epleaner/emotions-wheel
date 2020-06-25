@@ -9,7 +9,7 @@ const ForgotPassword = () => {
   const [submitted, setSubmitted] = useState(false);
   return (
     <CenteredContainer>
-      <Section>
+      <Section contained>
         {submitted ? (
           <Heading>Help should be on its way!</Heading>
         ) : (

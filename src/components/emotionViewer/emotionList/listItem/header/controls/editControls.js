@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 import { IconButton, Tooltip, Text, Button } from '@chakra-ui/core';
 
-const EditControls = observer(({ onEditSuccess, store }) => {
+const EditControls = ({ onEditSuccess, store }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);
@@ -111,10 +111,10 @@ const EditControls = observer(({ onEditSuccess, store }) => {
       />
     </Tooltip>
   );
-});
+};
 
 EditControls.propTypes = {
   store: PropTypes.object.isRequired,
 };
 
-export default EditControls;
+export default observer(EditControls);

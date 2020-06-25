@@ -23,7 +23,7 @@ const VerifyEmail = () => {
 
   return (
     <CenteredContainer>
-      <Section>
+      <Section contained>
         {submitted ? (
           <>
             <Heading>

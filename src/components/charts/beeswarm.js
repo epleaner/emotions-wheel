@@ -9,7 +9,11 @@ import { forceSimulation, forceCollide, forceX, forceY } from 'd3-force';
 import { axisBottom } from 'd3-axis';
 import { timeFormat } from 'd3-time-format';
 import { extent } from 'd3-array';
-import { select as d3Select } from 'd3-selection';
+import {
+  event as d3Event,
+  select as d3Select,
+  selection as d3Selection,
+} from 'd3-selection';
 
 // eslint-disable-next-line no-unused-consts
 import { transition } from 'd3-transition';
@@ -22,6 +26,7 @@ const Beeswarm = ({ data, showDetails }) => {
   const height = 200;
   const margin = 50;
   const radius = 10;
+  const growth = 5;
   const svgRef = useRef(null);
   const nodesRef = useRef(null);
   const circlesRef = useRef(null);
@@ -55,7 +60,7 @@ const Beeswarm = ({ data, showDetails }) => {
   const forceSim = useMemo(
     () =>
       forceSimulation(data)
-        .force('collide', forceCollide(radius + 2)) // account for hover growth
+        .force('collide', forceCollide(radius + growth + 0.5)) // account for hover growth
         .force('x', forceX((d) => xScale(d.date)).strength(1))
         .force('y', forceY(height / 2).strength(1)),
     [data, xScale]
@@ -79,8 +84,7 @@ const Beeswarm = ({ data, showDetails }) => {
     const circles = enteredNodes
       .append('circle')
       .attr('r', radius)
-      .attr('fill', (d) => d.color)
-      .attr('class', 'circles');
+      .attr('fill', (d) => d.color);
 
     circlesRef.current = circles;
 
@@ -97,34 +101,70 @@ const Beeswarm = ({ data, showDetails }) => {
       .attr('transform', `translate(0, ${height - margin})`)
       .call(xAxis);
 
+    svg.on('click', function () {
+      d3Select(this)
+        .selectAll('.clicked')
+        .attr('class', '')
+        .transition()
+        .duration(250)
+        .attr('r', radius);
+
+      showDetails(null);
+    });
+
     return () => {
       d3Select(svg).remove();
     };
-  }, [data, width, xAxis, xScale, forceSim]);
+  }, [data, width, xAxis, xScale, forceSim, showDetails]);
 
   useEffect(() => {
     if (nodesRef.current)
       nodesRef.current
         .on('mouseover', function (d) {
           d3Select(this)
-            .selectAll('circle')
+            .select('circle')
             .transition()
             .duration(250)
-            .attr('r', radius + 2);
+            .attr('r', radius + growth);
 
           showDetails(d);
         })
         .on('click', function (d) {
-          showDetails(d, { sticky: true });
-        })
-        .on('mouseout', function () {
-          d3Select(this)
-            .selectAll('circle')
+          d3Event.stopPropagation();
+
+          d3Select(svgRef.current)
+            .selectAll('.clicked')
+            .attr('class', '')
             .transition()
             .duration(250)
             .attr('r', radius);
 
-          showDetails(null);
+          d3Select(this)
+            .select('circle')
+            .attr('class', 'clicked')
+            .transition()
+            .duration(250)
+            .attr('r', radius + growth);
+
+          showDetails(d);
+        })
+        .on('mouseout', function () {
+          if (
+            // check if any nodes are already clicked
+            // this should be cleaner but cannot find a way do to so via the api yet
+            d3Select(svgRef.current).selectAll('.clicked')._groups[0].length ===
+            0
+          )
+            showDetails(null);
+          else showDetails(d3Select('.clicked').data()[0]);
+
+          if (d3Select(this).select('circle').attr('class') !== 'clicked') {
+            d3Select(this)
+              .select('circle')
+              .transition()
+              .duration(250)
+              .attr('r', radius);
+          }
         });
   }, [data, xScale, showDetails, forceSim]);
 

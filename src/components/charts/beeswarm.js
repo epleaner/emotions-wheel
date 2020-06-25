@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react-lite';
 
@@ -17,12 +17,14 @@ import { transition } from 'd3-transition';
 // following example at https://observablehq.com/@syyeo/commonwealth-magazine-csr-ranking-beeswarm-chart-large-en
 // as well as https://observablehq.com/d/895e1046752f8295
 
-const Beeswarm = ({ data, onHover }) => {
+const Beeswarm = ({ data, showDetails }) => {
   const width = 600;
   const height = 200;
   const margin = 50;
   const radius = 10;
   const svgRef = useRef(null);
+  const nodesRef = useRef(null);
+  const circlesRef = useRef(null);
 
   data = data.map((d) => ({
     ...d,
@@ -50,6 +52,15 @@ const Beeswarm = ({ data, onHover }) => {
     [xScale, data]
   );
 
+  const forceSim = useMemo(
+    () =>
+      forceSimulation(data)
+        .force('collide', forceCollide(radius + 2)) // account for hover growth
+        .force('x', forceX((d) => xScale(d.date)).strength(1))
+        .force('y', forceY(height / 2).strength(1)),
+    [data, xScale]
+  );
+
   useEffect(() => {
     const svg = d3Select(svgRef.current)
       .append('svg')
@@ -71,21 +82,16 @@ const Beeswarm = ({ data, onHover }) => {
       .attr('fill', (d) => d.color)
       .attr('class', 'circles');
 
+    circlesRef.current = circles;
+
     circles.attr('opacity', 0).transition().duration(1000).attr('opacity', 1);
 
-    forceSimulation(data)
-      .force('collide', forceCollide(radius))
-      .force('x', forceX((d) => xScale(d.date)).strength(1))
-      .force('y', forceY(height / 2).strength(1))
-      .on('tick', () => {
-        circles.attr('cx', (d) => d.x);
-        circles.attr('cy', (d) => d.y);
-      });
+    forceSim.on('tick', () => {
+      circles.attr('cx', (d) => d.x);
+      circles.attr('cy', (d) => d.y);
+    });
 
-    enteredNodes
-      .merge(updatedNodes)
-      .on('mouseover', (d) => onHover(d))
-      .on('mouseout', () => onHover(null));
+    nodesRef.current = enteredNodes.merge(updatedNodes);
 
     g.append('g')
       .attr('transform', `translate(0, ${height - margin})`)
@@ -94,14 +100,40 @@ const Beeswarm = ({ data, onHover }) => {
     return () => {
       d3Select(svg).remove();
     };
-  }, [data, width, xAxis, xScale, onHover]);
+  }, [data, width, xAxis, xScale, forceSim]);
+
+  useEffect(() => {
+    if (nodesRef.current)
+      nodesRef.current
+        .on('mouseover', function (d) {
+          d3Select(this)
+            .selectAll('circle')
+            .transition()
+            .duration(250)
+            .attr('r', radius + 2);
+
+          showDetails(d);
+        })
+        .on('click', function (d) {
+          showDetails(d, { sticky: true });
+        })
+        .on('mouseout', function () {
+          d3Select(this)
+            .selectAll('circle')
+            .transition()
+            .duration(250)
+            .attr('r', radius);
+
+          showDetails(null);
+        });
+  }, [data, xScale, showDetails, forceSim]);
 
   return <main ref={svgRef}></main>;
 };
 
 Beeswarm.propTypes = {
   data: PropTypes.array,
-  onHover: PropTypes.func.isRequired,
+  showDetails: PropTypes.func.isRequired,
 };
 
 export default observer(Beeswarm);

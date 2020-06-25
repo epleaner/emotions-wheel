@@ -68,7 +68,6 @@ const ProfilePage = observer(() => {
             </Stack>
             <Divider />
             <Stack isInline align='center'>
-              <Text fontSize='xs'>view as:</Text>
               <Button
                 type='button'
                 size='xs'

@@ -21,6 +21,7 @@ Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported 
 ### entry management
 
 - [ ] User can choose visibility of entries
+- [ ] see entries as beeswarm
 
 ### api
 
@@ -33,5 +34,8 @@ Built using React, Next, Chakra-UI, and MongoDB, with serverless auth supported 
 ### UI
 
 - [ ] sunburst colors
+- [ ] handle failure to log out
 
 ### Bugs
+
+- [ ] handle chart for single entry

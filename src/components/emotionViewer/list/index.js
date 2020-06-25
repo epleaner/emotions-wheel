@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import { Text, Link as UILink } from '@chakra-ui/core';
 
-import EmotionListItem from '@components/emotionViewer/emotionList/listItem';
+import EmotionListItem from '@components/emotionViewer/list/item';
 
 const EmotionList = ({ emotions, onDeleteSuccess, onEditSuccess }) => {
   const sortByDate = (emotions) => {

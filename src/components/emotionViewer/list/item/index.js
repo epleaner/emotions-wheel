@@ -4,8 +4,8 @@ import { observable } from 'mobx';
 import { observer } from 'mobx-react-lite';
 
 import { Box, Stack } from '@chakra-ui/core';
-import Header from '@components/emotionViewer/emotionList/listItem/header';
-import Body from '@components/emotionViewer/emotionList/listItem/body';
+import Header from '@components/emotionViewer/list/item/header';
+import Body from '@components/emotionViewer/list/item/body';
 
 const EmotionListItem = ({
   emotion,

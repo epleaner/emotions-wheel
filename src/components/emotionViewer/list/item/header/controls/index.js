@@ -4,8 +4,8 @@ import { observer } from 'mobx-react-lite';
 
 import { Flex, Divider } from '@chakra-ui/core';
 
-import DeleteControls from '@components/emotionViewer/emotionList/listItem/header/controls/deleteControls';
-import EditControls from '@components/emotionViewer/emotionList/listItem/header/controls/editControls';
+import DeleteControls from '@components/emotionViewer/list/item/header/controls/deleteControls';
+import EditControls from '@components/emotionViewer/list/item/header/controls/editControls';
 
 const Controls = ({ emotion, onDeleteSuccess, onEditSuccess, store }) => {
   return (

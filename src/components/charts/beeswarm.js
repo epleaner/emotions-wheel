@@ -10,7 +10,6 @@ import { axisBottom } from 'd3-axis';
 import { timeFormat } from 'd3-time-format';
 import { extent } from 'd3-array';
 import { select as d3Select } from 'd3-selection';
-import { easeCubicOut } from 'd3-ease';
 
 // eslint-disable-next-line no-unused-consts
 import { transition } from 'd3-transition';
@@ -51,32 +50,6 @@ const Beeswarm = ({ data, onHover }) => {
     [xScale, data]
   );
 
-  const showTooltip = useMemo(
-    () =>
-      function () {
-        const annotation = d3Select(this).selectAll('.annotation');
-        annotation
-          .attr('visibility', 'visible')
-          .transition()
-          .duration(250)
-          .attr('opacity', 1);
-      },
-    []
-  );
-
-  const hideTooltip = useMemo(
-    () =>
-      function () {
-        const annotation = d3Select(this).selectAll('.annotation');
-        annotation
-          .transition()
-          .duration(250)
-          .attr('opacity', 0)
-          .on('end', () => annotation.attr('visibility', 'hidden'));
-      },
-    []
-  );
-
   useEffect(() => {
     const svg = d3Select(svgRef.current)
       .append('svg')
@@ -98,6 +71,8 @@ const Beeswarm = ({ data, onHover }) => {
       .attr('fill', (d) => d.color)
       .attr('class', 'circles');
 
+    circles.attr('opacity', 0).transition().duration(1000).attr('opacity', 1);
+
     forceSimulation(data)
       .force('collide', forceCollide(radius))
       .force('x', forceX((d) => xScale(d.date)).strength(1))
@@ -106,81 +81,6 @@ const Beeswarm = ({ data, onHover }) => {
         circles.attr('cx', (d) => d.x);
         circles.attr('cy', (d) => d.y);
       });
-
-    circles.attr('opacity', 0).transition().duration(1000).attr('opacity', 1);
-
-    enteredNodes.append('text').attr('class', 'annotation');
-
-    enteredNodes
-      .merge(updatedNodes)
-      .select('text')
-      .attr('opacity', '0')
-      .attr('visibility', 'hidden')
-      .attr('fill', (d) => d.color)
-      .text((d) => d.note)
-      .transition()
-      .ease(easeCubicOut)
-      .duration(750)
-      .attr('x', function (d) {
-        const currentWidth = +this.getBBox().width;
-        const currentX = d.x;
-        let newX = currentX;
-
-        currentX + currentWidth > width - margin
-          ? (newX = currentX - currentWidth - 10)
-          : (newX = currentX + 10);
-        return newX;
-      })
-      .attr('dy', -10)
-      .attr('dx', -5)
-      .attr('y', (d) => d.y);
-
-    enteredNodes.insert('rect', 'text').attr('class', 'annotation');
-
-    enteredNodes
-      .merge(updatedNodes)
-      .select('rect')
-      .attr('opacity', '0')
-      .attr('visibility', 'hidden')
-      .attr('width', function () {
-        const textWidth = d3Select(this.parentNode)
-          .select('text')
-          .node()
-          .getBBox().width;
-        return textWidth > 0 ? textWidth + 10 : textWidth;
-      })
-      .attr('height', function () {
-        const textHeight = d3Select(this.parentNode)
-          .select('text')
-          .node()
-          .getBBox().height;
-        return textHeight > 0 ? textHeight + 10 : textHeight;
-      })
-      .attr('rx', 3)
-      .attr('ry', 3)
-      .attr('fill', '#bdbdbd')
-      .attr('fill-opacity', 0.8)
-      .transition()
-      .ease(easeCubicOut)
-      .duration(750)
-      .attr('x', function (d) {
-        const currentWidth = +this.getBBox().width;
-        const currentX = d.x;
-        let newX = currentX;
-
-        currentX + currentWidth > width - margin
-          ? (newX = currentX - currentWidth - 10)
-          : (newX = currentX + 10);
-        return newX;
-      })
-      .attr('y', (d) => d.y - 30);
-
-    updatedNodes
-      .select('.circles')
-      .transition()
-      .ease(easeCubicOut)
-      .duration(750)
-      .attr('cx', (d) => d.x);
 
     enteredNodes
       .merge(updatedNodes)
@@ -194,7 +94,7 @@ const Beeswarm = ({ data, onHover }) => {
     return () => {
       d3Select(svg).remove();
     };
-  }, [data, width, xAxis, xScale, showTooltip, hideTooltip, onHover]);
+  }, [data, width, xAxis, xScale, onHover]);
 
   return <main ref={svgRef}></main>;
 };

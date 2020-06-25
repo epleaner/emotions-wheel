@@ -18,7 +18,7 @@ import { transition } from 'd3-transition';
 // following example at https://observablehq.com/@syyeo/commonwealth-magazine-csr-ranking-beeswarm-chart-large-en
 // as well as https://observablehq.com/d/895e1046752f8295
 
-const Beeswarm = ({ data }) => {
+const Beeswarm = ({ data, onHover }) => {
   const width = 600;
   const height = 200;
   const margin = 50;
@@ -123,10 +123,10 @@ const Beeswarm = ({ data }) => {
       .duration(750)
       .attr('x', function (d) {
         const currentWidth = +this.getBBox().width;
-        const currentX = xScale(d.date);
+        const currentX = d.x;
         let newX = currentX;
 
-        currentX + currentWidth > width - 50
+        currentX + currentWidth > width - margin
           ? (newX = currentX - currentWidth - 10)
           : (newX = currentX + 10);
         return newX;
@@ -165,10 +165,10 @@ const Beeswarm = ({ data }) => {
       .duration(750)
       .attr('x', function (d) {
         const currentWidth = +this.getBBox().width;
-        const currentX = xScale(d.date);
+        const currentX = d.x;
         let newX = currentX;
 
-        currentX + currentWidth > width - 50
+        currentX + currentWidth > width - margin
           ? (newX = currentX - currentWidth - 10)
           : (newX = currentX + 10);
         return newX;
@@ -184,8 +184,8 @@ const Beeswarm = ({ data }) => {
 
     enteredNodes
       .merge(updatedNodes)
-      .on('mouseover', showTooltip)
-      .on('mouseout', hideTooltip);
+      .on('mouseover', (d) => onHover(d))
+      .on('mouseout', () => onHover(null));
 
     g.append('g')
       .attr('transform', `translate(0, ${height - margin})`)
@@ -194,13 +194,14 @@ const Beeswarm = ({ data }) => {
     return () => {
       d3Select(svg).remove();
     };
-  }, [data, width, xAxis, xScale, showTooltip, hideTooltip]);
+  }, [data, width, xAxis, xScale, showTooltip, hideTooltip, onHover]);
 
   return <main ref={svgRef}></main>;
 };
 
 Beeswarm.propTypes = {
   data: PropTypes.array,
+  onHover: PropTypes.func.isRequired,
 };
 
 export default observer(Beeswarm);

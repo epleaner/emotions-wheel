@@ -32,7 +32,7 @@ const Header = ({ emotion, onDeleteSuccess, onEditSuccess, store }) => {
 Header.propTypes = {
   store: PropTypes.object.isRequired,
   emotion: PropTypes.shape({
-    date: PropTypes.string.isRequired,
+    date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
   }).isRequired,
   onDeleteSuccess: PropTypes.func.isRequired,
   onEditSuccess: PropTypes.func.isRequired,

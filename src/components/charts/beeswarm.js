@@ -57,24 +57,33 @@ const Beeswarm = ({ data }) => {
     [data]
   );
 
-  useEffect(() => {
-    function showTooltip() {
-      const annotation = d3Select(this).selectAll('.annotation');
-      annotation
-        .attr('visibility', 'visible')
-        .transition()
-        .duration(250)
-        .attr('opacity', 1);
-    }
-    function hideTooltip() {
-      const annotation = d3Select(this).selectAll('.annotation');
-      annotation
-        .transition()
-        .duration(250)
-        .attr('opacity', 0)
-        .on('end', () => annotation.attr('visibility', 'hidden'));
-    }
+  const showTooltip = useMemo(
+    () =>
+      function () {
+        const annotation = d3Select(this).selectAll('.annotation');
+        annotation
+          .attr('visibility', 'visible')
+          .transition()
+          .duration(250)
+          .attr('opacity', 1);
+      },
+    []
+  );
 
+  const hideTooltip = useMemo(
+    () =>
+      function () {
+        const annotation = d3Select(this).selectAll('.annotation');
+        annotation
+          .transition()
+          .duration(250)
+          .attr('opacity', 0)
+          .on('end', () => annotation.attr('visibility', 'hidden'));
+      },
+    []
+  );
+
+  useEffect(() => {
     const svg = d3Select(svgRef.current)
       .append('svg')
       .attr('viewBox', [0, 0, width, height + margin]);
@@ -189,7 +198,7 @@ const Beeswarm = ({ data }) => {
     return () => {
       d3Select(svg).remove();
     };
-  }, [data, width, xAxis, forceSim, xScale]);
+  }, [data, width, xAxis, forceSim, xScale, showTooltip, hideTooltip]);
 
   return <main ref={svgRef}></main>;
 };

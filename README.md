@@ -20,14 +20,10 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 
 ### entry management
 
-- [ ] User can choose visibility of entries
 - [x] see entries as beeswarm
-- [ ] edit entries in beeswarm
-- [ ] beeswarm overflow
-
-### api
-
-- [ ] store color as FE look-up, not in DB
+- [ ] edit/delete entries in beeswarm
+- [ ] beeswarm overflow (too many bees!)
+- [ ] User can choose visibility of entries
 
 ### emotion selection
 
@@ -35,9 +31,15 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 
 ### UI
 
-- [ ] sunburst colors
-- [ ] handle failure to log out
+- [ ] sunburst colors better represent emotions
+- [ ] handle failure to log out (and ensure all error cases are handled)
 
 ### Bugs
 
-- [ ] handle chart for single entry
+- [ ] handle beeswarm chart for single entry
+
+### backend
+
+- [ ] store color as FE look-up, not in DB
+- [ ] have multiple db environments
+- [ ] shrink user object

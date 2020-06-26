@@ -23,6 +23,7 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 - [ ] User can choose visibility of entries
 - [x] see entries as beeswarm
 - [ ] edit entries in beeswarm
+- [ ] beeswarm overflow
 
 ### api
 

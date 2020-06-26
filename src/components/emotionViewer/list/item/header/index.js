@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react-lite';
+import moment from 'moment';
 
 import { Text, Stack, Box } from '@chakra-ui/core';
 import EmotionBreadcrumb from '@components/emotionSelector/selectedBreadcrumb';
@@ -13,12 +14,7 @@ const Header = ({ emotion, onDeleteSuccess, onEditSuccess, store }) => {
     <Stack isInline justify='space-between' align='center'>
       <Box>
         <Text fontSize='xs' color='grey'>
-          {new Date(date).toLocaleDateString('en-US', {
-            weekday: 'long',
-            month: 'numeric',
-            year: 'numeric',
-            day: 'numeric',
-          })}
+          {moment(date).format('dddd, DD/MM/YYYY')}
         </Text>
 
         <EmotionBreadcrumb selected={emotion} />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react-lite';
 
@@ -9,13 +9,9 @@ import { forceSimulation, forceCollide, forceX, forceY } from 'd3-force';
 import { axisBottom } from 'd3-axis';
 import { timeFormat } from 'd3-time-format';
 import { extent } from 'd3-array';
-import {
-  event as d3Event,
-  select as d3Select,
-  selection as d3Selection,
-} from 'd3-selection';
+import { event as d3Event, select as d3Select } from 'd3-selection';
 
-// eslint-disable-next-line no-unused-consts
+// eslint-disable-next-line no-unused-vars
 import { transition } from 'd3-transition';
 
 // following example at https://observablehq.com/@syyeo/commonwealth-magazine-csr-ranking-beeswarm-chart-large-en
@@ -29,7 +25,6 @@ const Beeswarm = ({ data, showDetails }) => {
   const growth = 5;
   const svgRef = useRef(null);
   const nodesRef = useRef(null);
-  const circlesRef = useRef(null);
 
   data = data.map((d) => ({
     ...d,
@@ -60,7 +55,7 @@ const Beeswarm = ({ data, showDetails }) => {
   const forceSim = useMemo(
     () =>
       forceSimulation(data)
-        .force('collide', forceCollide(radius + growth + 0.5)) // account for hover growth
+        .force('collide', forceCollide(radius + growth + 0.5))
         .force('x', forceX((d) => xScale(d.date)).strength(1))
         .force('y', forceY(height / 2).strength(1)),
     [data, xScale]
@@ -85,8 +80,6 @@ const Beeswarm = ({ data, showDetails }) => {
       .append('circle')
       .attr('r', radius)
       .attr('fill', (d) => d.color);
-
-    circlesRef.current = circles;
 
     circles.attr('opacity', 0).transition().duration(1000).attr('opacity', 1);
 

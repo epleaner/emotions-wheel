@@ -5,6 +5,17 @@
   "repository": "https://github.com/epleaner/emotions-wheel.git",
   "author": "Eli <eli.i.pleaner@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "yarn start",
+    "start": "now dev",
+    "build": "next build",
+    "serve": "next start",
+    "test": "jest",
+    "env": "now env pull",
+    "now": "now",
+    "prod": "now --prod",
+    "seed": "node src/helpers/db/seed"
+  },
   "dependencies": {
     "@chakra-ui/core": "^0.7.0",
     "@emotion/core": "^10.0.28",
@@ -57,24 +68,18 @@
     "validator": "^13.0.0",
     "yup": "^0.28.4"
   },
-  "scripts": {
-    "dev": "yarn start",
-    "start": "now dev",
-    "build": "next build",
-    "serve": "next start",
-    "env": "now env pull",
-    "now": "now",
-    "prod": "now --prod",
-    "seed": "node src/helpers/db/seed"
-  },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.1",
     "@babel/plugin-proposal-decorators": "^7.10.1",
+    "@testing-library/dom": "^7.18.1",
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
     "@types/node": "^13.11.0",
     "@types/react": "^16.9.32",
     "@types/theme-ui": "^0.3.1",
     "@typescript-eslint/eslint-plugin": "^2.30.0",
     "@typescript-eslint/parser": "^2.30.0",
+    "babel-jest": "^26.1.0",
     "babel-plugin-emotion": "^10.0.33",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
@@ -82,6 +87,7 @@
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "faker": "^4.1.0",
+    "jest": "^26.1.0",
     "now": "^19.1.1",
     "typescript": "^3.8.3"
   }

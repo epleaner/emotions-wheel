@@ -3,6 +3,8 @@ import nextConnect from 'next-connect';
 import isEmail from 'validator/lib/isEmail';
 import normalizeEmail from 'validator/lib/normalizeEmail';
 
+import { ObjectId } from 'mongodb';
+
 import bcrypt from 'bcryptjs';
 
 import middleware from '@middleware/middleware';
@@ -24,8 +26,8 @@ handler.get(async (req, res) => {
 // POST /api/user
 handler.post(async (req, res) => {
   try {
-    const { name, password } = req.body;
-    const email = normalizeEmail(req.body.email); // this is to handle things like jane.doe@gmail.com and janedoe@gmail.com being the same
+    const { name, password, note, emotion } = req.body;
+    const email = normalizeEmail(req.body.email);
 
     if (!isEmail(email))
       throw {
@@ -52,14 +54,30 @@ handler.post(async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
+    const userData = {
+      email,
+      password: hashedPassword,
+      name,
+      emailVerified: false,
+    };
+
+    if (note && emotion) {
+      const { color, data } = emotion;
+
+      const newEmotion = {
+        _id: new ObjectId(),
+        date: new Date().toJSON(),
+        color,
+        data,
+        note,
+      };
+
+      userData.emotions = [newEmotion];
+    }
+
     const user = await req.db
       .collection('user')
-      .insertOne({
-        email,
-        password: hashedPassword,
-        name,
-        emailVerified: false,
-      })
+      .insertOne(userData)
       .then(({ ops }) => ops[0]);
 
     const emailRes = await sendVerificationEmail(req, res, {

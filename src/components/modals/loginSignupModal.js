@@ -19,7 +19,12 @@ import SignupForm from '@components/forms/signupForm';
 import LoginForm from '@components/forms/loginForm';
 import Heading from '@components/shared/heading';
 
-const LoginSignupModal = ({ isOpen, onClose, onSubmitSuccess }) => {
+const LoginSignupModal = ({
+  isOpen,
+  onClose,
+  onSubmitSuccess,
+  emotionFormValues,
+}) => {
   const initialRef = React.useRef();
   const [signUpSuccess, setSignUpSuccess] = useState(false);
 
@@ -28,13 +33,9 @@ const LoginSignupModal = ({ isOpen, onClose, onSubmitSuccess }) => {
     onClose();
   }, [onClose, onSubmitSuccess]);
 
-  const onSignupFormSuccess = useCallback(
-    async (res) => {
-      await onSubmitSuccess(res);
-      setSignUpSuccess(true);
-    },
-    [onSubmitSuccess]
-  );
+  const onSignupFormSuccess = useCallback(() => {
+    setSignUpSuccess(true);
+  }, []);
 
   return (
     <Modal
@@ -55,12 +56,12 @@ const LoginSignupModal = ({ isOpen, onClose, onSubmitSuccess }) => {
                   <Tab
                     color='blue.400'
                     _selected={{ color: 'white', bg: 'blue.300' }}>
-                    Log In
+                    log in
                   </Tab>
                   <Tab
                     color='primary.400'
                     _selected={{ color: 'white', bg: 'primary.300' }}>
-                    Sign Up
+                    sign up
                   </Tab>
                 </TabList>
               </>
@@ -82,6 +83,7 @@ const LoginSignupModal = ({ isOpen, onClose, onSubmitSuccess }) => {
                   cancellable
                   onCancel={onClose}
                   onSubmitSuccess={onSignupFormSuccess}
+                  postData={emotionFormValues}
                   modal
                 />
               </TabPanel>
@@ -97,6 +99,10 @@ LoginSignupModal.propTypes = {
   onSubmitSuccess: PropTypes.func.isRequired,
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
+  emotionFormValues: PropTypes.shape({
+    note: PropTypes.string,
+    emotion: PropTypes.object,
+  }).isRequired,
 };
 
 export default LoginSignupModal;

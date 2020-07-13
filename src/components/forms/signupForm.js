@@ -16,7 +16,13 @@ import SignupSchema from '@schemas/formValidations/signupFormValidations';
 import Heading from '@components/shared/heading';
 import LoginFormErrorMessage from '@components/forms/loginForm/loginFormErrorMessage';
 
-const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
+const SignupForm = ({
+  onSubmitSuccess,
+  cancellable,
+  onCancel,
+  modal,
+  postData = {},
+}) => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const [formErrorBody, setFormErrorBody] = useState(null);
@@ -44,7 +50,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
             const res = await fetch('/api/user', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(values),
+              body: JSON.stringify({ ...values, ...postData }),
             });
 
             switch (res.status) {
@@ -81,7 +87,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
                       aria-label='Name'
                       variant='flushed'
                       {...field}
-                      id='name'
+                      id='signup-name'
                       type='text'
                       placeholder='Username'
                     />
@@ -100,7 +106,7 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
                       aria-label='Email'
                       variant='flushed'
                       {...field}
-                      id='email'
+                      id='signup-email'
                       type='email'
                       placeholder='Email'
                     />
@@ -124,9 +130,10 @@ const SignupForm = ({ onSubmitSuccess, cancellable, onCancel, modal }) => {
                       aria-label='Password'
                       variant='flushed'
                       {...field}
-                      id='password'
+                      id='signup-password'
                       type='password'
                       placeholder='Password'
+                      test-id='sign-up-form-password'
                     />
                     <FormErrorMessage>{form.errors.password}</FormErrorMessage>
                   </FormControl>
@@ -177,6 +184,7 @@ SignupForm.propTypes = {
   cancellable: PropTypes.bool,
   onCancel: PropTypes.func,
   modal: PropTypes.bool,
+  postData: PropTypes.object,
 };
 
 export default SignupForm;

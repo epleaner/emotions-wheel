@@ -30,49 +30,43 @@ const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
 
   useEffect(() => setIsMounted(true), []);
 
-  const handleSubmit = useCallback(
-    async (dbRes) => {
-      try {
-        let user_id = null;
+  const handleSubmit = useCallback(async () => {
+    try {
+      const res = await fetch('/api/emotions', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formValues,
+          emotion: selected,
+        }),
+      });
 
-        if (dbRes) {
-          const dbJson = await dbRes.json();
-          user_id = dbJson.user_id;
-        }
-
-        const res = await fetch('/api/emotions', {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            ...formValues,
-            emotion: selected,
-            user_id,
-          }),
-        });
-
-        switch (res.status) {
-          case 201: {
-            if (userStore.isLoggedIn) {
-              const resJson = await res.json();
-              userStore.addEmotion(resJson);
-            }
-            break;
+      switch (res.status) {
+        case 201: {
+          if (userStore.isLoggedIn) {
+            const resJson = await res.json();
+            userStore.addEmotion(resJson);
           }
-          default:
-            setFormErrorMessage('Something went wrong, please try again');
-            break;
+          break;
         }
-      } catch (e) {
-        setFormErrorMessage('Something went wrong, please try again');
+        default:
+          setFormErrorMessage('Something went wrong, please try again');
+          break;
       }
-    },
-    [formValues, userStore, selected]
-  );
+    } catch (e) {
+      setFormErrorMessage('Something went wrong, please try again');
+    }
+  }, [formValues, userStore, selected]);
 
   return (
     <>
       <LoginSignupModal
-        {...{ isOpen, onClose, onSubmitSuccess: handleSubmit }}
+        {...{
+          isOpen,
+          onClose,
+          onSubmitSuccess: handleSubmit,
+          emotionFormValues: { ...formValues, emotion: selected },
+        }}
       />
       <Formik
         initialValues={{ note: '' }}
@@ -118,6 +112,7 @@ const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
                         size='xs'
                         {...field}
                         placeholder='Want to talk about it?'
+                        data-testid='emotion-selection-input'
                       />
                       <Button
                         variant='outline'
@@ -132,7 +127,8 @@ const EmotionSelectionForm = observer(({ selected, onSubmitSuccess }) => {
                         }
                         isLoading={isSubmitting}
                         loadingText='Saving'
-                        type='submit'>
+                        type='submit'
+                        data-testid='emotion-selection-submit'>
                         Save
                       </Button>
                     </Flex>

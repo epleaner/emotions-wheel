@@ -20,7 +20,7 @@ const ProfilePage = () => {
         <Container>
           <Section>
             <Stack direction='row' justify='space-between' align='baseline'>
-              <Heading mb={4} fontSize='6xl'>
+              <Heading mb={4} fontSize={['4xl', '6xl']}>
                 hey, {userStore.userData.name}
               </Heading>
               <Button leftIcon='edit' type='button' mt={4} size='xs'>

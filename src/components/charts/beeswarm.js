@@ -17,7 +17,7 @@ import { transition } from 'd3-transition';
 // following example at https://observablehq.com/@syyeo/commonwealth-magazine-csr-ranking-beeswarm-chart-large-en
 // as well as https://observablehq.com/d/895e1046752f8295
 
-const Beeswarm = ({ data, showDetails }) => {
+const Beeswarm = ({ data = [], showDetails }) => {
   const width = 600;
   const height = 200;
   const margin = 50;

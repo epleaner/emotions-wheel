@@ -12,27 +12,16 @@ const EmotionList = ({ emotions }) => {
   };
 
   return (
-    <>
-      {emotions.length > 0 ? (
-        <ul>
-          {sortByDate(emotions).map((emotion) => (
-            <EmotionListItem
-              key={emotion._id}
-              emotion={emotion}
-              pt={4}
-              my={[12, 24]}
-            />
-          ))}
-        </ul>
-      ) : (
-        <Text fontSize='lg' mt='50%' textAlign='center'>
-          Your entries will show up here, go ahead and{' '}
-          <Link href='/'>
-            <UILink color='primary.500'>add some!</UILink>
-          </Link>
-        </Text>
-      )}
-    </>
+    <ul>
+      {sortByDate(emotions).map((emotion) => (
+        <EmotionListItem
+          key={emotion._id}
+          emotion={emotion}
+          pt={4}
+          my={[12, 24]}
+        />
+      ))}
+    </ul>
   );
 };
 

@@ -5,6 +5,8 @@
     - [entry management](#entry-management)
     - [emotion selection](#emotion-selection)
     - [UI](#ui)
+    - [backend](#backend)
+    - [bugs](#bugs)
 
 # feeels
 
@@ -34,12 +36,13 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 - [ ] sunburst colors better represent emotions
 - [ ] handle failure to log out (and ensure all error cases are handled)
 
-### Bugs
-
-- [ ] handle beeswarm chart for single entry
-
 ### backend
 
 - [ ] store color as FE look-up, not in DB
 - [ ] have multiple db environments
 - [ ] shrink user object
+- [x] when signing up, store emotion with initial request
+
+### bugs
+
+- [x] handle beeswarm chart for single entry

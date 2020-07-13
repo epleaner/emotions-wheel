@@ -9,6 +9,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:react-hooks/recommended',
+    'plugin:cypress/recommended',
   ],
   globals: {
     Atomics: 'readonly',

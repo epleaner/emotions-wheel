@@ -14,7 +14,9 @@
     "env": "now env pull",
     "now": "now",
     "prod": "now --prod",
-    "seed": "node src/helpers/db/seed"
+    "db:reset": "node src/helpers/db/reset",
+    "db:seed": "node src/helpers/db/seed",
+    "cypress:open": "cypress open"
   },
   "dependencies": {
     "@chakra-ui/core": "^0.7.0",
@@ -81,14 +83,18 @@
     "@typescript-eslint/parser": "^2.30.0",
     "babel-jest": "^26.1.0",
     "babel-plugin-emotion": "^10.0.33",
+    "cypress": "4.10.0",
+    "cypress-jest-adapter": "^0.1.1",
     "dotenv": "^8.2.0",
     "dotenv-webpack": "^1.7.0",
     "eslint": "^6.8.0",
+    "eslint-plugin-cypress": "^2.11.1",
     "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-react-hooks": "^4.0.0",
     "faker": "^4.1.0",
     "jest": "^26.1.0",
-    "now": "^19.1.1",
+    "msw": "^0.19.5",
+    "now": "^19.1.2",
     "typescript": "^3.8.3"
   }
 }

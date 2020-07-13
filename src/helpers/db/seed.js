@@ -1,5 +1,5 @@
-const MongoClient = require('mongodb');
-require('dotenv').config();
+const { connectToMongoDB } = require('./utils');
+
 const bcrypt = require('bcryptjs');
 const faker = require('faker');
 
@@ -46,41 +46,24 @@ async function makeUserDetails(
 }
 
 async function seedDb(db) {
-  try {
-    console.log('dropping user table...');
-    await db.collection('user').drop();
-    console.log('done');
-  } catch (e) {
-    console.log('user collection does not exist');
-  }
-
-  console.log('adding new user...');
-  await db.collection('user').insertOne(await makeUserDetails());
-  console.log('done');
-}
-
-async function seed(db) {
   console.log('seeding...');
 
-  await seedDb(db);
+  try {
+    console.log('adding new user...');
+    await db.collection('user').insertOne(await makeUserDetails());
+    console.log('done');
+  } catch (e) {
+    console.log('unable to add new user');
+  }
 
   console.log('done seeding');
 }
 
 async function main() {
   try {
-    const client = await new MongoClient(process.env.MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }).catch((e) => {
-      console.error('Database connection error: ' + e.message);
-    });
+    const { client, db } = await connectToMongoDB();
 
-    if (!client.isConnected()) await client.connect();
-
-    const db = await client.db(process.env.DB_NAME);
-
-    await seed(db);
+    await seedDb(db);
 
     await client.close();
   } catch (e) {

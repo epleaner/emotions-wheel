@@ -23,7 +23,7 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 ### entry management
 
 - [x] see entries as beeswarm
-- [ ] edit/delete entries in beeswarm
+- [x] edit/delete entries in beeswarm
 - [ ] beeswarm overflow (too many bees!)
 - [ ] User can choose visibility of entries
 
@@ -46,3 +46,5 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 ### bugs
 
 - [x] handle beeswarm chart for single entry
+- [ ] year date wrong in emotion list detail
+- [ ] loading UI for login/signup

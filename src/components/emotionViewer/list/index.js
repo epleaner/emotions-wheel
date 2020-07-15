@@ -1,8 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'next/link';
-
-import { Text, Link as UILink } from '@chakra-ui/core';
 
 import EmotionListItem from '@components/emotionViewer/list/item';
 

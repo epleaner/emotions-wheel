@@ -18,7 +18,8 @@ const EmotionViewer = () => {
 
   return (
     <>
-      {userStore.currentUser.emotions ? (
+      {userStore.currentUser.emotions &&
+      userStore.currentUser.emotions.length ? (
         <>
           <ViewSelector {...{ view, setView }} />
           {view === 'list' && (

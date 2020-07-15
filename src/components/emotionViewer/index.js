@@ -5,9 +5,10 @@ import useCurrentUser from '@hooks/useCurrentUser';
 
 import Link from 'next/link';
 
-import { Stack, Button, Text, Link as UILink } from '@chakra-ui/core';
+import { Text, Link as UILink } from '@chakra-ui/core';
 
 import EmotionList from '@components/emotionViewer/list';
+import ViewSelector from '@components/emotionViewer/viewSelector';
 import EmotionBeeswarm from '@components/emotionViewer/beeswarm';
 
 const EmotionViewer = () => {
@@ -19,24 +20,7 @@ const EmotionViewer = () => {
     <>
       {userStore.currentUser.emotions ? (
         <>
-          <Stack isInline align='center'>
-            <Button
-              type='button'
-              size='xs'
-              variant='outline'
-              variantColor={view === 'chart' ? 'primary' : 'gray'}
-              onClick={() => setView('chart')}>
-              chart
-            </Button>
-            <Button
-              type='button'
-              size='xs'
-              variant='outline'
-              variantColor={view === 'list' ? 'primary' : 'gray'}
-              onClick={() => setView('list')}>
-              list
-            </Button>
-          </Stack>
+          <ViewSelector {...{ view, setView }} />
           {view === 'list' && (
             <EmotionList emotions={userStore.currentUser.emotions} />
           )}

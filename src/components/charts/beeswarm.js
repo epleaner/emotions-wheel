@@ -25,6 +25,7 @@ const Beeswarm = ({ data = [], showDetails }) => {
   const growth = 5;
   const svgRef = useRef(null);
   const nodesRef = useRef(null);
+  const gRef = useRef(null);
 
   data = data.map((d) => ({
     ...d,
@@ -70,7 +71,37 @@ const Beeswarm = ({ data = [], showDetails }) => {
       .append('g')
       .attr('transform', `translate(${margin / 2}, ${margin})`);
 
-    const updatedNodes = g.selectAll('.circleGroup').data(data);
+    gRef.current = g;
+
+    svg.on('click', function () {
+      d3Select(this)
+        .selectAll('.clicked')
+        .attr('class', '')
+        .transition()
+        .duration(250)
+        .attr('r', radius);
+
+      showDetails(null);
+    });
+
+    return () => {
+      d3Select(svg).remove();
+    };
+  }, [showDetails]);
+
+  useEffect(() => {
+    const updatedNodes = gRef.current
+      .selectAll('.circleGroup')
+      .data(data, (d) => d._id);
+
+    updatedNodes
+      .exit()
+      .select('circle')
+      .transition()
+      .duration(500)
+      .attr('r', 0)
+      .remove();
+
     const enteredNodes = updatedNodes
       .enter()
       .append('g')
@@ -88,26 +119,12 @@ const Beeswarm = ({ data = [], showDetails }) => {
       circles.attr('cy', (d) => d.y);
     });
 
-    nodesRef.current = enteredNodes.merge(updatedNodes);
-
-    g.append('g')
+    gRef.current
+      .append('g')
       .attr('transform', `translate(0, ${height - margin})`)
       .call(xAxis);
 
-    svg.on('click', function () {
-      d3Select(this)
-        .selectAll('.clicked')
-        .attr('class', '')
-        .transition()
-        .duration(250)
-        .attr('r', radius);
-
-      showDetails(null);
-    });
-
-    return () => {
-      d3Select(svg).remove();
-    };
+    nodesRef.current = enteredNodes.merge(updatedNodes);
   }, [data, width, xAxis, xScale, forceSim, showDetails]);
 
   useEffect(() => {

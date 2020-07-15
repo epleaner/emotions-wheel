@@ -8,7 +8,7 @@ const SelectedBreadcrumb = ({ selected, ...otherProps }) => {
   return (
     <Flex {...otherProps}>
       {data.map((emotion, i) => (
-        <Box key={emotion}>
+        <Flex key={emotion} align='center'>
           <Badge
             boxShadow='none'
             bg={i < data.length - 1 ? 'none' : color}
@@ -17,7 +17,7 @@ const SelectedBreadcrumb = ({ selected, ...otherProps }) => {
             {emotion}
           </Badge>
           {i < data.length - 1 && <Icon color={color} name='chevron-right' />}
-        </Box>
+        </Flex>
       ))}
     </Flex>
   );

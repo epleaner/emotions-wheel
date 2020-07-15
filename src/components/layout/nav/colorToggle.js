@@ -10,6 +10,7 @@ const ColorToggle = ({ mode, ...otherProps }) => {
       <IconButton
         variant='ghost'
         aria-label='Color Mode'
+        data-testid='color-toggle'
         icon={mode === 'light' || mode === 'default' ? 'sun' : 'moon'}
       />
     </Flex>

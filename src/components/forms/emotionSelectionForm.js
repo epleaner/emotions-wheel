@@ -30,6 +30,8 @@ const EmotionSelectionForm = observer(
     useEffect(() => setIsMounted(true), []);
 
     const handleSubmit = useCallback(async () => {
+      setFormErrorMessage('');
+
       try {
         const res = await fetch('/api/emotions', {
           method: 'PUT',
@@ -44,7 +46,7 @@ const EmotionSelectionForm = observer(
           case 201: {
             if (userStore.isLoggedIn) {
               const resJson = await res.json();
-              userStore.addEmotion(resJson);
+              userStore.addEntry(resJson);
             }
             break;
           }

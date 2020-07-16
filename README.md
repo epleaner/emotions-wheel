@@ -23,26 +23,22 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 ### entry management
 
 - [ ] beeswarm overflow (too many bees!)
-- [ ] User can choose visibility of entries
+- [ ] User can choose visibility of entries (when social functionality is in place)
 
 ### emotion selection
-
-- [x] User can select multiple emotions
 
 ### UI
 
 - [ ] sunburst colors better represent emotions
-- [ ] handle failure to log out (and ensure all error cases are handled)
 
 ### backend
 
-- [ ] store color as FE look-up, not in DB
-- [ ] have multiple db environments
-- [ ] shrink user object
-- [x] when signing up, store emotion with initial request
+- [ ] shrink user object:
+  - [ ] store color as FE look-up, not in DB
+  - [ ] store emotion array as enum
 
 ### bugs
 
-- [x] handle beeswarm chart for single entry
+- [ ] handle failure to log out (and ensure all error cases are handled)
 - [ ] year date wrong in emotion list detail
-- [ ] loading UI for login/signup
+- [ ] loading UI for login/signup has disappeared

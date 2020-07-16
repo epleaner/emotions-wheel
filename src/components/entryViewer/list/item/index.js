@@ -48,9 +48,8 @@ EntryListItem.propTypes = {
   entry: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     note: PropTypes.string,
-    color: PropTypes.string.isRequired,
     date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
-    data: PropTypes.array.isRequired,
+    emotions: PropTypes.array.isRequired,
   }).isRequired,
 };
 

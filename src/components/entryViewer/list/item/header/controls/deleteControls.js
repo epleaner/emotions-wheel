@@ -1,9 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
+import { observer } from 'mobx-react-lite';
+
 import { Text, IconButton, Button, Tooltip } from '@chakra-ui/core';
 
-const DeleteControls = ({ data, date, onDeleteSuccess }) => {
+const DeleteControls = ({ store, onDeleteSuccess }) => {
   const [deleteErrorMessage, setDeleteErrorMessage] = useState(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
@@ -15,8 +17,7 @@ const DeleteControls = ({ data, date, onDeleteSuccess }) => {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        data,
-        date,
+        _id: store._id,
       }),
     });
 
@@ -26,7 +27,7 @@ const DeleteControls = ({ data, date, onDeleteSuccess }) => {
       setIsDeleting(false);
       onDeleteSuccess();
     }
-  }, [data, date, onDeleteSuccess]);
+  }, [store, onDeleteSuccess]);
 
   if (deleteErrorMessage) {
     return (
@@ -104,9 +105,8 @@ const DeleteControls = ({ data, date, onDeleteSuccess }) => {
 };
 
 DeleteControls.propTypes = {
-  date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
-  data: PropTypes.array.isRequired,
+  store: PropTypes.object.isRequired,
   onDeleteSuccess: PropTypes.func.isRequired,
 };
 
-export default DeleteControls;
+export default observer(DeleteControls);

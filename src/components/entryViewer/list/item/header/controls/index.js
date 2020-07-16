@@ -7,22 +7,18 @@ import { Flex, Divider } from '@chakra-ui/core';
 import DeleteControls from '@components/entryViewer/list/item/header/controls/deleteControls';
 import EditControls from '@components/entryViewer/list/item/header/controls/editControls';
 
-const Controls = ({ entry, onDeleteSuccess, onEditSuccess, store }) => {
+const Controls = ({ onDeleteSuccess, onEditSuccess, store }) => {
   return (
     <Flex alignItems='center'>
-      <EditControls {...{ onEditSuccess, store }} />
+      <EditControls {...{ store, onEditSuccess }} />
       <Divider orientation='vertical' />
-      <DeleteControls {...{ ...entry, onDeleteSuccess }} />
+      <DeleteControls {...{ store, onDeleteSuccess }} />
     </Flex>
   );
 };
 
 Controls.propTypes = {
   store: PropTypes.object.isRequired,
-  entry: PropTypes.shape({
-    date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
-    emotions: PropTypes.array.isRequired,
-  }).isRequired,
   onDeleteSuccess: PropTypes.func.isRequired,
   onEditSuccess: PropTypes.func.isRequired,
 };

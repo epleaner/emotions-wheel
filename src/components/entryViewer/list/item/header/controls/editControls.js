@@ -5,7 +5,7 @@ import { observer } from 'mobx-react-lite';
 
 import { IconButton, Tooltip, Text, Button } from '@chakra-ui/core';
 
-const EditControls = ({ onEditSuccess, store }) => {
+const EditControls = ({ store, onEditSuccess }) => {
   const [isSaving, setIsSaving] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showConfirmation, setShowConfirmation] = useState(false);

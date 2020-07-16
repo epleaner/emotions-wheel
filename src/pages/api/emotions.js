@@ -44,10 +44,10 @@ handler.patch(async (req, res) => {
 
     const _id = req.user ? req.user._id : ObjectId(req.body.user_id);
 
-    const { _id: entry, newNote } = req.body;
+    const { _id: entryId, newNote } = req.body;
 
     const { modifiedCount } = await req.db.collection('user').updateOne(
-      { _id, 'entries._id': ObjectId(entry) },
+      { _id, 'entries._id': ObjectId(entryId) },
       {
         $set: { 'entries.$.note': newNote },
       }
@@ -71,12 +71,12 @@ handler.delete(async (req, res) => {
 
     const _id = req.user ? req.user._id : ObjectId(req.body.user_id);
 
-    const { data, date } = req.body;
+    const { _id: entryId } = req.body;
 
     const { modifiedCount } = await req.db.collection('user').updateOne(
       { _id },
       {
-        $pull: { emotions: { date, data } },
+        $pull: { entries: { _id: ObjectId(entryId) } },
       }
     );
 

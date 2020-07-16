@@ -44,12 +44,12 @@ handler.patch(async (req, res) => {
 
     const _id = req.user ? req.user._id : ObjectId(req.body.user_id);
 
-    const { _id: emotionId, newNote } = req.body;
+    const { _id: entry, newNote } = req.body;
 
     const { modifiedCount } = await req.db.collection('user').updateOne(
-      { _id, 'emotions._id': ObjectId(emotionId) },
+      { _id, 'entries._id': ObjectId(entry) },
       {
-        $set: { 'emotions.$.note': newNote },
+        $set: { 'entries.$.note': newNote },
       }
     );
 

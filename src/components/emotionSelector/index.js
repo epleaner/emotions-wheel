@@ -9,7 +9,7 @@ const EmotionSelector = () => {
   const successToast = useToast();
 
   const [selected, setSelected] = useState();
-  const [allSelected, setAllSelected] = useState([]);
+  const [selectedList, setSelectedList] = useState([]);
 
   const [shouldResetSunburst, setShouldResetSunburst] = useState(false);
 
@@ -26,37 +26,28 @@ const EmotionSelector = () => {
 
   const onResetSunburst = useCallback(() => setShouldResetSunburst(false), []);
 
-  const alreadySelected = useMemo(
-    () =>
-      selected &&
-      allSelected.some(
-        (s) =>
-          s.data[s.data.length - 1] === selected.data[selected.data.length - 1]
-      ),
-    [selected, allSelected]
-  );
+  const entryIsEqualTo = (e1) => (e2) =>
+    e1.data[e1.data.length - 1] === e2.data[e2.data.length - 1];
 
-  const onClickAddSelected = useCallback(() => {
-    if (alreadySelected) console.log('already selected');
-    else {
-      setAllSelected([...allSelected, selected]);
-      setSelected(null);
-      setShouldResetSunburst(true);
-    }
-  }, [allSelected, selected, alreadySelected]);
+  const isAlreadySelected = useMemo(
+    () => selected && selectedList.some(entryIsEqualTo(selected)),
+    [selected, selectedList]
+  );
 
   const removeSelected = useCallback(
     (selected) => {
-      setAllSelected(
-        allSelected.filter(
-          (s) =>
-            s.data[s.data.length - 1] !==
-            selected.data[selected.data.length - 1]
-        )
-      );
+      setSelectedList(selectedList.filter((s) => !entryIsEqualTo(selected)(s)));
     },
-    [allSelected]
+    [selectedList]
   );
+
+  const onClickAddSelected = useCallback(() => {
+    if (!isAlreadySelected) {
+      setSelectedList([...selectedList, selected]);
+      setSelected(null);
+      setShouldResetSunburst(true);
+    }
+  }, [selectedList, selected, isAlreadySelected]);
 
   return (
     <>
@@ -70,7 +61,7 @@ const EmotionSelector = () => {
       </Box>
       <Flex w='100%' minH={30} justifyContent='center' alignItems='baseline'>
         <Stack justify='center' align='center'>
-          {allSelected.map((selected) => (
+          {selectedList.map((selected) => (
             <Stack key={selected.data} isInline justify='center'>
               <IconButton
                 aria-label='Remove this emotion'
@@ -96,7 +87,7 @@ const EmotionSelector = () => {
                 isRound
                 size='sm'
                 variant='outline'
-                disabled={alreadySelected}
+                disabled={isAlreadySelected}
                 onClick={() => onClickAddSelected()}
               />
             </>
@@ -104,7 +95,9 @@ const EmotionSelector = () => {
         </Stack>
       </Flex>
       <Flex w='100%' mt={4} justifyContent='center'>
-        <EmotionSelectionForm {...{ selected, allSelected, onSubmitSuccess }} />
+        <EmotionSelectionForm
+          {...{ selected, selectedList, onSubmitSuccess }}
+        />
       </Flex>
     </>
   );

@@ -18,7 +18,7 @@ import LoginSignupModal from '@components/modals/loginSignupModal';
 import Fade from '@components/shared/transitions/fade';
 
 const EmotionSelectionForm = observer(
-  ({ selected, allSelected, onSubmitSuccess }) => {
+  ({ selected, selectedList = [], onSubmitSuccess }) => {
     const userStore = useCurrentUser();
 
     const { colorMode } = useColorMode();
@@ -61,11 +61,11 @@ const EmotionSelectionForm = observer(
 
     const selectedColor = useMemo(() => {
       if (selected) return selected.color;
-      else if (allSelected.length > 0)
-        return allSelected[allSelected.length - 1].color;
+      else if (selectedList.length > 0)
+        return selectedList[selectedList.length - 1].color;
 
       return colorMode === 'light' ? 'gray.100' : 'gray.500';
-    }, [selected, allSelected, colorMode]);
+    }, [selected, selectedList, colorMode]);
 
     return (
       <>
@@ -123,7 +123,7 @@ const EmotionSelectionForm = observer(
                           }}
                           size='sm'
                           isDisabled={
-                            (allSelected.length === 0 && !selected) ||
+                            (selectedList.length === 0 && !selected) ||
                             Object.entries(errors).length ||
                             isSubmitting ||
                             userStore.isLoading
@@ -152,7 +152,7 @@ const EmotionSelectionForm = observer(
 
 EmotionSelectionForm.propTypes = {
   selected: PropTypes.object,
-  allSelected: PropTypes.array,
+  selectedList: PropTypes.array,
   onSubmitSuccess: PropTypes.func.isRequired,
 };
 

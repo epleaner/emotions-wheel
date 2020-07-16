@@ -34,6 +34,14 @@ const EmotionSelector = () => {
     [selected, selectedList]
   );
 
+  const emotionsToSave = useMemo(() => {
+    const emotionsToSave = [...selectedList];
+
+    if (selected && !isAlreadySelected) emotionsToSave.push(selected);
+
+    return emotionsToSave;
+  }, [selected, selectedList, isAlreadySelected]);
+
   const removeSelected = useCallback(
     (selected) => {
       setSelectedList(selectedList.filter((s) => !entryIsEqualTo(selected)(s)));
@@ -96,7 +104,7 @@ const EmotionSelector = () => {
       </Flex>
       <Flex w='100%' mt={4} justifyContent='center'>
         <EmotionSelectionForm
-          {...{ selected, selectedList, onSubmitSuccess }}
+          {...{ selected, emotionsToSave, onSubmitSuccess }}
         />
       </Flex>
     </>

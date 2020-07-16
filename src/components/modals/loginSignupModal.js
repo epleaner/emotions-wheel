@@ -101,7 +101,7 @@ LoginSignupModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   emotionFormValues: PropTypes.shape({
     note: PropTypes.string,
-    emotion: PropTypes.object,
+    emotions: PropTypes.array.isRequired,
   }).isRequired,
 };
 

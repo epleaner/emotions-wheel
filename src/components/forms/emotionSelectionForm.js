@@ -18,11 +18,9 @@ import LoginSignupModal from '@components/modals/loginSignupModal';
 import Fade from '@components/shared/transitions/fade';
 
 const EmotionSelectionForm = observer(
-  ({ selected, selectedList = [], onSubmitSuccess }) => {
+  ({ selected, emotionsToSave = [], onSubmitSuccess }) => {
     const userStore = useCurrentUser();
-
     const { colorMode } = useColorMode();
-
     const { isOpen, onOpen, onClose } = useDisclosure();
 
     const [formErrorMessage, setFormErrorMessage] = useState('');
@@ -38,7 +36,7 @@ const EmotionSelectionForm = observer(
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             ...formValues,
-            emotion: selected,
+            emotions: emotionsToSave,
           }),
         });
 
@@ -57,15 +55,15 @@ const EmotionSelectionForm = observer(
       } catch (e) {
         setFormErrorMessage('Something went wrong, please try again');
       }
-    }, [formValues, userStore, selected]);
+    }, [formValues, userStore, emotionsToSave]);
 
     const selectedColor = useMemo(() => {
       if (selected) return selected.color;
-      else if (selectedList.length > 0)
-        return selectedList[selectedList.length - 1].color;
+      if (emotionsToSave.length > 0)
+        return emotionsToSave[emotionsToSave.length - 1].color;
 
       return colorMode === 'light' ? 'gray.100' : 'gray.500';
-    }, [selected, selectedList, colorMode]);
+    }, [selected, emotionsToSave, colorMode]);
 
     return (
       <>
@@ -74,7 +72,7 @@ const EmotionSelectionForm = observer(
             isOpen,
             onClose,
             onSubmitSuccess: handleSubmit,
-            emotionFormValues: { ...formValues, emotion: selected },
+            emotionFormValues: { ...formValues, emotions: emotionsToSave },
           }}
         />
         <Formik
@@ -123,7 +121,7 @@ const EmotionSelectionForm = observer(
                           }}
                           size='sm'
                           isDisabled={
-                            (selectedList.length === 0 && !selected) ||
+                            emotionsToSave.length === 0 ||
                             Object.entries(errors).length ||
                             isSubmitting ||
                             userStore.isLoading
@@ -152,7 +150,7 @@ const EmotionSelectionForm = observer(
 
 EmotionSelectionForm.propTypes = {
   selected: PropTypes.object,
-  selectedList: PropTypes.array,
+  emotionsToSave: PropTypes.array,
   onSubmitSuccess: PropTypes.func.isRequired,
 };
 

@@ -13,24 +13,21 @@ handler.put(async (req, res) => {
 
     const _id = req.user ? req.user._id : ObjectId(req.body.user_id);
 
-    const {
-      emotion: { color, data },
-      note,
-    } = req.body;
+    const { emotions, note } = req.body;
 
-    const newEmotion = {
+    const entry = { _id: new ObjectId(), date: new Date().toJSON(), note };
+
+    entry.emotions = emotions.map(({ color, data }) => ({
       _id: new ObjectId(),
-      date: new Date().toJSON(),
       color,
       data,
-      note,
-    };
+    }));
 
     const { modifiedCount } = await req.db.collection('user').updateOne(
       { _id },
       {
         $push: {
-          emotions: newEmotion,
+          entries: entry,
         },
       }
     );
@@ -38,7 +35,7 @@ handler.put(async (req, res) => {
     if (modifiedCount !== 1)
       throw { status: 400, message: 'Entry unable to be saved' };
 
-    return res.status(201).json(newEmotion);
+    return res.status(201).json(entry);
   } catch ({ status, message }) {
     return res.status(status || 500).json({ message });
   }

@@ -2,6 +2,8 @@ import nextConnect from 'next-connect';
 import middleware from '@middleware/middleware';
 import { ObjectId } from 'mongodb';
 
+import { createEntry } from '@helpers/apiHelpers/entryHelper';
+
 const handler = nextConnect();
 
 handler.use(middleware);
@@ -15,13 +17,7 @@ handler.put(async (req, res) => {
 
     const { emotions, note } = req.body;
 
-    const entry = { _id: new ObjectId(), date: new Date().toJSON(), note };
-
-    entry.emotions = emotions.map(({ color, data }) => ({
-      _id: new ObjectId(),
-      color,
-      data,
-    }));
+    const entry = createEntry(emotions, note);
 
     const { modifiedCount } = await req.db.collection('user').updateOne(
       { _id },

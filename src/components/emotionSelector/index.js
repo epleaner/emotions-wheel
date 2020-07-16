@@ -16,11 +16,11 @@ const EmotionSelector = () => {
   const onSubmitSuccess = useCallback(() => {
     setShouldResetSunburst(true);
     setSelected(null);
+    setSelectedList([]);
     successToast({
       description: 'Entry saved',
       duration: '1500',
       status: 'success',
-      isClosable: true,
     });
   }, [successToast]);
 

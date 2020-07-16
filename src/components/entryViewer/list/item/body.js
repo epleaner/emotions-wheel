@@ -20,7 +20,6 @@ const Body = ({ entry: { note, emotions }, store }) => {
 
   return (
     <>
-      {note && <Divider borderColor={emotions[emotions.length - 1].color} />}
       <Box mt={3}>
         {store.editing ? (
           <Textarea

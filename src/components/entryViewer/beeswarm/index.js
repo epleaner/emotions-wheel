@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Beeswarm from '@components/charts/beeswarm';
 import Details from '@components/entryViewer/beeswarm/details';
 
-const EmotionBeeswarm = ({ emotions }) => {
+const EmotionBeeswarm = ({ entries }) => {
   const [hoveredNode, setHoveredNode] = useState();
   const [detailsNode, setDetailsNode] = useState();
 
@@ -12,21 +12,21 @@ const EmotionBeeswarm = ({ emotions }) => {
   useEffect(() => {
     setDetailsNode(
       hoveredNode
-        ? emotions.filter(({ _id }) => _id === hoveredNode._id)[0]
+        ? entries.filter(({ _id }) => _id === hoveredNode._id)[0]
         : null
     );
-  }, [hoveredNode, emotions]);
+  }, [hoveredNode, entries]);
 
   return (
     <>
-      <Details emotion={detailsNode} />
-      <Beeswarm data={emotions} showDetails={showDetails} />
+      <Details entry={detailsNode} />
+      <Beeswarm data={entries} showDetails={showDetails} />
     </>
   );
 };
 
 EmotionBeeswarm.propTypes = {
-  emotions: PropTypes.array,
+  entries: PropTypes.array.isRequired,
 };
 
 export default EmotionBeeswarm;

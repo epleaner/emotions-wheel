@@ -4,16 +4,16 @@ import { Box } from '@chakra-ui/core';
 
 import Details from '@components/entryViewer/list/item';
 
-const EmotionBeeswarmDetails = ({ emotion }) => {
+const EmotionBeeswarmDetails = ({ entry }) => {
   return (
     <Box mt={10} height={50}>
-      {emotion && <Details emotion={emotion} />}
+      {entry && <Details entry={entry} />}
     </Box>
   );
 };
 
 EmotionBeeswarmDetails.propTypes = {
-  emotion: PropTypes.shape({
+  entry: PropTypes.shape({
     note: PropTypes.string,
   }),
 };

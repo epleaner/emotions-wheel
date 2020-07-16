@@ -22,14 +22,12 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 
 ### entry management
 
-- [x] see entries as beeswarm
-- [x] edit/delete entries in beeswarm
 - [ ] beeswarm overflow (too many bees!)
 - [ ] User can choose visibility of entries
 
 ### emotion selection
 
-- [ ] User can select multiple emotions
+- [x] User can select multiple emotions
 
 ### UI
 

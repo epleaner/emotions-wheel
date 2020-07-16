@@ -10,6 +10,7 @@ import bcrypt from 'bcryptjs';
 import middleware from '@middleware/middleware';
 import extractUser from '@helpers/apiHelpers/extractUser';
 import sendVerificationEmail from '@helpers/apiHelpers/sendVerificationEmail';
+import { createEntry } from '@helpers/apiHelpers/entryHelper';
 
 const handler = nextConnect();
 
@@ -26,7 +27,7 @@ handler.get(async (req, res) => {
 // POST /api/user
 handler.post(async (req, res) => {
   try {
-    const { name, password, note, emotion } = req.body;
+    const { name, password, note, emotions } = req.body;
     const email = normalizeEmail(req.body.email);
 
     if (!isEmail(email))
@@ -61,18 +62,8 @@ handler.post(async (req, res) => {
       emailVerified: false,
     };
 
-    if (note && emotion) {
-      const { color, data } = emotion;
-
-      const newEmotion = {
-        _id: new ObjectId(),
-        date: new Date().toJSON(),
-        color,
-        data,
-        note,
-      };
-
-      userData.emotions = [newEmotion];
+    if (emotions) {
+      userData.entries = [createEntry(emotions, note)];
     }
 
     const user = await req.db

@@ -107,10 +107,32 @@ const Beeswarm = ({ data = [], showDetails }) => {
       .append('g')
       .attr('class', 'circleGroup');
 
+    const gradients = enteredNodes
+      .append('svg:defs')
+      .append('svg:linearGradient')
+      .attr('id', (d) => `gradient-${d._id}`)
+      .attr('x1', 0)
+      .attr('x2', 0)
+      .attr('y1', 0)
+      .attr('y2', 1)
+      .attr('spreadMethod', 'pad');
+
+    gradients
+      .append('svg:stop')
+      .attr('offset', '0%')
+      .attr('stop-color', (d) => d.emotions[0].color)
+      .attr('stop-opacity', 1);
+
+    gradients
+      .append('svg:stop')
+      .attr('offset', '100%')
+      .attr('stop-color', (d) => d.emotions[d.emotions.length - 1].color)
+      .attr('stop-opacity', 1);
+
     const circles = enteredNodes
       .append('circle')
       .attr('r', radius)
-      .attr('fill', (d) => d.color);
+      .attr('fill', (d) => `url(#gradient-${d._id})`);
 
     circles.attr('opacity', 0).transition().duration(1000).attr('opacity', 1);
 

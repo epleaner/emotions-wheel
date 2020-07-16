@@ -65,19 +65,19 @@ class CurrentUserStore {
     }
   });
 
-  deleteEmotion = (_id) =>
-    (this.userData.emotions = this.userData.emotions.filter(
+  deleteEntry = (_id) =>
+    (this.userData.entries = this.userData.entries.filter(
       (e) => e._id !== _id
     ));
 
-  updateEmotionNote = (_id, newNote) =>
-    (this.userData.emotions = this.userData.emotions.map((e) => {
+  updateEntryNote = (_id, newNote) =>
+    (this.userData.entries = this.userData.entries.map((e) => {
       if (e._id !== _id) return e;
       e.note = newNote;
       return e;
     }));
 
-  addEmotion = (emotion) => this.userData.emotions.push(emotion);
+  addEntry = (entry) => this.userData.entries.push(entry);
 
   updateCurrentUserData = (updatedData) => {
     this.userData = {

@@ -6,45 +6,46 @@ import { observer } from 'mobx-react-lite';
 import useCurrentUser from '@hooks/useCurrentUser';
 
 import { Box, Stack } from '@chakra-ui/core';
-import Header from '@components/emotionViewer/list/item/header';
-import Body from '@components/emotionViewer/list/item/body';
 
-const EmotionListItem = ({ emotion, ...otherProps }) => {
+import Header from '@components/entryViewer/list/item/header';
+import Body from '@components/entryViewer/list/item/body';
+
+const EntryListItem = ({ entry, ...otherProps }) => {
   const userStore = useCurrentUser();
 
   const store = useMemo(
     () =>
       observable({
-        _id: emotion._id,
-        note: emotion.note,
+        _id: entry._id,
+        note: entry.note,
         editing: false,
-        editBody: emotion.note,
+        editBody: entry.note,
       }),
-    [emotion._id, emotion.note]
+    [entry._id, entry.note]
   );
 
-  const onDeleteSuccess = useCallback(
-    () => userStore.deleteEmotion(emotion._id),
-    [userStore, emotion._id]
-  );
+  const onDeleteSuccess = useCallback(() => userStore.deleteEntry(entry._id), [
+    userStore,
+    entry._id,
+  ]);
 
   const onEditSuccess = useCallback(
-    (editedNote) => userStore.updateEmotionNote(emotion._id, editedNote),
-    [userStore, emotion._id]
+    (editedNote) => userStore.updateEntryNote(entry._id, editedNote),
+    [userStore, entry._id]
   );
 
   return (
     <Box overflow='hidden' {...otherProps}>
       <Stack as='li'>
-        <Header {...{ store, emotion, onDeleteSuccess, onEditSuccess }} />
-        <Body {...{ store, emotion }} />
+        <Header {...{ store, entry, onDeleteSuccess, onEditSuccess }} />
+        <Body {...{ store, entry }} />
       </Stack>
     </Box>
   );
 };
 
-EmotionListItem.propTypes = {
-  emotion: PropTypes.shape({
+EntryListItem.propTypes = {
+  entry: PropTypes.shape({
     _id: PropTypes.string.isRequired,
     note: PropTypes.string,
     color: PropTypes.string.isRequired,
@@ -53,4 +54,4 @@ EmotionListItem.propTypes = {
   }).isRequired,
 };
 
-export default observer(EmotionListItem);
+export default observer(EntryListItem);

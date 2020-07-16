@@ -4,11 +4,12 @@ import { observer } from 'mobx-react-lite';
 import moment from 'moment';
 
 import { Text, Stack, Box } from '@chakra-ui/core';
-import EmotionBreadcrumb from '@components/emotionSelector/selectedBreadcrumb';
-import Controls from '@components/emotionViewer/list/item/header/controls';
 
-const Header = ({ emotion, onDeleteSuccess, onEditSuccess, store }) => {
-  const { date } = emotion;
+import EmotionBreadcrumb from '@components/emotionSelector/selectedBreadcrumb';
+import Controls from '@components/entryViewer/list/item/header/controls';
+
+const Header = ({ entry, onDeleteSuccess, onEditSuccess, store }) => {
+  const { date, emotions } = entry;
 
   return (
     <Stack isInline justify='space-between' align='center'>
@@ -17,18 +18,21 @@ const Header = ({ emotion, onDeleteSuccess, onEditSuccess, store }) => {
           {moment(date).format('dddd, DD/MM/YYYY')}
         </Text>
 
-        <EmotionBreadcrumb selected={emotion} />
+        {emotions.map((e) => (
+          <EmotionBreadcrumb my={3} key={e._id} selected={e} />
+        ))}
       </Box>
 
-      <Controls {...{ emotion, onDeleteSuccess, onEditSuccess, store }} />
+      <Controls {...{ entry, onDeleteSuccess, onEditSuccess, store }} />
     </Stack>
   );
 };
 
 Header.propTypes = {
   store: PropTypes.object.isRequired,
-  emotion: PropTypes.shape({
+  entry: PropTypes.shape({
     date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
+    emotions: PropTypes.array.isRequired,
   }).isRequired,
   onDeleteSuccess: PropTypes.func.isRequired,
   onEditSuccess: PropTypes.func.isRequired,

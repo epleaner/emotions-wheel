@@ -1,10 +1,12 @@
 import React, { useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
+
 import { action } from 'mobx';
 import { observer } from 'mobx-react-lite';
-import PropTypes from 'prop-types';
+
 import { Text, Divider, Textarea, Box } from '@chakra-ui/core';
 
-const Body = ({ emotion: { note, color }, store }) => {
+const Body = ({ entry: { note, emotions }, store }) => {
   const setEditBody = useCallback(
     (edit) => action(() => void (store.editBody = edit))(),
     [store]
@@ -18,7 +20,7 @@ const Body = ({ emotion: { note, color }, store }) => {
 
   return (
     <>
-      {note && <Divider borderColor={color} />}
+      {note && <Divider borderColor={emotions[emotions.length - 1].color} />}
       <Box mt={3}>
         {store.editing ? (
           <Textarea
@@ -35,9 +37,9 @@ const Body = ({ emotion: { note, color }, store }) => {
 
 Body.propTypes = {
   store: PropTypes.object.isRequired,
-  emotion: PropTypes.shape({
+  entry: PropTypes.shape({
     note: PropTypes.string,
-    color: PropTypes.string,
+    emotions: PropTypes.array.isRequired,
   }).isRequired,
 };
 

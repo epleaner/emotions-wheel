@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Box } from '@chakra-ui/core';
 
-import Details from '@components/emotionViewer/list/item';
+import Details from '@components/entryViewer/list/item';
 
 const EmotionBeeswarmDetails = ({ emotion }) => {
   return (

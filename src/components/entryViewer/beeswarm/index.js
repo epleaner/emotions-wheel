@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Beeswarm from '@components/charts/beeswarm';
-import Details from '@components/emotionViewer/beeswarm/details';
+import Details from '@components/entryViewer/beeswarm/details';
 
 const EmotionBeeswarm = ({ emotions }) => {
   const [hoveredNode, setHoveredNode] = useState();

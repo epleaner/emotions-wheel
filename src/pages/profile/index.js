@@ -6,7 +6,7 @@ import { Stack, Button, Heading, Divider } from '@chakra-ui/core';
 import useCurrentUser from '@hooks/useCurrentUser';
 import { observer } from 'mobx-react-lite';
 
-import EmotionViewer from '@components/emotionViewer';
+import EntryViewer from '@components/entryViewer';
 import AuthedPage from '@components/shared/authedPage';
 import Container from '@components/shared/container';
 import Section from '@components/shared/section';
@@ -30,7 +30,7 @@ const ProfilePage = () => {
               </Button>
             </Stack>
             <Divider mb={4} />
-            <EmotionViewer />
+            <EntryViewer />
           </Section>
         </Container>
       )}

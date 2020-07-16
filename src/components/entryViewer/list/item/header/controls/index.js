@@ -4,24 +4,24 @@ import { observer } from 'mobx-react-lite';
 
 import { Flex, Divider } from '@chakra-ui/core';
 
-import DeleteControls from '@components/emotionViewer/list/item/header/controls/deleteControls';
-import EditControls from '@components/emotionViewer/list/item/header/controls/editControls';
+import DeleteControls from '@components/entryViewer/list/item/header/controls/deleteControls';
+import EditControls from '@components/entryViewer/list/item/header/controls/editControls';
 
-const Controls = ({ emotion, onDeleteSuccess, onEditSuccess, store }) => {
+const Controls = ({ entry, onDeleteSuccess, onEditSuccess, store }) => {
   return (
     <Flex alignItems='center'>
       <EditControls {...{ onEditSuccess, store }} />
       <Divider orientation='vertical' />
-      <DeleteControls {...{ ...emotion, onDeleteSuccess }} />
+      <DeleteControls {...{ ...entry, onDeleteSuccess }} />
     </Flex>
   );
 };
 
 Controls.propTypes = {
   store: PropTypes.object.isRequired,
-  emotion: PropTypes.shape({
+  entry: PropTypes.shape({
     date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
-    data: PropTypes.array.isRequired,
+    emotions: PropTypes.array.isRequired,
   }).isRequired,
   onDeleteSuccess: PropTypes.func.isRequired,
   onEditSuccess: PropTypes.func.isRequired,

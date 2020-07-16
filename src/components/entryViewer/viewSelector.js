@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Stack, Button } from '@chakra-ui/core';
 
-const EmotionViewer = ({ view, setView }) => {
+const ViewSelector = ({ view, setView }) => {
   return (
     <Stack isInline align='center'>
       <Button
@@ -25,4 +26,9 @@ const EmotionViewer = ({ view, setView }) => {
   );
 };
 
-export default EmotionViewer;
+ViewSelector.propTypes = {
+  view: PropTypes.string.isRequired,
+  setView: PropTypes.func.isRequired,
+};
+
+export default ViewSelector;

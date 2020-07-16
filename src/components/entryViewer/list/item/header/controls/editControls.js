@@ -115,6 +115,7 @@ const EditControls = ({ onEditSuccess, store }) => {
 
 EditControls.propTypes = {
   store: PropTypes.object.isRequired,
+  onEditSuccess: PropTypes.func.isRequired,
 };
 
 export default observer(EditControls);

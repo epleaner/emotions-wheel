@@ -7,26 +7,25 @@ import Link from 'next/link';
 
 import { Text, Link as UILink } from '@chakra-ui/core';
 
-import EmotionList from '@components/emotionViewer/list';
-import ViewSelector from '@components/emotionViewer/viewSelector';
-import EmotionBeeswarm from '@components/emotionViewer/beeswarm';
+import EntryList from '@components/entryViewer/list';
+import ViewSelector from '@components/entryViewer/viewSelector';
+import Beeswarm from '@components/entryViewer/beeswarm';
 
-const EmotionViewer = () => {
+const EntryViewer = () => {
   const userStore = useCurrentUser();
 
   const [view, setView] = useState('chart');
 
   return (
     <>
-      {userStore.currentUser.emotions &&
-      userStore.currentUser.emotions.length ? (
+      {userStore.currentUser.entries && userStore.currentUser.entries.length ? (
         <>
           <ViewSelector {...{ view, setView }} />
           {view === 'list' && (
-            <EmotionList emotions={userStore.currentUser.emotions} />
+            <EntryList entries={userStore.currentUser.entries} />
           )}
           {view === 'chart' && (
-            <EmotionBeeswarm emotions={userStore.currentUser.emotions} />
+            <Beeswarm entries={userStore.currentUser.entries} />
           )}{' '}
         </>
       ) : (
@@ -41,4 +40,4 @@ const EmotionViewer = () => {
   );
 };
 
-export default observer(EmotionViewer);
+export default observer(EntryViewer);

@@ -19,7 +19,7 @@
     "cypress:open": "cypress open"
   },
   "dependencies": {
-    "@chakra-ui/core": "^0.7.0",
+    "@chakra-ui/core": "^1.0.0-rc.0",
     "@chakra-ui/theme-tools": "^1.0.0-next.3",
     "@sendgrid/mail": "^7.0.0",
     "@theme-ui/typography": "^0.3.0",

@@ -27,9 +27,14 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 
 ### emotion selection
 
+- [ ] definitions for emotions
+
 ### UI
 
 - [ ] sunburst colors better represent emotions
+- [ ] about section
+- [ ] contrast / accessibility
+- [ ] Update to Chakra 1.0
 
 ### backend
 
@@ -39,6 +44,9 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 
 ### bugs
 
-- [ ] handle failure to log out (and ensure all error cases are handled)
-- [ ] year date wrong in emotion list detail
-- [ ] loading UI for login/signup has disappeared
+- [] ensure all error cases are handled
+- [ ] loading UI for login/signup has disappeared (SSR issue)
+
+### UX research
+
+- [ ] user survey

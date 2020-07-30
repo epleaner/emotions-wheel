@@ -69,7 +69,7 @@ const EditControls = ({ store, onEditSuccess }) => {
           <IconButton
             aria-label='Save edit'
             icon='check'
-            variantColor='green'
+            colorScheme='green'
             variant='ghost'
             size='sm'
             isRound

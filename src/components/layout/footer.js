@@ -9,7 +9,7 @@ const Footer = () => {
     <Flex px={4} py={2} as='footer' flexShrink={1}>
       <Link href='/about'>
         <Button
-          variantColor='grayscale'
+          colorScheme='grayscale'
           size='xs'
           variant='link'
           _hover={{

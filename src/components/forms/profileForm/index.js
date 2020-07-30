@@ -184,7 +184,7 @@ const ProfileForm = ({ onSubmitSuccess, user }) => {
             <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
             <Button
               mt={4}
-              variantColor='green'
+              colorScheme='green'
               isDisabled={
                 !dirty ||
                 Object.entries(errors).length ||

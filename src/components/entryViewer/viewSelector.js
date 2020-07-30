@@ -10,7 +10,7 @@ const ViewSelector = ({ view, setView }) => {
         type='button'
         size='xs'
         variant='outline'
-        variantColor={view === 'chart' ? 'primary' : 'gray'}
+        colorScheme={view === 'chart' ? 'primary' : 'gray'}
         onClick={() => setView('chart')}>
         chart
       </Button>
@@ -18,7 +18,7 @@ const ViewSelector = ({ view, setView }) => {
         type='button'
         size='xs'
         variant='outline'
-        variantColor={view === 'list' ? 'primary' : 'gray'}
+        colorScheme={view === 'list' ? 'primary' : 'gray'}
         onClick={() => setView('list')}>
         list
       </Button>

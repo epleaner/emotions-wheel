@@ -26,7 +26,7 @@ const Nav = () => {
     <Flex as='header' mx={4} mt={2} alignItems='center'>
       <Link href='/'>
         <Button
-          variantColor='primary'
+          colorScheme='primary'
           _hover={{
             color: `primary.${colorMode === 'light' ? 100 : 300}`,
             textDecoration: 'none',

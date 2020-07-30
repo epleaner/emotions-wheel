@@ -147,7 +147,7 @@ const SignupForm = ({
                 <Flex justifyContent='space-between'>
                   <Button
                     mt={4}
-                    variantColor='green'
+                    colorScheme='green'
                     isDisabled={
                       !dirty ||
                       Object.entries(errors).length ||

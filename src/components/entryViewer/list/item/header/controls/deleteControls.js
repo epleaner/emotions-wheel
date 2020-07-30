@@ -42,7 +42,7 @@ const DeleteControls = ({ store, onDeleteSuccess }) => {
       <Button
         isLoading
         loadingText='Deleting'
-        variantColor='red'
+        colorScheme='red'
         variant='ghost'
         size='sm'
       />
@@ -60,7 +60,7 @@ const DeleteControls = ({ store, onDeleteSuccess }) => {
           <IconButton
             aria-label='Really Delete'
             icon='check'
-            variantColor='red'
+            colorScheme='red'
             variant='ghost'
             size='sm'
             isRound

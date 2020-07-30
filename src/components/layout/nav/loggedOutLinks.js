@@ -5,12 +5,12 @@ import { Button, Flex } from '@chakra-ui/core';
 const LoggedOutLinks = () => (
   <Flex mr={2}>
     <Link href='/login'>
-      <Button mx={2} variantColor='grayscale' size='xs' variant='ghost'>
+      <Button mx={2} colorScheme='grayscale' size='xs' variant='ghost'>
         log in
       </Button>
     </Link>
     <Link href='/sign-up'>
-      <Button variantColor='primary' size='xs' variant='outline'>
+      <Button colorScheme='primary' size='xs' variant='outline'>
         sign up
       </Button>
     </Link>

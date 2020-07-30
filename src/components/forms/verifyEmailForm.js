@@ -58,7 +58,7 @@ const VerifyEmailForm = ({ onSubmitSuccess, email }) => {
             <FormErrorMessage>{formErrorMessage}</FormErrorMessage>
             <Button
               mt={4}
-              variantColor='green'
+              colorScheme='green'
               isDisabled={
                 !values.email ||
                 Object.entries(errors).length ||

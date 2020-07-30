@@ -52,7 +52,7 @@ const DeleteAccountButtons = ({
           </Button>
           <Button
             size='xs'
-            variantColor='red'
+            colorScheme='red'
             onClick={handleDelete}
             isDisabled={isDisabled || !nameConfirmed}
             isLoading={isLoading}

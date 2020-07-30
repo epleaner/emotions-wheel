@@ -77,7 +77,7 @@ const EmotionSelector = () => {
                 isRound
                 size='xs'
                 variant='ghost'
-                variantColor='grayscale'
+                colorScheme='grayscale'
                 onClick={() => {
                   removeSelected(selected);
                 }}

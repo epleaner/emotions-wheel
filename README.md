@@ -33,7 +33,7 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 
 - [ ] sunburst colors better represent emotions
 - [ ] about section
-- [ ] contrast / accessibility
+- [ ] Lighthouse audit for accessibility
 - [ ] Update to Chakra 1.0
 
 ### backend

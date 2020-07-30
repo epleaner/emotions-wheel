@@ -58,7 +58,7 @@ const EmotionSelector = () => {
   }, [selectedList, selected, isAlreadySelected]);
 
   return (
-    <>
+    <Flex flexWrap='wrap'>
       <Box w='100%'>
         <Sunburst
           width={600}
@@ -107,7 +107,7 @@ const EmotionSelector = () => {
           {...{ selected, emotionsToSave, onSubmitSuccess }}
         />
       </Flex>
-    </>
+    </Flex>
   );
 };
 

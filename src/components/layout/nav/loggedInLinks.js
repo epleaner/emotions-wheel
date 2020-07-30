@@ -2,7 +2,8 @@ import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { observer } from 'mobx-react-lite';
-import { Button, Flex, Text, Divider } from '@chakra-ui/core';
+import { Button, Flex, Text, Divider, useToast } from '@chakra-ui/core';
+
 import useCurrentUser from '@hooks/useCurrentUser';
 
 const LoggedInLinks = () => {
@@ -10,12 +11,18 @@ const LoggedInLinks = () => {
 
   const userStore = useCurrentUser();
 
+  const errorToast = useToast();
+
   const handleLogout = async () => {
     try {
       await userStore.logOut();
       router.push('/');
     } catch (e) {
-      console.log('couldnt log out', e);
+      errorToast({
+        description: 'Whoops, something went wrong trying to log you out.',
+        duration: '3000',
+        status: 'error',
+      });
     }
   };
 

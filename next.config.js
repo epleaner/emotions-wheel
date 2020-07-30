@@ -7,15 +7,17 @@ module.exports = {
   webpack: (config) => {
     config.plugins = config.plugins || [];
 
-    config.plugins = [
-      ...config.plugins,
-
-      // Read the .env file
+    config.plugins.push(
       new Dotenv({
         path: path.join(__dirname, '.env'),
         systemvars: true,
-      }),
-    ];
+      })
+    );
+
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
 
     config.resolve = {
       ...config.resolve,

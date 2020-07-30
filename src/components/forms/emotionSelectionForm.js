@@ -1,4 +1,8 @@
+/** @jsx jsx */
+
 import React, { useMemo, useState, useCallback, useEffect } from 'react';
+import { jsx, css } from '@emotion/core';
+
 import PropTypes from 'prop-types';
 import { observer } from 'mobx-react-lite';
 import { Formik, Form, Field } from 'formik';
@@ -113,6 +117,13 @@ const EmotionSelectionForm = observer(
                           size='xs'
                           {...field}
                           placeholder='Want to talk about it?'
+                          css={css`
+                            &::placeholder {
+                              color: ${colorMode === 'light'
+                                ? 'black'
+                                : 'white'};
+                            }
+                          `}
                           data-testid='emotion-selection-input'
                         />
                         <Button

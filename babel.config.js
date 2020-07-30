@@ -4,12 +4,4 @@ module.exports = {
     ['@babel/plugin-proposal-decorators', { legacy: true }],
     ['@babel/plugin-proposal-class-properties', { loose: true }],
   ],
-  env: {
-    production: {
-      plugins: ['emotion'],
-    },
-    development: {
-      plugins: [['emotion']],
-    },
-  },
 };

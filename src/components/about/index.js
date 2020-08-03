@@ -29,9 +29,13 @@ const About = () => (
       </Box>
     </BlurbSection>
     <BlurbSection>
-      <Waves />
-      <Box mx={[3, 5, 20, 32]}>
-        <SecondaryHeading body='...and to develop greater emotional intelligence, intimacy with our human experience, and capacity for self-love and healing' />
+      <Box>
+        <Waves />
+        <Box background='linear-gradient(180deg, rgb(185, 228, 255) 0%, rgba(0,106,255,0.36876748990611874) 100%)'>
+          <Box mx={[3, 5, 20, 32]} py={['10', '16']}>
+            <SecondaryHeading body='...and to develop greater emotional intelligence, intimacy with our human experience, and capacity for self-love and healing' />
+          </Box>
+        </Box>
       </Box>
     </BlurbSection>
   </Section>

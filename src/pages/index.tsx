@@ -7,10 +7,10 @@ import About from '@components/about';
 const Index = () => {
   return (
     <Flex flexWrap='wrap'>
-      <Box height='100vh' mb='24'>
+      <Box minHeight='100vh' mb='24'>
         <EmotionSelector />
       </Box>
-      <Box height='100vh' width='100%'>
+      <Box minHeight='100vh' width='100%'>
         <About />
       </Box>
     </Flex>

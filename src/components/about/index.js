@@ -1,41 +1,29 @@
 import React from 'react';
 
-import { Flex, Link, Text } from '@chakra-ui/core';
-import Heading from '@components/shared/heading';
+import { Flex, Box, Stack, Text } from '@chakra-ui/core';
 import Section from '@components/shared/section';
 import Clouds from '@components/about/scenery/clouds';
+import Mountains from '@components/about/scenery/mountains';
+import MainHeading from '@components/about/headings/main';
+import SecondHeading from '@components/about/headings/second';
 
 const About = () => (
   <Flex>
-    <Section mx={[3, 5, 20, 32]}>
-      <Clouds />
-      <Section mt='10'>
-        <Heading as='h1' fontSize='6xl'>
-          Feels is tool for checking in with yourself.
-        </Heading>
-        <Text as='h2' fontSize='xl'>
-          Inspired by{' '}
-          <Link
-            target='_blank'
-            rel='nofollow noreferrer'
-            href='https://www.atlasofemotions.org/'>
-            The Atlas of Emotions
-          </Link>{' '}
-          and{' '}
-          <Link
-            target='_blank'
-            rel='nofollow noreferrer'
-            href='https://www.thejuntoinstitute.com'>
-            The Junto Institute's
-          </Link>{' '}
-          <Link
-            target='_blank'
-            rel='nofollow noreferrer'
-            href='https://www.thejuntoinstitute.com/blog/the-junto-emotion-wheel-why-and-how-we-use-it'>
-            emotion wheel.
-          </Link>
-        </Text>
-      </Section>
+    <Section>
+      <Flex minHeight='85vh' alignItems='center'>
+        <Box mx={[3, 5, 20, 32]}>
+          <Clouds />
+          <MainHeading />
+        </Box>
+      </Flex>
+      <Flex minHeight='85vh' alignItems='center'>
+        <Box>
+          <Mountains />
+          <Box mx={[3, 5, 20, 32]}>
+            <SecondHeading />
+          </Box>
+        </Box>
+      </Flex>
     </Section>
   </Flex>
 );

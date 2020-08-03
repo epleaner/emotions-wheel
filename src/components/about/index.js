@@ -1,21 +1,27 @@
 import React from 'react';
 
-import AwarenessSVG from '@static/icons/awareness.svg';
-
-import { Flex, Box, Link, Text } from '@chakra-ui/core';
+import { Flex, Link, Text } from '@chakra-ui/core';
 import Heading from '@components/shared/heading';
-import CenteredContainer from '@components/shared/centeredContainer';
 import Section from '@components/shared/section';
+import Clouds from '@components/about/scenery/clouds';
 
 const About = () => (
-  <CenteredContainer>
-    <Flex>
-      <Section contained>
+  <Flex>
+    <Section mx={[3, 5, 20, 32]}>
+      <Clouds />
+      <Section mt='10'>
         <Heading as='h1' fontSize='6xl'>
           Feels is tool for checking in with yourself.
         </Heading>
         <Text as='h2' fontSize='xl'>
           Inspired by{' '}
+          <Link
+            target='_blank'
+            rel='nofollow noreferrer'
+            href='https://www.atlasofemotions.org/'>
+            The Atlas of Emotions
+          </Link>{' '}
+          and{' '}
           <Link
             target='_blank'
             rel='nofollow noreferrer'
@@ -30,11 +36,8 @@ const About = () => (
           </Link>
         </Text>
       </Section>
-      <Box width={['50px', '100px']}>
-        <AwarenessSVG />
-      </Box>
-    </Flex>
-  </CenteredContainer>
+    </Section>
+  </Flex>
 );
 
 export default About;

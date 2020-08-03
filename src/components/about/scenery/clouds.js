@@ -1,13 +1,10 @@
 import React from 'react';
 
-import AwarenessSVG from '@static/icons/awareness.svg';
 import Cloud1 from '@static/icons/cloud_1.svg';
 import Cloud2 from '@static/icons/cloud_2.svg';
 import CloudSun from '@static/icons/cloud_sun.svg';
 
-import { Flex, Box, Link, Text } from '@chakra-ui/core';
-import Heading from '@components/shared/heading';
-import CenteredContainer from '@components/shared/centeredContainer';
+import { Flex, Box } from '@chakra-ui/core';
 import Section from '@components/shared/section';
 
 const Clouds = () => (

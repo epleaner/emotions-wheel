@@ -4,8 +4,9 @@ import { Flex, Box, Stack, Text } from '@chakra-ui/core';
 import Section from '@components/shared/section';
 import Clouds from '@components/about/scenery/clouds';
 import Mountains from '@components/about/scenery/mountains';
+import Waves from '@components/about/scenery/waves';
 import MainHeading from '@components/about/headings/main';
-import SecondHeading from '@components/about/headings/second';
+import SecondaryHeading from '@components/about/headings/secondary';
 
 const BlurbSection = ({ children }) => (
   <Flex minHeight={['70vh', '85vh']} alignItems='center'>
@@ -24,7 +25,13 @@ const About = () => (
     <BlurbSection>
       <Mountains />
       <Box mx={[3, 5, 20, 32]}>
-        <SecondHeading />
+        <SecondaryHeading body='Aimed to help foster a deepening of connection with our inner landscape...' />
+      </Box>
+    </BlurbSection>
+    <BlurbSection>
+      <Waves />
+      <Box mx={[3, 5, 20, 32]}>
+        <SecondaryHeading body='...and to develop greater emotional intelligence, intimacy with our human experience, and capacity for self-love and healing' />
       </Box>
     </BlurbSection>
   </Section>

@@ -1,29 +1,42 @@
 import React from 'react';
 import Link from 'next/link';
-import { useColorMode, Flex, Button, Text, Divider } from '@chakra-ui/core';
+import {
+  useColorMode,
+  Flex,
+  Box,
+  Link as ChakraLink,
+  Text,
+  Divider,
+} from '@chakra-ui/core';
 
 const Footer = () => {
   const { colorMode } = useColorMode();
 
   return (
-    <Flex px={4} py={2} as='footer' flexShrink={1}>
-      <Link href='/about'>
-        <Button
-          variantColor='grayscale'
-          size='xs'
-          variant='link'
-          _hover={{
-            textDecoration: 'none',
-            color: `gray.${colorMode === 'light' ? 500 : 300}`,
-          }}>
-          <Text fontSize='xs'>about</Text>
-        </Button>
-      </Link>
-      <Divider borderColor='grayscale' orientation='vertical' />
-      <Text color='grayscale.300' fontSize='xs'>
-        made with 💛 by eli
-      </Text>
-    </Flex>
+    <Box background='rgba(27,120,247,1)'>
+      <Flex px={4} py={2} as='footer' flexShrink={1} justify='center'>
+        <Text color='grayscale.100' fontSize='xs'>
+          <ChakraLink isExternal href='mailto:feeels.dev@gmail.com'>
+            contact
+          </ChakraLink>
+        </Text>
+        <Divider color='grayscale.100' orientation='vertical' mx={[8]} />
+        <Text color='grayscale.100' fontSize='xs'>
+          made with 💛 by{' '}
+          <ChakraLink isExternal href='https://elipleaner.com'>
+            eli pleaner
+          </ChakraLink>
+        </Text>
+        <Divider color='grayscale.100' orientation='vertical' mx={[8]} />
+        <Text color='grayscale.100' fontSize='xs'>
+          <ChakraLink
+            isExternal
+            href='https://www.github.com/epleaner/emotions-wheel'>
+            source code
+          </ChakraLink>
+        </Text>
+      </Flex>
+    </Box>
   );
 };
 

@@ -7,7 +7,7 @@ import Section from '@components/shared/section';
 const MainHeading = () => (
   <Section mt='10'>
     <Heading as='h1' fontSize={['4xl', '5xl', '6xl']}>
-      Feels is tool for checking in with yourself.
+      Feels is a tool for checking in with yourself.
     </Heading>
     <Text as='h3' fontSize='xl'>
       Inspired by{' '}

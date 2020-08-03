@@ -10,7 +10,7 @@ const Index = () => {
       <Box minHeight='100vh' mb='24'>
         <EmotionSelector />
       </Box>
-      <Box minHeight='100vh' width='100%' mb={[10, 32]}>
+      <Box minHeight='100vh' width='100%'>
         <About />
       </Box>
     </Flex>

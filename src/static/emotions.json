@@ -41,6 +41,47 @@
         }
       ]
     },
+
+    {
+      "name": "Love",
+      "children": [
+        {
+          "name": "Enchanted",
+          "children": [
+            { "name": "Enthralled", "size": 1 },
+            { "name": "Raptuous", "size": 1 }
+          ]
+        },
+        {
+          "name": "Romantic",
+          "children": [
+            { "name": "Passionate", "size": 1 },
+            { "name": "Enamored", "size": 1 }
+          ]
+        },
+        {
+          "name": "Affectionate",
+          "children": [
+            { "name": "Warmhearted", "size": 1 },
+            { "name": "Compassionate", "size": 1 }
+          ]
+        },
+        {
+          "name": "Sentimental",
+          "children": [
+            { "name": "Tender", "size": 1 },
+            { "name": "Nostalgic", "size": 1 }
+          ]
+        },
+        {
+          "name": "Grateful",
+          "children": [
+            { "name": "Appreciative", "size": 1 },
+            { "name": "Thankful", "size": 1 }
+          ]
+        }
+      ]
+    },
     {
       "name": "Joy",
       "children": [
@@ -98,46 +139,6 @@
           "children": [
             { "name": "Serene", "size": 1 },
             { "name": "Tranquil", "size": 1 }
-          ]
-        }
-      ]
-    },
-    {
-      "name": "Love",
-      "children": [
-        {
-          "name": "Enchanted",
-          "children": [
-            { "name": "Enthralled", "size": 1 },
-            { "name": "Raptuous", "size": 1 }
-          ]
-        },
-        {
-          "name": "Romantic",
-          "children": [
-            { "name": "Passionate", "size": 1 },
-            { "name": "Enamored", "size": 1 }
-          ]
-        },
-        {
-          "name": "Affectionate",
-          "children": [
-            { "name": "Warmhearted", "size": 1 },
-            { "name": "Compassionate", "size": 1 }
-          ]
-        },
-        {
-          "name": "Sentimental",
-          "children": [
-            { "name": "Tender", "size": 1 },
-            { "name": "Nostalgic", "size": 1 }
-          ]
-        },
-        {
-          "name": "Grateful",
-          "children": [
-            { "name": "Appreciative", "size": 1 },
-            { "name": "Thankful", "size": 1 }
           ]
         }
       ]

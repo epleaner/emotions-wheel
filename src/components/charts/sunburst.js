@@ -226,7 +226,7 @@ const Sunburst = ({
     ]
   );
 
-  //on mount: create the svg element and it's group child
+  // on mount: create the svg element and it's group child
   // on unmount: remove svg
   useEffect(() => {
     const svg = d3Select(svgRef.current)

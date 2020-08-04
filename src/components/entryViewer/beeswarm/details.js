@@ -6,7 +6,7 @@ import Details from '@components/entryViewer/list/item';
 
 const EmotionBeeswarmDetails = ({ entry }) => {
   return (
-    <Box mt={10} height={50}>
+    <Box mt={10} height={[150, 50]}>
       {entry && <Details entry={entry} />}
     </Box>
   );

@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Stack, Button } from '@chakra-ui/core';
+import { Stack, Button, Text } from '@chakra-ui/core';
 
 const ViewSelector = ({ view, setView }) => {
   return (
     <Stack isInline align='center'>
+      <Text fontSize='xs'>view my entries as: </Text>
       <Button
         type='button'
         size='xs'

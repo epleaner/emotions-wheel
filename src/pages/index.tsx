@@ -7,7 +7,7 @@ import About from '@components/about';
 const Index = () => {
   return (
     <Flex flexWrap='wrap'>
-      <Box minHeight='100vh' mb='24'>
+      <Box minHeight='100vh' mb='40'>
         <EmotionSelector />
       </Box>
       <Box minHeight='100vh' width='100%'>

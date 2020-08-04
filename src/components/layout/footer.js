@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import {
   useColorMode,
   Flex,
@@ -13,7 +12,10 @@ const Footer = () => {
   const { colorMode } = useColorMode();
 
   return (
-    <Box background='rgba(9,79,176,1)'>
+    <Box
+      background={
+        colorMode === 'dark' ? 'rgba(26,32,44,1)' : 'rgba(9,79,176,1)'
+      }>
       <Flex px={4} py={2} as='footer' flexShrink={1} justify='center'>
         <Text color='grayscale.100' fontSize='xs'>
           <ChakraLink isExternal href='mailto:feeels.dev@gmail.com'>

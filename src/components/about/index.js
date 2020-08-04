@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { Flex, Box, Stack, Text } from '@chakra-ui/core';
 import Section from '@components/shared/section';
@@ -13,6 +14,8 @@ const BlurbSection = ({ children }) => (
     <Box>{children}</Box>
   </Flex>
 );
+
+BlurbSection.propTypes = { children: PropTypes.node };
 
 const About = () => (
   <Section>
@@ -31,7 +34,7 @@ const About = () => (
           <SecondaryHeading body='Aimed to help foster a deepening of connection with our inner landscape...' />
         </Box>
         <Waves />
-        <Box background='linear-gradient(180deg, rgba(159,201,255,1) 0%, rgba(27,120,247,1) 100%)'>
+        <Box background='linear-gradient(180deg, rgba(159,201,255,1) 0%, rgba(9,79,176,1) 100%)'>
           <Box mx={[3, 5, 20, 32]} py={['20', '24']}>
             <SecondaryHeading body='...and to develop greater emotional intelligence, intimacy with our human experience, and capacity for self-love and healing.' />
           </Box>

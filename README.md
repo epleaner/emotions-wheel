@@ -44,9 +44,14 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 
 ### bugs
 
-- [] ensure all error cases are handled
+- [ ] ensure all error cases are handled
 - [ ] loading UI for login/signup has disappeared (SSR issue)
 
 ### UX research
 
 - [ ] user survey
+
+Credits:
+
+- Icons:
+  - Awareness by Ivan Colic from the Noun Project

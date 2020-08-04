@@ -1,4 +1,6 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+
 import {
   useColorMode,
   Flex,
@@ -10,35 +12,42 @@ import {
 
 const Footer = () => {
   const { colorMode } = useColorMode();
+  const router = useRouter();
 
   return (
-    <Box
-      background={
-        colorMode === 'dark' ? 'rgba(26,32,44,1)' : 'rgba(9,79,176,1)'
-      }>
-      <Flex px={4} py={2} as='footer' flexShrink={1} justify='center'>
-        <Text color='grayscale.100' fontSize='xs'>
-          <ChakraLink isExternal href='mailto:feeels.dev@gmail.com'>
-            contact
-          </ChakraLink>
-        </Text>
-        <Divider color='grayscale.100' orientation='vertical' mx={[8]} />
-        <Text color='grayscale.100' fontSize='xs'>
-          made with 💛 by{' '}
-          <ChakraLink isExternal href='https://elipleaner.com'>
-            eli pleaner
-          </ChakraLink>
-        </Text>
-        <Divider color='grayscale.100' orientation='vertical' mx={[8]} />
-        <Text color='grayscale.100' fontSize='xs'>
-          <ChakraLink
-            isExternal
-            href='https://www.github.com/epleaner/emotions-wheel'>
-            source code
-          </ChakraLink>
-        </Text>
-      </Flex>
-    </Box>
+    <Flex
+      px={4}
+      py={2}
+      as='footer'
+      flexShrink={1}
+      justify='center'
+      style={{
+        background:
+          colorMode === 'light' &&
+          router.pathname === '/' &&
+          'rgba(9,79,176,1)',
+      }}>
+      <Text color='grayscale.300' fontSize='xs'>
+        <ChakraLink isExternal href='mailto:feeels.dev@gmail.com'>
+          contact
+        </ChakraLink>
+      </Text>
+      <Divider color='grayscale.300' orientation='vertical' mx={[8]} />
+      <Text color='grayscale.300' fontSize='xs'>
+        made with 💛 by{' '}
+        <ChakraLink isExternal href='https://elipleaner.com'>
+          eli pleaner
+        </ChakraLink>
+      </Text>
+      <Divider color='grayscale.300' orientation='vertical' mx={[8]} />
+      <Text color='grayscale.300' fontSize='xs'>
+        <ChakraLink
+          isExternal
+          href='https://www.github.com/epleaner/emotions-wheel'>
+          source code
+        </ChakraLink>
+      </Text>
+    </Flex>
   );
 };
 

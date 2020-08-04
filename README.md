@@ -31,8 +31,6 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 
 ### UI
 
-- [ ] sunburst colors better represent emotions
-- [ ] about section
 - [ ] Lighthouse audit for accessibility
 - [ ] Update to Chakra 1.0
 
@@ -53,5 +51,4 @@ Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth sup
 
 Credits:
 
-- Icons:
-  - Awareness by Ivan Colic from the Noun Project
+- ## Icons:

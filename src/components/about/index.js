@@ -56,10 +56,10 @@ const About = () => {
     []
   );
 
-  const cloudMountainsGradient = useMemo(() => {
-    console.log('rendering with color mode', colorMode);
-    return makeGradientString(gradients.cloudMountains[colorMode]);
-  }, [makeGradientString, colorMode]);
+  const cloudMountainsGradient = useMemo(
+    () => makeGradientString(gradients.cloudMountains[colorMode]),
+    [makeGradientString, colorMode]
+  );
 
   const mountainWavesGradient = useMemo(
     () => makeGradientString(gradients.mountainWaves[colorMode]),
@@ -84,12 +84,12 @@ const About = () => {
           </Box>
         </Box>
         <Box background={mountainWavesGradient}>
-          <Box mx={[3, 5, 20, 32]} py={['20', '24']}>
+          <Box mx={[3, 5, 20, 32]} py={['24', '32']}>
             <SecondaryHeading body='Aimed to help foster a deepening of connection with our inner landscape...' />
           </Box>
           <Waves />
           <Box background={wavesFooterGradient}>
-            <Box mx={[3, 5, 20, 32]} py={['20', '24']}>
+            <Box mx={[3, 5, 20, 32]} py={['24', '32']}>
               <SecondaryHeading body='...and to develop greater emotional intelligence, intimacy with our human experience, and capacity for self-love and healing.' />
             </Box>
           </Box>

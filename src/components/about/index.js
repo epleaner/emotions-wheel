@@ -1,21 +1,13 @@
-import React, { useMemo, useCallback, useEffect } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-
-import { Flex, Box, useColorMode } from '@chakra-ui/core';
+import Link from 'next/link';
+import { Flex, Button, Box, useColorMode } from '@chakra-ui/core';
 import Section from '@components/shared/section';
 import Clouds from '@components/about/scenery/clouds';
 import Mountains from '@components/about/scenery/mountains';
 import Waves from '@components/about/scenery/waves';
 import MainHeading from '@components/about/headings/main';
 import SecondaryHeading from '@components/about/headings/secondary';
-
-const BlurbSection = ({ children }) => (
-  <Flex minHeight={['70vh', '85vh']} alignItems='center'>
-    <Box>{children}</Box>
-  </Flex>
-);
-
-BlurbSection.propTypes = { children: PropTypes.node };
 
 const gradients = {
   cloudMountains: {
@@ -43,7 +35,7 @@ const gradients = {
     ],
   },
   wavesFooter: {
-    dark: ['rgba(12,54,141,1) 0%', 'rgba(26,32,44,1) 100%'],
+    dark: ['rgba(19,58,146,1) 0%', 'rgba(26,32,44,1) 100%'],
     light: ['rgba(159,201,255,1) 0%', 'rgba(9,79,176,1) 100%'],
   },
 };
@@ -73,28 +65,38 @@ const About = () => {
 
   return (
     <Section>
-      <BlurbSection>
-        <Box background={cloudMountainsGradient}>
-          <Box mx={[3, 5, 20, 32]}>
-            <Clouds />
-            <MainHeading />
-          </Box>
-          <Box mt={['16', '10']}>
-            <Mountains />
-          </Box>
+      <Box background={cloudMountainsGradient}>
+        <Box mx={[3, 5, 20, 32]}>
+          <Clouds />
+          <MainHeading />
         </Box>
-        <Box background={mountainWavesGradient}>
+        <Box mt={['16', '10']}>
+          <Mountains />
+        </Box>
+      </Box>
+      <Box background={mountainWavesGradient}>
+        <Box mx={[3, 5, 20, 32]} py={['24', '32']}>
+          <SecondaryHeading body='Aimed to help foster a deepening of connection with our inner landscape...' />
+        </Box>
+        <Waves />
+        <Box background={wavesFooterGradient}>
           <Box mx={[3, 5, 20, 32]} py={['24', '32']}>
-            <SecondaryHeading body='Aimed to help foster a deepening of connection with our inner landscape...' />
-          </Box>
-          <Waves />
-          <Box background={wavesFooterGradient}>
-            <Box mx={[3, 5, 20, 32]} py={['24', '32']}>
-              <SecondaryHeading body='...and to develop greater emotional intelligence, intimacy with our human experience, and capacity for self-love and healing.' />
-            </Box>
+            <SecondaryHeading body='...and to develop greater emotional intelligence, intimacy with our human experience, and capacity for self-love and healing.' />
+            <Flex justify='center' alignItems='center' py={['24']}>
+              <Link href='/login'>
+                <Button mx={2} size='lg' variant='outline'>
+                  log in
+                </Button>
+              </Link>
+              <Link href='/sign-up'>
+                <Button mx={2} size='lg' variant='outline'>
+                  sign up
+                </Button>
+              </Link>
+            </Flex>
           </Box>
         </Box>
-      </BlurbSection>
+      </Box>
     </Section>
   );
 };

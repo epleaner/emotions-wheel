@@ -27,26 +27,32 @@ const Footer = () => {
           router.pathname === '/' &&
           'rgba(9,79,176,1)',
       }}>
-      <Text color='grayscale.300' fontSize='xs'>
-        <ChakraLink isExternal href='mailto:feeels.dev@gmail.com'>
-          contact
-        </ChakraLink>
-      </Text>
-      <Divider color='grayscale.300' orientation='vertical' mx={[8]} />
-      <Text color='grayscale.300' fontSize='xs'>
-        made with 💛 by{' '}
-        <ChakraLink isExternal href='https://elipleaner.com'>
-          eli pleaner
-        </ChakraLink>
-      </Text>
-      <Divider color='grayscale.300' orientation='vertical' mx={[8]} />
-      <Text color='grayscale.300' fontSize='xs'>
-        <ChakraLink
-          isExternal
-          href='https://www.github.com/epleaner/emotions-wheel'>
-          source code
-        </ChakraLink>
-      </Text>
+      <Flex align='center' justify='center'>
+        <Text color='grayscale.300' fontSize='xs' textAlign='center'>
+          <ChakraLink isExternal href='mailto:feeels.dev@gmail.com'>
+            contact
+          </ChakraLink>
+        </Text>
+      </Flex>
+      <Divider color='grayscale.300' orientation='vertical' mx={[6, 8]} />
+      <Flex align='center' justify='center'>
+        <Text color='grayscale.300' fontSize='xs' textAlign='center'>
+          made with 💛 by{' '}
+          <ChakraLink isExternal href='https://elipleaner.com'>
+            eli pleaner
+          </ChakraLink>
+        </Text>
+      </Flex>
+      <Divider color='grayscale.300' orientation='vertical' mx={[6, 8]} />
+      <Flex align='center' justify='center'>
+        <Text color='grayscale.300' fontSize='xs' textAlign='center'>
+          <ChakraLink
+            isExternal
+            href='https://www.github.com/epleaner/emotions-wheel'>
+            source code
+          </ChakraLink>
+        </Text>
+      </Flex>
     </Flex>
   );
 };

@@ -116,7 +116,7 @@ const EmotionSelectionForm = observer(
                           mr={2}
                           size='xs'
                           {...field}
-                          placeholder='Want to talk about it?'
+                          placeholder={`Want to write about it?`}
                           css={css`
                             &::placeholder {
                               color: ${colorMode === 'light'

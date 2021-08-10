@@ -1,9 +1,7 @@
-import sgMail from '@sendgrid/mail';
 import crypto from 'crypto';
 import { hoursFromNow } from '@helpers/apiHelpers';
 import normalizeEmail from 'validator/lib/normalizeEmail';
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import { sendEmail } from './sendEmail';
 
 export default async (req, res, { email }) => {
   try {
@@ -47,7 +45,7 @@ export default async (req, res, { email }) => {
       },
     };
 
-    await sgMail.send(msg);
+    await sendEmail(msg);
 
     return {
       ok: true,

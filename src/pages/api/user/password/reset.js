@@ -1,11 +1,9 @@
-import sgMail from '@sendgrid/mail';
 import crypto from 'crypto';
 import nextConnect from 'next-connect';
 
 import database from '@middleware/database';
 import { minutesFromNow } from '@helpers/apiHelpers';
-
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+import { sendEmail } from '../../../../helpers/apiHelpers/sendEmail';
 
 const handler = nextConnect();
 
@@ -39,7 +37,7 @@ handler.post(async (req, res) => {
       html: `Hey ${user.name}, <a href=${process.env.API_ROOT_URL}/forgot-password/${token}>here</a> is a link to reset your password.`,
     };
 
-    await sgMail.send(msg);
+    await sendEmail(msg);
 
     return res.status(200);
   } catch ({ status, message }) {

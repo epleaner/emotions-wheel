@@ -31,7 +31,6 @@ export default async (req, res, { email }) => {
 
     const msg = {
       to: user.email,
-      from: process.env.EMAIL_FROM,
       templateId: 'd-3c6627053fd34c9d94876e55d8411a7c',
 
       dynamic_template_data: {
@@ -43,6 +42,12 @@ export default async (req, res, { email }) => {
         actionButton: 'Activate Account',
         appRootUrl: `${process.env.APP_ROOT_URL}`,
       },
+      html: `Hey ${user.name}, welcome! To finish activating your account, please click the link below.
+      <div>
+        <a href='${process.env.APP_ROOT_URL}/verify-email/${token}'>
+          Activate Account
+        </a>
+      </div>`,
     };
 
     await sendEmail(msg);

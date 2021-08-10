@@ -4,10 +4,10 @@ import formData from "form-data";
 
 /**
  *
- * @param {sgMail.MailDataRequired} options
+ * @param {sgMail.MailDataRequired|{ html: string }} options
  * @returns
  */
-export const sendEmail = (options) => {
+export const sendEmail = async (options) => {
   const service = process.env.MAIL_SERVICE;
   const apiKey = process.env.MAIL_API_KEY;
   const domain = process.env.MAIL_DOMAIN;
@@ -19,13 +19,25 @@ export const sendEmail = (options) => {
   };
   return (
     {
-      mailgun: () => {
-        const mailgun = new Mailgun(formData).client({
+      mailgun: async () => {
+        const mg = new Mailgun(formData);
+        const mailgun = mg.client({
           key: apiKey,
           username: "api",
           ...(url ? { url } : {}),
         });
-        return mailgun.messages.create(domain, { from: emailFrom, ...options });
+        const params = {
+          from: emailFrom,
+          ...options,
+          ...(options.dynamic_template_data
+            ? {
+                dynamic_template_data: JSON.stringify(
+                  options.dynamic_template_data
+                ),
+              }
+            : {}),
+        };
+        return mailgun.messages.create(domain, params);
       },
       sendgrid: () => {
         sgMail.setApiKey(apiKey);

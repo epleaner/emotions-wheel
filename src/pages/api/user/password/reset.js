@@ -32,7 +32,6 @@ handler.post(async (req, res) => {
 
     const msg = {
       to: user.email,
-      from: process.env.EMAIL_FROM,
       subject: '[feeels] Resetting your password',
       html: `Hey ${user.name}, <a href=${process.env.API_ROOT_URL}/forgot-password/${token}>here</a> is a link to reset your password.`,
     };

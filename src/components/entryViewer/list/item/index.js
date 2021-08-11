@@ -7,10 +7,9 @@ import useCurrentUser from '@hooks/useCurrentUser';
 
 import { Box, Stack } from '@chakra-ui/core';
 
-import Header from '@components/entryViewer/list/item/header';
 import Body from '@components/entryViewer/list/item/body';
 
-const EntryListItem = ({ entry, ...otherProps }) => {
+const EntryListItem = ({ entry, Header, ...otherProps }) => {
   const userStore = useCurrentUser();
 
   const store = useMemo(
@@ -51,6 +50,7 @@ EntryListItem.propTypes = {
     date: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired,
     emotions: PropTypes.array.isRequired,
   }).isRequired,
+  Header: PropTypes.any.isRequired
 };
 
 export default observer(EntryListItem);

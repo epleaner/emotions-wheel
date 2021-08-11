@@ -15,7 +15,7 @@ import Beeswarm from '@components/entryViewer/beeswarm';
 const EntryViewer = () => {
   const userStore = useCurrentUser();
 
-  const [view, setView] = useState('chart');
+  const [view, setView] = useState('list-by-day');
 
   return (
     <>

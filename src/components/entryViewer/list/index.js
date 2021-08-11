@@ -12,14 +12,20 @@ const EntryList = ({ entries }) => {
   return (
     <ul>
       {sortByDate(entries).map((entry) => (
-        <EntryListItem key={entry._id} entry={entry} pt={4} my={[12, 24]} Header={TitleHeader} />
+        <EntryListItem
+          key={entry._id}
+          entry={entry}
+          pt={4}
+          my={[12, 0]}
+          Header={TitleHeader}
+        />
       ))}
     </ul>
   );
 };
 
 EntryList.propTypes = {
-  entries: PropTypes.array,
+  entries: PropTypes.array
 };
 
 export default EntryList;

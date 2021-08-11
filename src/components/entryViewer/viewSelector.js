@@ -23,6 +23,14 @@ const ViewSelector = ({ view, setView }) => {
         onClick={() => setView('list')}>
         list
       </Button>
+      <Button
+        type='button'
+        size='xs'
+        variant='outline'
+        variantColor={view === 'list-by-day' ? 'primary' : 'gray'}
+        onClick={() => setView('list-by-day')}>
+        list by day
+      </Button>
     </Stack>
   );
 };

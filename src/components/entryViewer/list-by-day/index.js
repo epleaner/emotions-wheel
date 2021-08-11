@@ -5,6 +5,7 @@ import moment from 'moment';
 import NoTitleHeader from '@components/entryViewer/list/item/header/no-title';
 import EntryListItem from '@components/entryViewer/list/item';
 import { Box, Text, SimpleGrid } from '@chakra-ui/core';
+import { useMedia } from '../../../hooks/useMedia';
 
 export const EntryListByDay = ({ entries = [] }) => {
   const sortByDate = (entries) => {
@@ -36,16 +37,25 @@ export const EntryListByDay = ({ entries = [] }) => {
   const paginatedDates = Object.keys(groupedPaginatedDates)
     .sort()
     .map((key) => ({ day: key, entries: groupedPaginatedDates[key] }));
-  console.log({ paginatedDates, entries, sortedDates });
+  const columnSpacing = useMedia(
+    ['(min-width: 1366px)', '(min-width: 1024px)'],
+    [3, 2],
+    1
+  );
+  const titleAlign = useMedia(
+    ['(min-width: 1200px)'],
+    ["center"],
+    "left"
+  )
 
   return (
     <div>
       {paginatedDates.map((page) => (
         <Box key={page.day}>
-          <Text fontSize="xs" color="grey" mt={10}>
+          <Text fontSize="sm" color="grey" mt={10} textAlign={titleAlign}>
             {moment(page.day).format('dddd, DD/MM/YYYY')}
           </Text>
-          <SimpleGrid columns={[3]} spacing="40px">
+          <SimpleGrid columns={[columnSpacing]} spacing="20px">
             {page.entries.map((entry) => (
               <EntryListItem
                 key={`${page.day}-${entry._id}`}

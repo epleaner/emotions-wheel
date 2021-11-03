@@ -67,7 +67,7 @@
     "swr": "^0.2.0",
     "theme-ui": "^0.3.1",
     "typography-theme-fairy-gates": "^0.16.19",
-    "validator": "^13.0.0",
+    "validator": "^13.7.0",
     "yup": "^0.28.4"
   },
   "devDependencies": {

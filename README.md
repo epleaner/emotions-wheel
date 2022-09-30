@@ -12,7 +12,7 @@
 
 For checking in with yourself.
 
-Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth supported by Passport. Hosted on Now.
+Built using React, D3.js, Next, Chakra-UI, and MongoDB, with serverless auth supported by Passport. Hosted on Vercel.
 
 ## Roadmap
 

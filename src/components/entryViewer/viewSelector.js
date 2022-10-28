@@ -11,9 +11,9 @@ const ViewSelector = ({ view, setView }) => {
         type='button'
         size='xs'
         variant='outline'
-        variantColor={view === 'chart' ? 'primary' : 'gray'}
-        onClick={() => setView('chart')}>
-        chart
+        variantColor={view === 'list-by-day' ? 'primary' : 'gray'}
+        onClick={() => setView('list-by-day')}>
+        list by day
       </Button>
       <Button
         type='button'
@@ -22,6 +22,14 @@ const ViewSelector = ({ view, setView }) => {
         variantColor={view === 'list' ? 'primary' : 'gray'}
         onClick={() => setView('list')}>
         list
+      </Button>
+      <Button
+        type='button'
+        size='xs'
+        variant='outline'
+        variantColor={view === 'chart' ? 'primary' : 'gray'}
+        onClick={() => setView('chart')}>
+        chart
       </Button>
     </Stack>
   );

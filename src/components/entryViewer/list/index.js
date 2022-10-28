@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import TitleHeader from '@components/entryViewer/list/item/header';
 import EntryListItem from '@components/entryViewer/list/item';
 
 const EntryList = ({ entries }) => {
@@ -11,14 +12,20 @@ const EntryList = ({ entries }) => {
   return (
     <ul>
       {sortByDate(entries).map((entry) => (
-        <EntryListItem key={entry._id} entry={entry} pt={4} my={[12, 24]} />
+        <EntryListItem
+          key={entry._id}
+          entry={entry}
+          pt={4}
+          my={[12, 0]}
+          Header={TitleHeader}
+        />
       ))}
     </ul>
   );
 };
 
 EntryList.propTypes = {
-  entries: PropTypes.array,
+  entries: PropTypes.array
 };
 
 export default EntryList;

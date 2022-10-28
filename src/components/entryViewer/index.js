@@ -7,6 +7,7 @@ import Link from 'next/link';
 
 import { Text, Link as UILink } from '@chakra-ui/core';
 
+import { EntryListByDay } from '@components/entryViewer/list-by-day';
 import EntryList from '@components/entryViewer/list';
 import ViewSelector from '@components/entryViewer/viewSelector';
 import Beeswarm from '@components/entryViewer/beeswarm';
@@ -14,13 +15,16 @@ import Beeswarm from '@components/entryViewer/beeswarm';
 const EntryViewer = () => {
   const userStore = useCurrentUser();
 
-  const [view, setView] = useState('chart');
+  const [view, setView] = useState('list-by-day');
 
   return (
     <>
       {userStore.currentUser.entries && userStore.currentUser.entries.length ? (
         <>
           <ViewSelector {...{ view, setView }} />
+          {view === 'list-by-day' && (
+            <EntryListByDay entries={userStore.currentUser.entries} />
+          )}
           {view === 'list' && (
             <EntryList entries={userStore.currentUser.entries} />
           )}
